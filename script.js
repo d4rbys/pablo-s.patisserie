@@ -28,9 +28,10 @@ function startGame() {
         <br>
 
         <button id="eraser">🧽 Eraser</button>
-        <button id="clear">🗑 Clear</button>
-        <button id="submit">🍰 Submit</button>
-
+<button id="undo">↩ Undo</button>
+<button id="redo">↪ Redo</button>
+<button id="clear">🗑 Clear</button>
+<button id="submit">🍰 Submit</button>
         <div id="message"></div>
     `;
 
