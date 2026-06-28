@@ -147,16 +147,27 @@ console.log(image);
             </div>
         `;
 
-        setTimeout(() => {
+     setTimeout(() => {
 
-            message.innerHTML = `
-                <div class="pabloMessage">
-                    <h2>🐶 Pablo</h2>
-                    <p>That's not an item! 🤭</p>
-                </div>
-            `;
+    const replies = [
+        "🍪 Freshly baked!",
+        "🥐 That looks delicious!",
+        "🧁 Wonderful drawing!",
+        "🍰 Hmm... I think that's a cake!",
+        "🍞 Almost! Give it another try!"
+    ];
 
-        }, 1500);
+    const randomReply =
+        replies[Math.floor(Math.random() * replies.length)];
+
+    message.innerHTML = `
+        <div class="pabloMessage">
+            <h2>🐶 Pablo</h2>
+            <p>${randomReply}</p>
+        </div>
+    `;
+
+}, 2000);
 
     });
 
