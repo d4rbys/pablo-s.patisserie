@@ -120,3 +120,44 @@ input[type="range"]{
     border:4px solid #5a3921;
     border-radius:18px;
 }
+.cakes{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,70px);
+
+    gap:15px;
+
+    justify-content:center;
+
+}
+
+.cake{
+
+    width:70px;
+
+    height:70px;
+
+    background:white;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+
+    transition:.2s;
+
+    cursor:pointer;
+
+}
+
+.cake:hover{
+
+    transform:scale(1.1) rotate(5deg);
+
+}
