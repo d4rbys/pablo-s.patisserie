@@ -28,10 +28,11 @@ function startGame() {
         <br>
 
         <button id="eraser">🧽 Eraser</button>
-<button id="undo">↩ Undo</button>
-<button id="redo">↪ Redo</button>
-<button id="clear">🗑 Clear</button>
-<button id="submit">🍰 Submit</button>
+        <button id="undo">↩ Undo</button>
+        <button id="redo">↪ Redo</button>
+        <button id="clear">🗑 Clear</button>
+        <button id="submit">🍰 Submit</button>
+
         <div id="message"></div>
     `;
 
@@ -39,29 +40,39 @@ function startGame() {
     const ctx = canvas.getContext("2d");
 
     const colourPicker = document.getElementById("colourPicker");
-const brushSize = document.getElementById("brushSize");
+    const brushSize = document.getElementById("brushSize");
 
-let drawing = false;
+    let drawing = false;
+    let currentColour = colourPicker.value;
 
-const history = [];
-let historyStep = -1;saveState();
+    const history = [];
+    let historyStep = -1;    function saveState() {
+        historyStep++;
+        history.splice(historyStep);
+        history.push(canvas.toDataURL());
+    }
 
-function saveState(){
+    function restoreState(step) {
+        const img = new Image();
 
-    historyStep++;
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
 
-    history.length = historyStep;
+        img.src = history[step];
+    }
 
-    history.push(canvas.toDataURL());
-
-}
-    ctx.strokeStyle = colourPicker.value;
-    ctx.lineWidth = brushSize.value;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+    ctx.strokeStyle = currentColour;
+    ctx.lineWidth = brushSize.value;
+
+    saveState();
 
     colourPicker.addEventListener("input", () => {
-        ctx.strokeStyle = colourPicker.value;
+        currentColour = colourPicker.value;
+        ctx.strokeStyle = currentColour;
     });
 
     brushSize.addEventListener("input", () => {
@@ -87,43 +98,49 @@ function saveState(){
     });
 
     canvas.addEventListener("pointermove", (e) => {
-
         if (!drawing) return;
 
         const pos = getPosition(e);
 
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
-
+    });    window.addEventListener("pointerup", () => {
+        if (drawing) {
+            drawing = false;
+            ctx.beginPath();
+            saveState();
+        }
     });
 
-  window.addEventListener("pointerup", () => {
-
-    if(drawing){
-        saveState();
-    }
-
-    drawing = false;
-    ctx.beginPath();
-
-});
-
-    document.getElementById("eraser").onclick = () => {
+    document.getElementById("eraser").addEventListener("click", () => {
         ctx.strokeStyle = "#ffffff";
-    };
+    });
 
-    document.getElementById("clear").onclick = () => {
+    document.getElementById("clear").addEventListener("click", () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    };
+        saveState();
+    });
 
-    document.getElementById("submit").onclick = () => {
+    document.getElementById("undo").addEventListener("click", () => {
+        if (historyStep > 0) {
+            historyStep--;
+            restoreState(historyStep);
+        }
+    });
+
+    document.getElementById("redo").addEventListener("click", () => {
+        if (historyStep < history.length - 1) {
+            historyStep++;
+            restoreState(historyStep);
+        }
+    });    document.getElementById("submit").addEventListener("click", () => {
 
         const message = document.getElementById("message");
 
         message.innerHTML = `
             <div class="pabloMessage">
                 <h2>🐶 Pablo</h2>
-                <p>Hmm... let me check...</p>
+                <p>Hmm... let me check your bake...</p>
             </div>
         `;
 
@@ -132,12 +149,12 @@ function saveState(){
             message.innerHTML = `
                 <div class="pabloMessage">
                     <h2>🐶 Pablo</h2>
-                    <p>That's not an item!</p>
+                    <p>That's not an item! 🤭</p>
                 </div>
             `;
 
-        }, 2000);
+        }, 1500);
 
-    };
+    });
 
 }
