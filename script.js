@@ -53,9 +53,27 @@ ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
 
 }
 
-document.getElementById("clear").onclick = () =>{
+document.getElementById("submit").onclick = () => {
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+    const result = document.createElement("div");
+
+    result.className = "pabloMessage";
+
+    result.innerHTML = `
+        <h2>🐶 Pablo</h2>
+        <p>Hmm... let me check...</p>
+    `;
+
+    document.querySelector(".hero").appendChild(result);
+
+    setTimeout(() => {
+
+        result.innerHTML = `
+            <h2>🐶 Pablo</h2>
+            <p>That's not an item!</p>
+        `;
+
+    },2000);
 
 }
 
