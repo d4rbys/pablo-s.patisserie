@@ -136,6 +136,9 @@ function startGame() {
     });    document.getElementById("submit").addEventListener("click", () => {
 
         const message = document.getElementById("message");
+        const image = canvas.toDataURL("image/png");
+
+console.log(image);
 
         message.innerHTML = `
             <div class="pabloMessage">
