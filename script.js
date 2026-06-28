@@ -1,3 +1,5 @@
-document.getElementById("playButton").addEventListener("click", () => {
+const play = document.getElementById("playButton");
+
+play.onclick = () => {
     alert("Welcome to Pablo's Patisserie! 🍰");
-});
+};
