@@ -43,7 +43,17 @@ const brushSize = document.getElementById("brushSize");
 let drawing = false;
 
 const history = [];
-let historyStep = -1;
+let historyStep = -1;saveState();
+
+function saveState(){
+
+    historyStep++;
+
+    history.length = historyStep;
+
+    history.push(canvas.toDataURL());
+
+}
     ctx.strokeStyle = colourPicker.value;
     ctx.lineWidth = brushSize.value;
     ctx.lineCap = "round";
