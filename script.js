@@ -38,10 +38,12 @@ function startGame() {
     const ctx = canvas.getContext("2d");
 
     const colourPicker = document.getElementById("colourPicker");
-    const brushSize = document.getElementById("brushSize");
+const brushSize = document.getElementById("brushSize");
 
-    let drawing = false;
+let drawing = false;
 
+const history = [];
+let historyStep = -1;
     ctx.strokeStyle = colourPicker.value;
     ctx.lineWidth = brushSize.value;
     ctx.lineCap = "round";
