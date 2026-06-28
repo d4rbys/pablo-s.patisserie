@@ -1,10 +1,10 @@
-const playButton = document.getElementById("playButton");
+const app = document.getElementById("app");
 
-playButton.addEventListener("click", () => {
+document.getElementById("playButton").addEventListener("click", startGame);
 
-document.body.innerHTML = `
+function startGame(){
 
-<div class="hero">
+app.innerHTML = `
 
 <h1>🐶 Pablo's Patisserie</h1>
 
@@ -14,13 +14,13 @@ document.body.innerHTML = `
 
 <canvas id="canvas" width="500" height="350"></canvas>
 
-<br><br>
+<br>
 
 <button id="clear">🧽 Clear</button>
 
 <button id="submit">🍰 Submit to Pablo</button>
 
-</div>
+<div id="message"></div>
 
 `;
 
@@ -32,10 +32,22 @@ ctx.lineCap = "round";
 
 let drawing = false;
 
-canvas.addEventListener("mousedown", () => drawing = true);
-canvas.addEventListener("mouseup", () => drawing = false);
-
+canvas.addEventListener("mousedown", startDraw);
 canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", stopDraw);
+canvas.addEventListener("mouseleave", stopDraw);
+
+function startDraw(e){
+
+drawing = true;
+
+const rect = canvas.getBoundingClientRect();
+
+ctx.beginPath();
+
+ctx.moveTo(e.clientX-rect.left,e.clientY-rect.top);
+
+}
 
 function draw(e){
 
@@ -43,44 +55,56 @@ if(!drawing) return;
 
 const rect = canvas.getBoundingClientRect();
 
-ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+ctx.lineTo(e.clientX-rect.left,e.clientY-rect.top);
 
 ctx.stroke();
 
+}
+
+function stopDraw(){
+
+drawing = false;
+
 ctx.beginPath();
 
-ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+}
+
+document.getElementById("clear").onclick = ()=>{
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
 }
 
-document.getElementById("submit").onclick = () => {
+document.getElementById("submit").onclick = ()=>{
 
-    const result = document.createElement("div");
+document.getElementById("message").innerHTML=`
 
-    result.className = "pabloMessage";
+<div class="pabloMessage">
 
-    result.innerHTML = `
-        <h2>🐶 Pablo</h2>
-        <p>Hmm... let me check...</p>
-    `;
+<h2>🐶 Pablo</h2>
 
-    document.querySelector(".hero").appendChild(result);
+<p>Hmm... let me check...</p>
 
-    setTimeout(() => {
+</div>
 
-        result.innerHTML = `
-            <h2>🐶 Pablo</h2>
-            <p>That's not an item!</p>
-        `;
+`;
 
-    },2000);
+setTimeout(()=>{
+
+document.getElementById("message").innerHTML=`
+
+<div class="pabloMessage">
+
+<h2>🐶 Pablo</h2>
+
+<p>That's not an item!</p>
+
+</div>
+
+`;
+
+},2000);
 
 }
 
-document.getElementById("submit").onclick = () =>{
-
-alert("🐶 Pablo is checking your drawing...");
-
 }
-
-});
