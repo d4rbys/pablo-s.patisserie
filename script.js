@@ -96,10 +96,16 @@ function saveState(){
 
     });
 
-    window.addEventListener("pointerup", () => {
-        drawing = false;
-        ctx.beginPath();
-    });
+  window.addEventListener("pointerup", () => {
+
+    if(drawing){
+        saveState();
+    }
+
+    drawing = false;
+    ctx.beginPath();
+
+});
 
     document.getElementById("eraser").onclick = () => {
         ctx.strokeStyle = "#ffffff";
