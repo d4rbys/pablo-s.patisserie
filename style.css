@@ -74,6 +74,30 @@ canvas {
     border-radius: 18px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     cursor: crosshair;
+.toolbar{
+    background:#ffe8c7;
+    padding:15px;
+    border-radius:15px;
+    display:inline-block;
+    margin-bottom:20px;
+}
+
+button{
+    background:#ffb86c;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+    margin:5px;
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    background:#ff9b3d;
+}
 }
 }
 
