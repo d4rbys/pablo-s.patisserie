@@ -1,46 +1,18 @@
 body {
     margin: 0;
-    background: #FFF8E8;
-    font-family: "Comic Sans MS", cursive;
-    color: #5A3921;
+    background: #fdf6ec;
+    font-family: "Trebuchet MS", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .hero {
+    width: 90%;
+    max-width: 700px;
+    background: #fffdf8;
+    border: 5px solid #5a3921;
+    border-radius: 25px;
+    padding: 40px;
     text-align: center;
-    padding-top: 90px;
-}
-
-h1 {
-    font-size: 70px;
-    transform: rotate(-1deg);
-}
-
-p {
-    font-size: 28px;
-}
-
-#playButton {
-    margin-top: 25px;
-    font-size: 30px;
-    padding: 18px 45px;
-    border: 4px solid #5A3921;
-    background: #FFB7C5;
-    border-radius: 18px;
-    cursor: pointer;
-    box-shadow: 7px 7px 0 #5A3921;
-    transition: 0.2s;
-}
-
-#playButton:hover {
-    transform: rotate(-2deg) scale(1.05);
-}
-
-.doodles {
-    margin-top: 45px;
-    font-size: 34px;
-}
-
-.pablo {
-    font-size: 90px;
-    margin-top: 45px;
-}
