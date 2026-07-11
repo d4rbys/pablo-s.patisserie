@@ -1,4 +1,6 @@
-body{
+*{
+    font-family: "Caveat", cursive;
+}body{
     margin:0;
     background:#f8f2e8;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
