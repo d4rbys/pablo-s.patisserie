@@ -1,4 +1,14 @@
-*{
+body {
+    font-family: 'Caveat', cursive;
+}
+
+button {
+    font-family: 'Caveat', cursive;
+}
+
+input {
+    font-family: 'Caveat', cursive;
+}*{
     font-family: "Caveat", cursive;
 }body{
     margin:0;
