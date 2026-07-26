@@ -4,6 +4,27 @@
 // =====================================
 
 const app = document.getElementById("app");
+// =====================================
+// Future AI Recognition
+// =====================================
+
+async function recogniseDrawing(image) {
+
+    // We will replace this with real AI later.
+
+    return {
+
+        correct: true,
+
+        object: todayRecipe,
+
+        confidence: 100,
+
+        feedback: "Looks good!"
+
+    };
+
+}
 
 // Today's recipe
 const recipes = [
