@@ -128,6 +128,50 @@ function setupCanvas() {
         ctx.strokeStyle = colourPicker.value;
 
     });
+    // =====================================
+// Submit Drawing
+// =====================================
+
+document.getElementById("submit").addEventListener("click", () => {
+
+    const message = document.getElementById("message");
+
+    message.innerHTML = `
+        <div class="loading"></div>
+        <p>Pablo is checking your drawing...</p>
+    `;
+
+    setTimeout(() => {
+
+        const responses = [
+
+            "majestic!",
+
+            "yummy!",
+
+            "nicely drawn!",
+
+            "the customers will love that!",
+
+            "yayy!"
+
+        ];
+
+        const randomResponse =
+
+            responses[Math.floor(Math.random() * responses.length)];
+
+        message.innerHTML = `
+
+            <h2>Well Done!</h2>
+
+            <p>${randomResponse}</p>
+
+        `;
+
+    },1500);
+
+});
 
     // Update brush size
 
