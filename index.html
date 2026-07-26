@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>🐶 Pablo's Patisserie</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- Google Font -->
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -22,53 +24,66 @@
 
 <body>
 
-    <div id="app">
+<div id="app">
 
-        <header>
+    <header>
 
-            <h1>🐶 Pablo's Patisserie</h1>
+        <img
+            src="images/pablo.png"
+            alt="Pablo"
+            id="pablo">
 
-            
+        <h1>Pablo's Patisserie</h1>
 
-        </header>
+    </header>
 
-        <section class="display-case">
+    <main>
 
-            <h2>🍰 Today's Display Case</h2>
+        <section class="display">
 
-            <div class="cakes">
+            <h2>Today's Display</h2>
 
-                <div class="cake">🍰</div>
-                <div class="cake">🍪</div>
-                <div class="cake">🧁</div>
-                <div class="cake">🥖</div>
-                <div class="cake">🥐</div>
+            <div class="displayShelf">
 
-                <div class="cake">🍩</div>
-                <div class="cake">🎂</div>
-                <div class="cake">🥧</div>
-                <div class="cake">🍞</div>
-                <div class="cake">🥨</div>
+                <img src="images/cookie.png" class="food" alt="Cookie">
+
+                <img src="images/cupcake.png" class="food" alt="Cupcake">
+
+                <img src="images/croissant.png" class="food" alt="Croissant">
+
+                <img src="images/cake.png" class="food" alt="Cake">
+
+                <img src="images/pie.png" class="food" alt="Pie">
+
+                <img src="images/bread.png" class="food" alt="Bread">
+
+                <img src="images/pretzel.png" class="food" alt="Pretzel">
+
+                <img src="images/doughnut.png" class="food" alt="Doughnut">
+
+                <img src="images/baguette.png" class="food" alt="Baguette">
+
+                <img src="images/birthdaycake.png" class="food" alt="Birthday Cake">
 
             </div>
 
-            <p class="timer">
+            <p class="daily">
                 ✨ Changes Daily ✨
             </p>
 
         </section>
 
-        <section class="menu">
+        <button id="playButton">
 
-            <button id="playButton">
-                ▶ Play
-            </button>
+            Start Baking
 
-        </section>
+        </button>
 
-    </div>
+    </main>
 
-    <script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 
