@@ -40,9 +40,13 @@ const recipes = [
     "Birthday Cake"
 ];
 
-// Pick a random recipe
-let todayRecipe =
-    recipes[Math.floor(Math.random() * recipes.length)];
+function getRandomRecipe() {
+
+    return recipes[Math.floor(Math.random() * recipes.length)];
+
+}
+
+let currentRecipe = getRandomRecipe();
 
 // =====================================
 // Start Game
