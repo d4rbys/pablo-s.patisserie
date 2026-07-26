@@ -1,19 +1,20 @@
-/* =====================================
-   🐶 Pablo's Patisserie
-===================================== */
+/* ===========================
+   Pablo's Patisserie
+=========================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Cedarville Cursive", cursive;
 }
 
 body{
 
-    background:#F7E7DD;
+    background:#F8EBDD;
 
-    color:#5A3921;
+    font-family:"Cedarville Cursive", cursive;
+
+    color:#5B3A29;
 
     display:flex;
 
@@ -25,61 +26,93 @@ body{
 
 }
 
-/* ==========================
+/* ===========================
       Main Card
-========================== */
+=========================== */
 
 #app{
 
-    width:900px;
+    width:950px;
 
-    background:#FFF9F2;
+    background:#FFF8F2;
 
-    border:5px solid #8B5A2B;
+    border:6px solid #8B5A2B;
 
-    border-radius:30px;
+    border-radius:35px;
 
-    padding:40px;
+    padding:35px;
+
+    box-shadow:12px 12px 25px rgba(0,0,0,.18);
 
     text-align:center;
 
-    box-shadow:8px 8px 20px rgba(0,0,0,.15);
+}
+
+/* ===========================
+         Pablo
+=========================== */
+
+#pablo{
+
+    width:170px;
+
+    margin-bottom:10px;
+
+    animation:bounce 3s infinite ease-in-out;
 
 }
 
-/* ==========================
+@keyframes bounce{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* ===========================
         Headings
-========================== */
+=========================== */
 
 h1{
 
     font-size:72px;
 
-    margin-bottom:10px;
+    margin-bottom:25px;
 
 }
 
 h2{
 
-    font-size:42px;
+    font-size:44px;
 
     margin-bottom:20px;
 
 }
 
-p{
+.daily{
 
-    font-size:30px;
+    font-size:28px;
+
+    margin-top:20px;
 
 }
 
-/* ==========================
-     Display Case
-========================== */
+/* ===========================
+      Display Shelf
+=========================== */
 
-.display-case{
+.display{
 
-    background:#FFE8D6;
+    background:#FFE6D2;
 
     border:4px solid #8B5A2B;
 
@@ -87,149 +120,103 @@ p{
 
     padding:25px;
 
-    margin:35px 0;
+    margin-bottom:35px;
 
 }
 
-.cakes{
+.displayShelf{
 
     display:grid;
 
-    grid-template-columns:repeat(5,80px);
+    grid-template-columns:repeat(5,1fr);
 
-    gap:18px;
+    gap:20px;
 
-    justify-content:center;
-
-    margin:20px 0;
+    justify-items:center;
 
 }
 
-.cake{
+/* ===========================
+       Doodles
+=========================== */
 
-    width:80px;
+.food{
 
-    height:80px;
-
-    background:white;
-
-    border-radius:18px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:42px;
+    width:100px;
 
     transition:.25s;
 
     cursor:pointer;
 
-    box-shadow:0 3px 8px rgba(0,0,0,.15);
+}
+
+.food:hover{
+
+    transform:rotate(5deg) scale(1.1);
 
 }
 
-.cake:hover{
-
-    transform:scale(1.12) rotate(6deg);
-
-}
-
-/* ==========================
-        Timer
-========================== */
-
-.timer{
-
-    margin-top:15px;
-
-    font-size:28px;
-
-}
-
-/* ==========================
-        Toolbar
-========================== */
-
-.toolbar{
-
-    background:#FFE8D6;
-
-    border:3px solid #8B5A2B;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    display:inline-block;
-
-    margin-bottom:20px;
-
-}
-
-label{
-
-    font-size:28px;
-
-}
-
-/* ==========================
-        Canvas
-========================== */
-
-canvas{
-
-    background:#FFFDF8;
-
-    border:8px solid #D9B382;
-
-    border-radius:20px;
-
-    cursor:crosshair;
-
-    margin:20px 0;
-
-}
-
-/* ==========================
-        Buttons
-========================== */
+/* ===========================
+       Play Button
+=========================== */
 
 button{
 
-    background:#FFB6C1;
+    background:#FFB8C6;
 
-    color:#5A3921;
+    color:#5B3A29;
 
-    border:3px solid #8B5A2B;
+    border:4px solid #8B5A2B;
 
-    border-radius:18px;
+    border-radius:20px;
 
-    padding:12px 24px;
+    padding:15px 45px;
 
-    font-size:28px;
+    font-family:"Cedarville Cursive", cursive;
+
+    font-size:34px;
 
     cursor:pointer;
 
-    margin:8px;
-
-    transition:.2s;
+    transition:.25s;
 
 }
 
 button:hover{
 
-    transform:scale(1.05);
+    transform:scale(1.08);
 
-    background:#FFA6B5;
+    background:#FFA7B9;
 
 }
 
-/* ==========================
-       Inputs
-========================== */
+/* ===========================
+     Drawing Screen
+=========================== */
+
+.toolbar{
+
+    margin:20px 0;
+
+}
+
+canvas{
+
+    background:white;
+
+    border:8px solid #D5B186;
+
+    border-radius:20px;
+
+    margin:20px 0;
+
+}
+
+input[type="range"]{
+
+    width:220px;
+
+}
 
 input[type="color"]{
 
@@ -245,70 +232,14 @@ input[type="color"]{
 
 }
 
-input[type="range"]{
-
-    width:220px;
-
-}
-
-/* ==========================
+/* ===========================
       Pablo Message
-========================== */
+=========================== */
 
-.pabloMessage{
+#message{
 
     margin-top:25px;
 
-    background:#FFE6EE;
-
-    border:3px solid #8B5A2B;
-
-    border-radius:20px;
-
-    padding:20px;
-
-}
-
-.pabloMessage h2{
-
-    margin-bottom:10px;
-
-}
-
-/* ==========================
-      Loading Spinner
-========================== */
-
-.loading{
-
-    width:40px;
-
-    height:40px;
-
-    margin:20px auto;
-
-    border:5px solid #FFD8AA;
-
-    border-top:5px solid #FF914D;
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-}
-
-@keyframes spin{
-
-    from{
-
-        transform:rotate(0deg);
-
-    }
-
-    to{
-
-        transform:rotate(360deg);
-
-    }
+    font-size:32px;
 
 }
