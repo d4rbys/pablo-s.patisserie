@@ -65,7 +65,7 @@ function startGame() {
         <h2>Today's Order</h2>
 
         <p id="recipe">
-            Draw a <strong>${todayRecipe}</strong>
+            Draw a <strong>${currentRecipe}</strong>
         </p>
 
         <div class="toolbar">
