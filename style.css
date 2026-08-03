@@ -1,24 +1,11 @@
-body {
-    background: yellow !important;
-}
-/* Pablo's Patisserie V3 */
+/* Pablo's Patisserie V3 - Cream Bakery Theme */
 
 body {
 
     margin: 0;
     min-height: 100vh;
 
-    background:
-
-    linear-gradient(
-        45deg,
-        #9b6b3d,
-        #c28b55
-    );
-        url("images/background.png");
-
-    background-size: cover;
-    background-position: center;
+    background: #fff4dc;
 
     font-family: Arial, sans-serif;
 
@@ -43,7 +30,7 @@ header {
 }
 
 
-/* Pablo */
+/* Pablo image */
 
 #pablo {
 
@@ -56,7 +43,7 @@ header {
 }
 
 
-/* Title */
+/* Main title */
 
 h1 {
 
@@ -64,24 +51,18 @@ h1 {
 
     font-size: 60px;
 
-   color: #7a5534;
+    color: #a06f45;
 
     margin: 10px;
 
 }
 
 
-/* Wooden sign */
+/* Wooden recipe sign */
 
 .woodSign {
 
-    background:
-
-        linear-gradient(
-            45deg,
-            #8b5a2b,
-            #a66a3f
-        );
+    background: #d6a56d;
 
     width: 350px;
 
@@ -91,20 +72,28 @@ h1 {
 
     border-radius: 20px;
 
-    color: white;
+    color: #fff4dc;
 
     box-shadow:
-
-        0 10px 20px rgba(0,0,0,0.3);
+        0 10px 20px rgba(0,0,0,0.2);
 
 }
 
 
-/* Today's bake */
+.woodSign h2 {
+
+    color: #fff4dc;
+
+}
+
+
+/* Recipe text */
 
 #todaysRecipe {
 
     font-size: 22px;
+
+    color: #fff8e8;
 
 }
 
@@ -113,7 +102,7 @@ h1 {
 
 #playButton {
 
-   background: #f6d77a;
+    background: #f6d77a;
 
     border: none;
 
@@ -123,13 +112,12 @@ h1 {
 
     font-size: 25px;
 
-    color: white;
+    color: #8b6240;
 
     cursor: pointer;
 
     box-shadow:
-
-        0 5px 10px rgba(0,0,0,0.2);
+        0 5px 10px rgba(0,0,0,0.15);
 
 }
 
@@ -138,10 +126,12 @@ h1 {
 
     transform: scale(1.1);
 
+    background: #f3cf63;
+
 }
 
 
-/* Pablo animation */
+/* Pablo bounce */
 
 @keyframes bounce {
 
