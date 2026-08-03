@@ -1,3 +1,8 @@
+const MODEL_URL =
+"https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
+
+let model;
+let maxPredictions;
 // =====================================
 // Pablo's Patisserie
 // Version 2.0
