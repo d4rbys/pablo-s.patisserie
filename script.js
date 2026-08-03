@@ -380,3 +380,4 @@ function saveState(canvas) {
     history.push(canvas.toDataURL());
 
 }
+loadAI();
