@@ -6,13 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>🐶 Pablo's Patisserie</title>
+    <title>Pablo's Patisserie</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- Font -->
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
@@ -39,49 +37,33 @@
 
     <main>
 
-        <section class="display">
+        <section id="home">
 
-            <h2>Today's Display</h2>
+            <div class="woodSign">
 
-            <div class="displayShelf">
+                <h2>Today's Bake</h2>
 
-                <img src="images/cookie.png" class="food" alt="Cookie">
+                <p id="todaysRecipe">
 
-                <img src="images/cupcake.png" class="food" alt="Cupcake">
+                    Loading...
 
-                <img src="images/croissant.png" class="food" alt="Croissant">
-
-                <img src="images/cake.png" class="food" alt="Cake">
-
-                <img src="images/pie.png" class="food" alt="Pie">
-
-                <img src="images/bread.png" class="food" alt="Bread">
-
-                <img src="images/pretzel.png" class="food" alt="Pretzel">
-
-                <img src="images/doughnut.png" class="food" alt="Doughnut">
-
-                <img src="images/baguette.png" class="food" alt="Baguette">
-
-                <img src="images/birthdaycake.png" class="food" alt="Birthday Cake">
+                </p>
 
             </div>
 
-            <p class="daily">
-                ✨ Changes Daily ✨
-            </p>
+            <button id="playButton">
+
+                Play
+
+            </button>
 
         </section>
-
-        <button id="playButton">
-
-            Start Baking
-
-        </button>
 
     </main>
 
 </div>
+
+<!-- AI -->
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 
