@@ -1,5 +1,17 @@
 const MODEL_URL =
 "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
+async function loadAI() {
+
+    const modelURL = MODEL_URL + "model.json";
+    const metadataURL = MODEL_URL + "metadata.json";
+
+    model = await tmImage.load(modelURL, metadataURL);
+
+    maxPredictions = model.getTotalClasses();
+
+    console.log("Pablo is ready!");
+
+}
 
 let model;
 let maxPredictions;
