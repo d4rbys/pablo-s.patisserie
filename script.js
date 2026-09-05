@@ -1,49 +1,48 @@
-const MODEL_URL =
-"https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
-async function loadAI() {
-
-    const modelURL = MODEL_URL + "model.json";
-    const metadataURL = MODEL_URL + "metadata.json";
-
-    model = await tmImage.load(modelURL, metadataURL);
-
-    maxPredictions = model.getTotalClasses();
-
-    alert("pablo is ready ");
-
-}
-
-let model;
-let maxPredictions;
 // =====================================
 // Pablo's Patisserie
 // Version 2.0
 // =====================================
 
-const app = document.getElementById("app");
 // =====================================
-// Future AI Recognition
+// Teachable Machine AI
 // =====================================
 
-async function recogniseDrawing(image) {
+const MODEL_URL =
+    "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
 
-    // We will replace this with real AI later.
+let model;
+let maxPredictions;
 
-    return {
+async function loadAI() {
 
-        correct: true,
+    const modelURL = MODEL_URL + "model.json";
+    const metadataURL = MODEL_URL + "metadata.json";
 
-        object: todayRecipe,
+    try {
 
-        confidence: 100,
+        model = await tmImage.load(modelURL, metadataURL);
 
-        feedback: "Looks good!"
+        maxPredictions = model.getTotalClasses();
 
-    };
+        alert("pablo is ready ");
 
+    } catch (error) {
+
+        console.error("AI failed to load:", error);
+
+    }
 }
 
-// Today's recipe
+// =====================================
+// App
+// =====================================
+
+const app = document.getElementById("app");
+
+// =====================================
+// Recipes
+// =====================================
+
 const recipes = [
     "Cookie",
     "Cupcake",
@@ -135,7 +134,9 @@ function startGame() {
 
     setupCanvas();
 
-}// =====================================
+}
+
+// =====================================
 // Canvas
 // =====================================
 
@@ -151,71 +152,33 @@ function setupCanvas() {
         document.getElementById("brushSize");
 
     let drawing = false;
+
+    // Start history
+    history.length = 0;
+    historyStep = -1;
+
     saveState(canvas);
 
     // Drawing settings
 
     ctx.strokeStyle = colourPicker.value;
-
     ctx.lineWidth = brushSize.value;
-
     ctx.lineCap = "round";
-
     ctx.lineJoin = "round";
 
-    // Update colour
+    // =====================================
+    // Colour
+    // =====================================
 
     colourPicker.addEventListener("input", () => {
 
         ctx.strokeStyle = colourPicker.value;
 
     });
+
     // =====================================
-// Submit Drawing
-// =====================================
-
-document.getElementById("submit").addEventListener("click", () => {
-
-    const message = document.getElementById("message");
-
-    message.innerHTML = `
-        <div class="loading"></div>
-        <p>Pablo is checking your drawing...</p>
-    `;
-
-    setTimeout(() => {
-
-        const responses = [
-
-            "majestic!",
-
-            "yummy!",
-
-            "nicely drawn!",
-
-            "the customers will love that!",
-
-            "yayy!"
-
-        ];
-
-        const randomResponse =
-
-            responses[Math.floor(Math.random() * responses.length)];
-
-        message.innerHTML = `
-
-            <h2>Well Done!</h2>
-
-            <p>${randomResponse}</p>
-
-        `;
-
-    },1500);
-
-});
-
-    // Update brush size
+    // Brush Size
+    // =====================================
 
     brushSize.addEventListener("input", () => {
 
@@ -223,7 +186,9 @@ document.getElementById("submit").addEventListener("click", () => {
 
     });
 
+    // =====================================
     // Mouse Position
+    // =====================================
 
     function getPosition(event) {
 
@@ -239,7 +204,9 @@ document.getElementById("submit").addEventListener("click", () => {
 
     }
 
+    // =====================================
     // Start Drawing
+    // =====================================
 
     canvas.addEventListener("pointerdown", (event) => {
 
@@ -253,7 +220,9 @@ document.getElementById("submit").addEventListener("click", () => {
 
     });
 
+    // =====================================
     // Draw
+    // =====================================
 
     canvas.addEventListener("pointermove", (event) => {
 
@@ -267,109 +236,247 @@ document.getElementById("submit").addEventListener("click", () => {
 
     });
 
+    // =====================================
     // Stop Drawing
+    // =====================================
 
-   window.addEventListener("pointerup", () => {
+    window.addEventListener("pointerup", () => {
 
-    if (drawing) {
+        if (drawing) {
 
-        saveState(canvas);
+            saveState(canvas);
 
-    }
+        }
 
-    drawing = false;
+        drawing = false;
 
-    ctx.beginPath();// =====================
-// Eraser
-// =====================
+        ctx.beginPath();
 
-document.getElementById("eraser").addEventListener("click", () => {
+    });
 
-    ctx.strokeStyle = "#FFFFFF";
+    // =====================================
+    // Eraser
+    // =====================================
 
-});
+    document
+        .getElementById("eraser")
+        .addEventListener("click", () => {
 
-// =====================
-// Clear
-// =====================
+            ctx.strokeStyle = "#FFFFFF";
 
-document.getElementById("clear").addEventListener("click", () => {
+        });
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    // =====================================
+    // Clear
+    // =====================================
 
-    saveState(canvas);
+    document
+        .getElementById("clear")
+        .addEventListener("click", () => {
 
-});
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
 
-// =====================
-// Undo
-// =====================
+            saveState(canvas);
 
-document.getElementById("undo").addEventListener("click", () => {
+        });
 
-    if(historyStep <= 0) return;
+    // =====================================
+    // Undo
+    // =====================================
 
-    historyStep--;
+    document
+        .getElementById("undo")
+        .addEventListener("click", () => {
 
-    const img = new Image();
+            if (historyStep <= 0) return;
 
-    img.src = history[historyStep];
+            historyStep--;
 
-    img.onload = () => {
+            const img = new Image();
 
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+            img.src = history[historyStep];
 
-        ctx.drawImage(img,0,0);
+            img.onload = () => {
 
-    };
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
 
-});
+                ctx.drawImage(img, 0, 0);
 
-// =====================
-// Redo
-// =====================
+            };
 
-document.getElementById("redo").addEventListener("click", () => {
+        });
 
-    if(historyStep >= history.length-1) return;
+    // =====================================
+    // Redo
+    // =====================================
 
-    historyStep++;
+    document
+        .getElementById("redo")
+        .addEventListener("click", () => {
 
-    const img = new Image();
+            if (historyStep >= history.length - 1) return;
 
-    img.src = history[historyStep];
+            historyStep++;
 
-    img.onload = () => {
+            const img = new Image();
 
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+            img.src = history[historyStep];
 
-        ctx.drawImage(img,0,0);
+            img.onload = () => {
 
-    };
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
 
-});
+                ctx.drawImage(img, 0, 0);
 
-// Switch back to colour
+            };
 
-colourPicker.addEventListener("input", () => {
+        });
 
-    ctx.strokeStyle = colourPicker.value;
+    // =====================================
+    // Submit Drawing
+    // =====================================
 
-});
+    document
+        .getElementById("submit")
+        .addEventListener("click", async () => {
 
-});
+            const message =
+                document.getElementById("message");
 
-}// =====================================
-// Undo / Redo / Eraser / Clear
+            message.innerHTML = `
+                <div class="loading"></div>
+                <p>Pablo is checking your drawing...</p>
+            `;
+
+            // =================================
+            // AI recognition
+            // =================================
+
+            if (!model) {
+
+                message.innerHTML = `
+                    <p>AI is still loading. Please try again.</p>
+                `;
+
+                return;
+
+            }
+
+            const prediction =
+                await model.predict(canvas);
+
+            let highestPrediction = prediction[0];
+
+            for (let i = 1; i < prediction.length; i++) {
+
+                if (
+                    prediction[i].probability >
+                    highestPrediction.probability
+                ) {
+
+                    highestPrediction = prediction[i];
+
+                }
+
+            }
+
+            const predictedObject =
+                highestPrediction.className;
+
+            const confidence =
+                Math.round(
+                    highestPrediction.probability * 100
+                );
+
+            // =================================
+            // Pablo's responses
+            // =================================
+
+            const responses = [
+
+                "majestic!",
+
+                "yummy!",
+
+                "nicely drawn!",
+
+                "the customers will love that!",
+
+                "yayy!"
+
+            ];
+
+            const randomResponse =
+
+                responses[
+                    Math.floor(
+                        Math.random() * responses.length
+                    )
+                ];
+
+            // =================================
+            // Check answer
+            // =================================
+
+            if (
+                predictedObject.toLowerCase() ===
+                currentRecipe.toLowerCase()
+            ) {
+
+                message.innerHTML = `
+
+                    <h2>Well Done!</h2>
+
+                    <p>${randomResponse}</p>
+
+                `;
+
+            } else {
+
+                message.innerHTML = `
+
+                    <p>Pablo is checking your drawing...</p>
+
+                    <p>
+                        Pablo thinks this looks like
+                        <strong>${predictedObject}</strong>
+                        (${confidence}%)
+                    </p>
+
+                `;
+
+            }
+
+        });
+
+}
+
 // =====================================
-
-// Drawing history
+// Undo / Redo history
+// =====================================
 
 const history = [];
 
 let historyStep = -1;
 
-// Save canvas state
+// =====================================
+// Save Canvas State
+// =====================================
 
 function saveState(canvas) {
 
@@ -380,4 +487,9 @@ function saveState(canvas) {
     history.push(canvas.toDataURL());
 
 }
+
+// =====================================
+// Start AI
+// =====================================
+
 loadAI();
