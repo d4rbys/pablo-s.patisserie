@@ -153,13 +153,18 @@ function setupCanvas() {
 
     let drawing = false;
 
-    // Start history
+    // =====================================
+    // Drawing history
+    // =====================================
+
     history.length = 0;
     historyStep = -1;
 
     saveState(canvas);
 
+    // =====================================
     // Drawing settings
+    // =====================================
 
     ctx.strokeStyle = colourPicker.value;
     ctx.lineWidth = brushSize.value;
@@ -197,7 +202,6 @@ function setupCanvas() {
         return {
 
             x: event.clientX - rect.left,
-
             y: event.clientY - rect.top
 
         };
@@ -364,7 +368,7 @@ function setupCanvas() {
             `;
 
             // =================================
-            // AI recognition
+            // Make sure AI has loaded
             // =================================
 
             if (!model) {
@@ -377,85 +381,122 @@ function setupCanvas() {
 
             }
 
-            const prediction =
-                await model.predict(canvas);
+            // =================================
+            // Ask AI to recognise drawing
+            // =================================
 
-            let highestPrediction = prediction[0];
+            try {
 
-            for (let i = 1; i < prediction.length; i++) {
+                const prediction =
+                    await model.predict(canvas);
 
-                if (
-                    prediction[i].probability >
-                    highestPrediction.probability
-                ) {
+                let highestPrediction = prediction[0];
 
-                    highestPrediction = prediction[i];
+                for (let i = 1; i < prediction.length; i++) {
+
+                    if (
+                        prediction[i].probability >
+                        highestPrediction.probability
+                    ) {
+
+                        highestPrediction = prediction[i];
+
+                    }
 
                 }
 
-            }
+                const predictedObject =
+                    highestPrediction.className;
 
-            const predictedObject =
-                highestPrediction.className;
+                const confidence =
+                    highestPrediction.probability;
 
-            const confidence =
-                Math.round(
-                    highestPrediction.probability * 100
-                );
+                const confidencePercent =
+                    Math.round(confidence * 100);
 
-            // =================================
-            // Pablo's responses
-            // =================================
+                // =================================
+                // Pablo's responses
+                // =================================
 
-            const responses = [
+                const responses = [
 
-                "majestic!",
+                    "majestic!",
 
-                "yummy!",
+                    "yummy!",
 
-                "nicely drawn!",
+                    "nicely drawn!",
 
-                "the customers will love that!",
+                    "the customers will love that!",
 
-                "yayy!"
+                    "yayy!"
 
-            ];
-
-            const randomResponse =
-
-                responses[
-                    Math.floor(
-                        Math.random() * responses.length
-                    )
                 ];
 
-            // =================================
-            // Check answer
-            // =================================
+                const randomResponse =
 
-            if (
-                predictedObject.toLowerCase() ===
-                currentRecipe.toLowerCase()
-            ) {
+                    responses[
+                        Math.floor(
+                            Math.random() * responses.length
+                        )
+                    ];
+
+                // =================================
+                // Minimum confidence
+                // =================================
+
+                const MIN_CONFIDENCE = 0.75;
+
+                // =================================
+                // Check drawing
+                // =================================
+
+                if (
+
+                    predictedObject.toLowerCase() ===
+                        currentRecipe.toLowerCase()
+
+                    &&
+
+                    confidence >= MIN_CONFIDENCE
+
+                ) {
+
+                    message.innerHTML = `
+
+                        <h2>Well Done!</h2>
+
+                        <p>${randomResponse}</p>
+
+                    `;
+
+                } else {
+
+                    message.innerHTML = `
+
+                        <p>
+                            Pablo isn't sure that's a
+                            <strong>${currentRecipe}</strong>.
+                        </p>
+
+                        <p>
+                            Try drawing it again!
+                        </p>
+
+                    `;
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Prediction failed:",
+                    error
+                );
 
                 message.innerHTML = `
-
-                    <h2>Well Done!</h2>
-
-                    <p>${randomResponse}</p>
-
-                `;
-
-            } else {
-
-                message.innerHTML = `
-
-                    <p>Pablo is checking your drawing...</p>
 
                     <p>
-                        Pablo thinks this looks like
-                        <strong>${predictedObject}</strong>
-                        (${confidence}%)
+                        Pablo couldn't check the drawing.
                     </p>
 
                 `;
