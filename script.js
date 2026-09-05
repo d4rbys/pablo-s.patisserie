@@ -1,3 +1,4 @@
+```js
 // =====================================
 // Pablo's Patisserie
 // Version 2.0
@@ -63,6 +64,24 @@ function getRandomRecipe() {
 }
 
 let currentRecipe = getRandomRecipe();
+
+// =====================================
+// Drawing history
+// =====================================
+
+const history = [];
+
+let historyStep = -1;
+
+function saveState(canvas) {
+
+    historyStep++;
+
+    history.length = historyStep;
+
+    history.push(canvas.toDataURL());
+
+}
 
 // =====================================
 // Start Game
@@ -154,7 +173,7 @@ function setupCanvas() {
     let drawing = false;
 
     // =====================================
-    // Drawing history
+    // Reset history
     // =====================================
 
     history.length = 0;
@@ -192,7 +211,7 @@ function setupCanvas() {
     });
 
     // =====================================
-    // Mouse Position
+    // Get Position
     // =====================================
 
     function getPosition(event) {
@@ -201,8 +220,13 @@ function setupCanvas() {
 
         return {
 
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top
+            x:
+                (event.clientX - rect.left)
+                * (canvas.width / rect.width),
+
+            y:
+                (event.clientY - rect.top)
+                * (canvas.height / rect.height)
 
         };
 
@@ -214,7 +238,11 @@ function setupCanvas() {
 
     canvas.addEventListener("pointerdown", (event) => {
 
+        event.preventDefault();
+
         drawing = true;
+
+        canvas.setPointerCapture(event.pointerId);
 
         const pos = getPosition(event);
 
@@ -232,6 +260,8 @@ function setupCanvas() {
 
         if (!drawing) return;
 
+        event.preventDefault();
+
         const pos = getPosition(event);
 
         ctx.lineTo(pos.x, pos.y);
@@ -244,17 +274,41 @@ function setupCanvas() {
     // Stop Drawing
     // =====================================
 
-    window.addEventListener("pointerup", () => {
+    function stopDrawing(event) {
 
-        if (drawing) {
-
-            saveState(canvas);
-
-        }
+        if (!drawing) return;
 
         drawing = false;
 
         ctx.beginPath();
+
+        if (
+            event &&
+            canvas.hasPointerCapture(event.pointerId)
+        ) {
+
+            canvas.releasePointerCapture(event.pointerId);
+
+        }
+
+        saveState(canvas);
+
+    }
+
+    canvas.addEventListener("pointerup", stopDrawing);
+
+    canvas.addEventListener("pointercancel", stopDrawing);
+
+    canvas.addEventListener("pointerleave", (event) => {
+
+        if (
+            drawing &&
+            !canvas.hasPointerCapture(event.pointerId)
+        ) {
+
+            stopDrawing(event);
+
+        }
 
     });
 
@@ -314,7 +368,11 @@ function setupCanvas() {
                     canvas.height
                 );
 
-                ctx.drawImage(img, 0, 0);
+                ctx.drawImage(
+                    img,
+                    0,
+                    0
+                );
 
             };
 
@@ -345,7 +403,11 @@ function setupCanvas() {
                     canvas.height
                 );
 
-                ctx.drawImage(img, 0, 0);
+                ctx.drawImage(
+                    img,
+                    0,
+                    0
+                );
 
             };
 
@@ -368,7 +430,7 @@ function setupCanvas() {
             `;
 
             // =================================
-            // Make sure AI has loaded
+            // Check AI
             // =================================
 
             if (!model) {
@@ -381,25 +443,27 @@ function setupCanvas() {
 
             }
 
-            // =================================
-            // Ask AI to recognise drawing
-            // =================================
-
             try {
 
                 const prediction =
                     await model.predict(canvas);
 
-                let highestPrediction = prediction[0];
+                let highestPrediction =
+                    prediction[0];
 
-                for (let i = 1; i < prediction.length; i++) {
+                for (
+                    let i = 1;
+                    i < prediction.length;
+                    i++
+                ) {
 
                     if (
                         prediction[i].probability >
                         highestPrediction.probability
                     ) {
 
-                        highestPrediction = prediction[i];
+                        highestPrediction =
+                            prediction[i];
 
                     }
 
@@ -433,15 +497,15 @@ function setupCanvas() {
                 ];
 
                 const randomResponse =
-
                     responses[
                         Math.floor(
-                            Math.random() * responses.length
+                            Math.random() *
+                            responses.length
                         )
                     ];
 
                 // =================================
-                // Minimum confidence
+                // Confidence requirement
                 // =================================
 
                 const MIN_CONFIDENCE = 0.75;
@@ -453,7 +517,7 @@ function setupCanvas() {
                 if (
 
                     predictedObject.toLowerCase() ===
-                        currentRecipe.toLowerCase()
+                    currentRecipe.toLowerCase()
 
                     &&
 
@@ -508,29 +572,8 @@ function setupCanvas() {
 }
 
 // =====================================
-// Undo / Redo history
-// =====================================
-
-const history = [];
-
-let historyStep = -1;
-
-// =====================================
-// Save Canvas State
-// =====================================
-
-function saveState(canvas) {
-
-    historyStep++;
-
-    history.length = historyStep;
-
-    history.push(canvas.toDataURL());
-
-}
-
-// =====================================
 // Start AI
 // =====================================
 
 loadAI();
+```
