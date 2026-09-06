@@ -431,187 +431,150 @@ function setupCanvas() {
 
             };
 
-        });            try {
+        });
+    // =====================================
+    // Submit Drawing
+    // =====================================
+
+    document
+        .getElementById("submit")
+        .addEventListener("click", async () => {
+
+            const message =
+                document.getElementById("message");
+
+            message.innerHTML =
+                `<p>Pablo is checking your drawing...</p>`;
+
+            try {
+
+                if (!model) {
+
+                    message.innerHTML =
+                        `<p>Pablo isn't ready yet.</p>`;
+
+                    return;
+
+                }
 
                 const prediction =
                     await model.predict(canvas);
 
-                let highestPrediction =
-                    prediction[0];
+                let highestProbability = 0;
+                let predictedObject = "";
 
-                for (
-                    let i = 1;
-                    i < prediction.length;
-                    i++
-                ) {
+                for (let i = 0; i < prediction.length; i++) {
 
                     if (
-                        prediction[i].probability >
-                        highestPrediction.probability
+                        prediction[i].probability
+                        > highestProbability
                     ) {
 
-                        highestPrediction =
-                            prediction[i];
+                        highestProbability =
+                            prediction[i].probability;
+
+                        predictedObject =
+                            prediction[i].className;
 
                     }
 
                 }
 
-                const predictedObject =
-                    highestPrediction.className;
-
                 const confidence =
-                    highestPrediction.probability;
+                    highestProbability;
 
-                const confidencePercent =
-                    Math.round(confidence * 100);
+                const MIN_CONFIDENCE = 0.75;
 
-                // =================================
-                // Pablo's responses
-                // =================================
+                const creatorName =
+                    document.getElementById("creatorName").value.trim();
+
+                const creationName =
+                    document.getElementById("creationName").value.trim();
+
+                if (!creatorName || !creationName) {
+
+                    message.innerHTML =
+                        `<p>Please add your name and name your creation!</p>`;
+
+                    return;
+
+                }
 
                 const responses = [
-
                     "majestic!",
                     "yummy!",
                     "nicely drawn!",
                     "the customers will love that!",
                     "yayy!"
-
                 ];
 
                 const randomResponse =
                     responses[
                         Math.floor(
-                            Math.random() *
-                            responses.length
+                            Math.random() * responses.length
                         )
                     ];
 
-                // =================================
-                // Confidence requirement
-                // =================================
-
-                const MIN_CONFIDENCE = 0.75;
-
-                // =================================
-                // Check drawing
-                // =================================
-
                 if (
-
-                    predictedObject.toLowerCase() ===
-                    currentRecipe.toLowerCase()
-
-                    &&
-
+                    predictedObject === currentRecipe &&
                     confidence >= MIN_CONFIDENCE
-
                 ) {
 
-                    const creatorName =
-                        document
-                            .getElementById("creatorName")
-                            .value
-                            .trim();
+                    message.innerHTML = `
+                        <h2>Well Done!</h2>
+                        <p>${randomResponse}</p>
+                    `;
 
-                    const creationName =
-                        document
-                            .getElementById("creationName")
-                            .value
-                            .trim();
+                    // =====================================
+                    // Save to Community Shelf
+                    // =====================================
 
-                    if (!creatorName || !creationName) {
+                    const drawingData =
+                        canvas.toDataURL("image/png");
 
-                        message.innerHTML = `
-
-                            <p>
-                                Please add your name and name your creation first!
-                            </p>
-
-                        `;
-
-                        return;
-
-                    }
-
-                    const shelfDrawing = {
+                    const communityDrawing = {
 
                         name: creatorName,
 
                         creation: creationName,
 
-                        drawing: canvas.toDataURL("image/png")
+                        drawing: drawingData
 
                     };
 
-                    const savedDrawings =
+                    let shelfDrawings =
                         JSON.parse(
-
                             localStorage.getItem(
                                 "pabloCommunityShelf"
-                            ) || "[]"
+                            )
+                        ) || [];
 
-                        );
-
-                    savedDrawings.push(shelfDrawing);
-
-                    localStorage.setItem(
-
-                        "pabloCommunityShelf",
-
-                        JSON.stringify(savedDrawings)
-
+                    shelfDrawings.push(
+                        communityDrawing
                     );
 
-                    message.innerHTML = `
-
-                        <h2>Well Done!</h2>
-
-                        <p>${randomResponse}</p>
-
-                    `;
+                    localStorage.setItem(
+                        "pabloCommunityShelf",
+                        JSON.stringify(
+                            shelfDrawings
+                        )
+                    );
 
                 } else {
 
                     message.innerHTML = `
-
-                        <p>
-
-                            Pablo isn't sure that's a
-                            <strong>${currentRecipe}</strong>.
-
-                        </p>
-
-                        <p>
-
-                            Try drawing it again!
-
-                        </p>
-
+                        <p>Pablo isn't sure that's a <strong>${currentRecipe}</strong>.</p>
+                        <p>Try drawing it again!</p>
                     `;
 
                 }
 
             } catch (error) {
 
-                console.error(
+                console.error(error);
 
-                    "Prediction failed:",
-
-                    error
-
-                );
-
-                message.innerHTML = `
-
-                    <p>
-
-                        Pablo couldn't check the drawing.
-
-                    </p>
-
-                `;
+                message.innerHTML =
+                    `<p>Pablo couldn't check the drawing.</p>`;
 
             }
 
