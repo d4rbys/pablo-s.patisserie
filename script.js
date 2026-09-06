@@ -8,31 +8,29 @@
 // =====================================
 
 const MODEL_URL =
-"https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
+    "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
 
 let model;
 let maxPredictions;
 
 async function loadAI() {
 
-```
-const modelURL = MODEL_URL + "model.json";
-const metadataURL = MODEL_URL + "metadata.json";
+    const modelURL = MODEL_URL + "model.json";
+    const metadataURL = MODEL_URL + "metadata.json";
 
-try {
+    try {
 
-    model = await tmImage.load(modelURL, metadataURL);
+        model = await tmImage.load(modelURL, metadataURL);
 
-    maxPredictions = model.getTotalClasses();
+        maxPredictions = model.getTotalClasses();
 
-    alert("pablo is ready ");
+        alert("pablo is ready ");
 
-} catch (error) {
+    } catch (error) {
 
-    console.error("AI failed to load:", error);
+        console.error("AI failed to load:", error);
 
-}
-```
+    }
 
 }
 
@@ -47,25 +45,21 @@ const app = document.getElementById("app");
 // =====================================
 
 const recipes = [
-"Cookie",
-"Cupcake",
-"Croissant",
-"Cake",
-"Pie",
-"Bread",
-"Pretzel",
-"Doughnut",
-"Baguette",
-"Birthday Cake"
+    "Cookie",
+    "Cupcake",
+    "Croissant",
+    "Cake",
+    "Pie",
+    "Bread",
+    "Pretzel",
+    "Doughnut",
+    "Baguette",
+    "Birthday Cake"
 ];
 
 function getRandomRecipe() {
 
-```
-return recipes[
-    Math.floor(Math.random() * recipes.length)
-];
-```
+    return recipes[Math.floor(Math.random() * recipes.length)];
 
 }
 
@@ -81,379 +75,282 @@ let historyStep = -1;
 
 function saveState(canvas) {
 
-```
-historyStep++;
+    historyStep++;
 
-history.length = historyStep;
+    history.length = historyStep;
 
-history.push(canvas.toDataURL());
-```
+    history.push(canvas.toDataURL());
 
-}
-
-// =====================================
+}// =====================================
 // Start Game
 // =====================================
 
 document
-.getElementById("playButton")
-.addEventListener("click", startGame);
+    .getElementById("playButton")
+    .addEventListener("click", startGame);
 
 function startGame() {
 
-```
-app.innerHTML = `
+    app.innerHTML = `
 
-    <h1>Pablo's Patisserie</h1>
+        <h1>Pablo's Patisserie</h1>
 
-    <h2>Today's Order</h2>
+        <h2>Today's Order</h2>
 
-    <p id="recipe">
-        Draw a <strong>${currentRecipe}</strong>
-    </p>
+        <p id="recipe">
+            Draw a <strong>${currentRecipe}</strong>
+        </p>
 
-    <label for="creatorName">
-        Your Name
-    </label>
-
-    <br>
-
-    <input
-        type="text"
-        id="creatorName"
-        placeholder="Your name"
-        maxlength="30"
-    >
-
-    <br><br>
-
-    <label for="creationName">
-        What did you create?
-    </label>
-
-    <br>
-
-    <input
-        type="text"
-        id="creationName"
-        placeholder="Name your creation"
-        maxlength="40"
-    >
-
-    <br><br>
-
-    <div class="toolbar">
-
-        <label>Colour</label>
+        <label for="creatorName">Your Name</label>
 
         <br>
 
         <input
-            type="color"
-            id="colourPicker"
-            value="#5B3A29"
-        >
+            type="text"
+            id="creatorName"
+            placeholder="Your name"
+            maxlength="30">
 
         <br><br>
 
-        <label>Brush Size</label>
+        <label for="creationName">What did you create?</label>
 
         <br>
 
         <input
-            type="range"
-            id="brushSize"
-            min="2"
-            max="30"
-            value="6"
-        >
+            type="text"
+            id="creationName"
+            placeholder="Name your creation"
+            maxlength="40">
 
-    </div>
+        <br><br>
 
-    <canvas
-        id="canvas"
-        width="700"
-        height="450"
-    ></canvas>
+        <div class="toolbar">
 
-    <br>
+            <label>Colour</label>
 
-    <button id="eraser">
-        Eraser
-    </button>
+            <br>
 
-    <button id="undo">
-        Undo
-    </button>
+            <input
+                type="color"
+                id="colourPicker"
+                value="#5B3A29">
 
-    <button id="redo">
-        Redo
-    </button>
+            <br><br>
 
-    <button id="clear">
-        Clear
-    </button>
+            <label>Brush Size</label>
 
-    <button id="submit">
-        Submit
-    </button>
+            <br>
 
-    <div id="message"></div>
+            <input
+                type="range"
+                id="brushSize"
+                min="2"
+                max="30"
+                value="6">
 
-`;
+        </div>
 
-setupCanvas();
-```
+        <canvas
+            id="canvas"
+            width="700"
+            height="450">
+        </canvas>
 
-}
+        <br>
 
-// =====================================
+        <button id="eraser">Eraser</button>
+
+        <button id="undo">Undo</button>
+
+        <button id="redo">Redo</button>
+
+        <button id="clear">Clear</button>
+
+        <button id="submit">Submit</button>
+
+        <div id="message"></div>
+
+    `;
+
+    setupCanvas();
+
+}// =====================================
 // Canvas
 // =====================================
 
 function setupCanvas() {
 
-```
-const canvas =
-    document.getElementById("canvas");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-const ctx =
-    canvas.getContext("2d");
+    const colourPicker =
+        document.getElementById("colourPicker");
 
-const colourPicker =
-    document.getElementById("colourPicker");
+    const brushSize =
+        document.getElementById("brushSize");
 
-const brushSize =
-    document.getElementById("brushSize");
+    let drawing = false;
 
-let drawing = false;
+    // =====================================
+    // Reset history
+    // =====================================
 
+    history.length = 0;
+    historyStep = -1;
 
-// =====================================
-// Reset history
-// =====================================
+    saveState(canvas);
 
-history.length = 0;
+    // =====================================
+    // Drawing settings
+    // =====================================
 
-historyStep = -1;
+    ctx.strokeStyle = colourPicker.value;
+    ctx.lineWidth = brushSize.value;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
-saveState(canvas);
+    // =====================================
+    // Colour
+    // =====================================
 
+    colourPicker.addEventListener("input", () => {
 
-// =====================================
-// Drawing settings
-// =====================================
+        ctx.strokeStyle = colourPicker.value;
 
-ctx.strokeStyle =
-    colourPicker.value;
+    });
 
-ctx.lineWidth =
-    brushSize.value;
+    // =====================================
+    // Brush Size
+    // =====================================
 
-ctx.lineCap =
-    "round";
+    brushSize.addEventListener("input", () => {
 
-ctx.lineJoin =
-    "round";
+        ctx.lineWidth = brushSize.value;
 
+    });
 
-// =====================================
-// Colour
-// =====================================
+    // =====================================
+    // Get Position
+    // =====================================
 
-colourPicker.addEventListener(
-    "input",
-    () => {
+    function getPosition(event) {
 
-        ctx.strokeStyle =
-            colourPicker.value;
+        const rect = canvas.getBoundingClientRect();
+
+        return {
+
+            x:
+                (event.clientX - rect.left)
+                * (canvas.width / rect.width),
+
+            y:
+                (event.clientY - rect.top)
+                * (canvas.height / rect.height)
+
+        };
 
     }
-);
 
+    // =====================================
+    // Start Drawing
+    // =====================================
 
-// =====================================
-// Brush Size
-// =====================================
-
-brushSize.addEventListener(
-    "input",
-    () => {
-
-        ctx.lineWidth =
-            brushSize.value;
-
-    }
-);
-
-
-// =====================================
-// Get Position
-// =====================================
-
-function getPosition(event) {
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    return {
-
-        x:
-            (event.clientX - rect.left)
-            * (canvas.width / rect.width),
-
-        y:
-            (event.clientY - rect.top)
-            * (canvas.height / rect.height)
-
-    };
-
-}
-
-
-// =====================================
-// Start Drawing
-// =====================================
-
-canvas.addEventListener(
-    "pointerdown",
-    (event) => {
+    canvas.addEventListener("pointerdown", (event) => {
 
         event.preventDefault();
 
         drawing = true;
 
-        canvas.setPointerCapture(
-            event.pointerId
-        );
+        canvas.setPointerCapture(event.pointerId);
 
-        const pos =
-            getPosition(event);
+        const pos = getPosition(event);
 
         ctx.beginPath();
 
-        ctx.moveTo(
-            pos.x,
-            pos.y
-        );
+        ctx.moveTo(pos.x, pos.y);
 
-    }
-);
+    });
 
+    // =====================================
+    // Draw
+    // =====================================
 
-// =====================================
-// Draw
-// =====================================
-
-canvas.addEventListener(
-    "pointermove",
-    (event) => {
+    canvas.addEventListener("pointermove", (event) => {
 
         if (!drawing) return;
 
         event.preventDefault();
 
-        const pos =
-            getPosition(event);
+        const pos = getPosition(event);
 
-        ctx.lineTo(
-            pos.x,
-            pos.y
-        );
+        ctx.lineTo(pos.x, pos.y);
 
         ctx.stroke();
 
-    }
-);
+    });
 
+    // =====================================
+    // Stop Drawing
+    // =====================================
 
-// =====================================
-// Stop Drawing
-// =====================================
+    function stopDrawing(event) {
 
-function stopDrawing(event) {
+        if (!drawing) return;
 
-    if (!drawing) return;
+        drawing = false;
 
-    drawing = false;
+        ctx.beginPath();
 
-    ctx.beginPath();
+        if (
+            event &&
+            canvas.hasPointerCapture(event.pointerId)
+        ) {
 
-    if (
-        event &&
-        canvas.hasPointerCapture(
-            event.pointerId
-        )
-    ) {
+            canvas.releasePointerCapture(event.pointerId);
 
-        canvas.releasePointerCapture(
-            event.pointerId
-        );
+        }
+
+        saveState(canvas);
 
     }
 
-    saveState(canvas);
+    canvas.addEventListener("pointerup", stopDrawing);
 
-}
+    canvas.addEventListener("pointercancel", stopDrawing);
 
-
-canvas.addEventListener(
-    "pointerup",
-    stopDrawing
-);
-
-
-canvas.addEventListener(
-    "pointercancel",
-    stopDrawing
-);
-
-
-canvas.addEventListener(
-    "pointerleave",
-    (event) => {
+    canvas.addEventListener("pointerleave", (event) => {
 
         if (
             drawing &&
-            !canvas.hasPointerCapture(
-                event.pointerId
-            )
+            !canvas.hasPointerCapture(event.pointerId)
         ) {
 
             stopDrawing(event);
 
         }
 
-    }
-);
+    });
 
+    // =====================================
+    // Eraser
+    // =====================================
 
-// =====================================
-// Eraser
-// =====================================
+    document
+        .getElementById("eraser")
+        .addEventListener("click", () => {
 
-document
-    .getElementById("eraser")
-    .addEventListener(
-        "click",
-        () => {
+            ctx.strokeStyle = "#FFFFFF";
 
-            ctx.strokeStyle =
-                "#FFFFFF";
+        });
 
-        }
-    );
+    // =====================================
+    // Clear
+    // =====================================
 
-
-// =====================================
-// Clear
-// =====================================
-
-document
-    .getElementById("clear")
-    .addEventListener(
-        "click",
-        () => {
+    document
+        .getElementById("clear")
+        .addEventListener("click", () => {
 
             ctx.clearRect(
                 0,
@@ -464,29 +361,23 @@ document
 
             saveState(canvas);
 
-        }
-    );
+        });
 
+    // =====================================
+    // Undo
+    // =====================================
 
-// =====================================
-// Undo
-// =====================================
-
-document
-    .getElementById("undo")
-    .addEventListener(
-        "click",
-        () => {
+    document
+        .getElementById("undo")
+        .addEventListener("click", () => {
 
             if (historyStep <= 0) return;
 
             historyStep--;
 
-            const img =
-                new Image();
+            const img = new Image();
 
-            img.src =
-                history[historyStep];
+            img.src = history[historyStep];
 
             img.onload = () => {
 
@@ -505,32 +396,23 @@ document
 
             };
 
-        }
-    );
+        });
 
+    // =====================================
+    // Redo
+    // =====================================
 
-// =====================================
-// Redo
-// =====================================
+    document
+        .getElementById("redo")
+        .addEventListener("click", () => {
 
-document
-    .getElementById("redo")
-    .addEventListener(
-        "click",
-        () => {
-
-            if (
-                historyStep >=
-                history.length - 1
-            ) return;
+            if (historyStep >= history.length - 1) return;
 
             historyStep++;
 
-            const img =
-                new Image();
+            const img = new Image();
 
-            img.src =
-                history[historyStep];
+            img.src = history[historyStep];
 
             img.onload = () => {
 
@@ -549,58 +431,13 @@ document
 
             };
 
-        }
-    );
-
-
-// =====================================
-// Submit Drawing
-// =====================================
-
-document
-    .getElementById("submit")
-    .addEventListener(
-        "click",
-        async () => {
-
-            const message =
-                document.getElementById(
-                    "message"
-                );
-
-
-            message.innerHTML = `
-                <div class="loading"></div>
-                <p>Pablo is checking your drawing...</p>
-            `;
-
-
-            // =================================
-            // Check AI
-            // =================================
-
-            if (!model) {
-
-                message.innerHTML = `
-                    <p>
-                        AI is still loading. Please try again.
-                    </p>
-                `;
-
-                return;
-
-            }
-
-
-            try {
+        });            try {
 
                 const prediction =
                     await model.predict(canvas);
 
-
                 let highestPrediction =
                     prediction[0];
-
 
                 for (
                     let i = 1;
@@ -620,20 +457,14 @@ document
 
                 }
 
-
                 const predictedObject =
                     highestPrediction.className;
-
 
                 const confidence =
                     highestPrediction.probability;
 
-
                 const confidencePercent =
-                    Math.round(
-                        confidence * 100
-                    );
-
+                    Math.round(confidence * 100);
 
                 // =================================
                 // Pablo's responses
@@ -642,17 +473,12 @@ document
                 const responses = [
 
                     "majestic!",
-
                     "yummy!",
-
                     "nicely drawn!",
-
                     "the customers will love that!",
-
                     "yayy!"
 
                 ];
-
 
                 const randomResponse =
                     responses[
@@ -662,14 +488,11 @@ document
                         )
                     ];
 
-
                 // =================================
                 // Confidence requirement
                 // =================================
 
-                const MIN_CONFIDENCE =
-                    0.75;
-
+                const MIN_CONFIDENCE = 0.75;
 
                 // =================================
                 // Check drawing
@@ -682,33 +505,23 @@ document
 
                     &&
 
-                    confidence >=
-                    MIN_CONFIDENCE
+                    confidence >= MIN_CONFIDENCE
 
                 ) {
 
                     const creatorName =
                         document
-                            .getElementById(
-                                "creatorName"
-                            )
+                            .getElementById("creatorName")
                             .value
                             .trim();
-
 
                     const creationName =
                         document
-                            .getElementById(
-                                "creationName"
-                            )
+                            .getElementById("creationName")
                             .value
                             .trim();
 
-
-                    if (
-                        !creatorName ||
-                        !creationName
-                    ) {
+                    if (!creatorName || !creationName) {
 
                         message.innerHTML = `
 
@@ -722,22 +535,15 @@ document
 
                     }
 
-
                     const shelfDrawing = {
 
-                        name:
-                            creatorName,
+                        name: creatorName,
 
-                        creation:
-                            creationName,
+                        creation: creationName,
 
-                        drawing:
-                            canvas.toDataURL(
-                                "image/png"
-                            )
+                        drawing: canvas.toDataURL("image/png")
 
                     };
-
 
                     const savedDrawings =
                         JSON.parse(
@@ -748,73 +554,68 @@ document
 
                         );
 
-
-                    savedDrawings.push(
-                        shelfDrawing
-                    );
-
+                    savedDrawings.push(shelfDrawing);
 
                     localStorage.setItem(
 
                         "pabloCommunityShelf",
 
-                        JSON.stringify(
-                            savedDrawings
-                        )
+                        JSON.stringify(savedDrawings)
 
                     );
-
 
                     message.innerHTML = `
 
                         <h2>Well Done!</h2>
 
-                        <p>
-                            ${randomResponse}
-                        </p>
+                        <p>${randomResponse}</p>
 
                     `;
-
 
                 } else {
 
                     message.innerHTML = `
 
                         <p>
+
                             Pablo isn't sure that's a
                             <strong>${currentRecipe}</strong>.
+
                         </p>
 
                         <p>
+
                             Try drawing it again!
+
                         </p>
 
                     `;
 
                 }
 
-
             } catch (error) {
 
                 console.error(
-                    "Prediction failed:",
-                    error
-                );
 
+                    "Prediction failed:",
+
+                    error
+
+                );
 
                 message.innerHTML = `
 
                     <p>
+
                         Pablo couldn't check the drawing.
+
                     </p>
 
                 `;
 
             }
 
-        }
-    );
-```
+        });
 
 }
 
