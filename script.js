@@ -607,3 +607,69 @@ if (error) {
 window.addEventListener("load", () => {
     loadAI();
 });
+// =====================================
+// Community Shelf
+// =====================================
+
+async function loadCommunityShelf() {
+
+    const shelfDrawings =
+        document.getElementById("shelfDrawings");
+
+    if (!shelfDrawings) return;
+
+    shelfDrawings.innerHTML = "<p>Loading...</p>";
+
+    const { data, error } = await supabase
+        .from("community_drawings")
+        .select("name, creation, drawing")
+        .order("id", { ascending: false });
+
+    if (error) {
+        console.error("Shelf failed to load:", error);
+        shelfDrawings.innerHTML =
+            "<p>Pablo couldn't load the Community Shelf.</p>";
+        return;
+    }
+
+    shelfDrawings.innerHTML = "";
+
+    if (data.length === 0) {
+        shelfDrawings.innerHTML =
+            "<p>No creations yet. Be the first!</p>";
+        return;
+    }
+
+    data.forEach((item) => {
+
+        const drawingBox =
+            document.createElement("div");
+
+        const image =
+            document.createElement("img");
+
+        const creator =
+            document.createElement("p");
+
+        const creation =
+            document.createElement("h3");
+
+        image.src = item.drawing;
+        image.alt = item.creation;
+
+        image.style.maxWidth = "300px";
+        image.style.borderRadius = "15px";
+
+        creator.textContent =
+            "Drawn by " + item.name;
+
+        creation.textContent =
+            item.creation;
+
+        drawingBox.appendChild(creation);
+        drawingBox.appendChild(image);
+        drawingBox.appendChild(creator);
+
+        shelfDrawings.appendChild(drawingBox);
+    });
+}
