@@ -25,7 +25,7 @@ async function loadAI() {
 
         maxPredictions = model.getTotalClasses();
 
-        alert("pablo is ready ");
+       console.log("pablo is ready");
 
     } catch (error) {
 
