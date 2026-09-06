@@ -1,5 +1,6 @@
 // =====================================
 // Pablo's Patisserie
+// Version 2.0
 // =====================================
 
 // =====================================
@@ -24,7 +25,7 @@ try {
 
     maxPredictions = model.getTotalClasses();
 
-    console.log("pablo is ready");
+    alert("pablo is ready ");
 
 } catch (error) {
 
@@ -71,7 +72,27 @@ return recipes[
 let currentRecipe = getRandomRecipe();
 
 // =====================================
-// PLAY BUTTON
+// Drawing history
+// =====================================
+
+const history = [];
+
+let historyStep = -1;
+
+function saveState(canvas) {
+
+```
+historyStep++;
+
+history.length = historyStep;
+
+history.push(canvas.toDataURL());
+```
+
+}
+
+// =====================================
+// Start Game
 // =====================================
 
 document
@@ -161,6 +182,14 @@ app.innerHTML = `
         Eraser
     </button>
 
+    <button id="undo">
+        Undo
+    </button>
+
+    <button id="redo">
+        Redo
+    </button>
+
     <button id="clear">
         Clear
     </button>
@@ -179,7 +208,7 @@ setupCanvas();
 }
 
 // =====================================
-// CANVAS
+// Canvas
 // =====================================
 
 function setupCanvas() {
@@ -199,6 +228,21 @@ const brushSize =
 
 let drawing = false;
 
+
+// =====================================
+// Reset history
+// =====================================
+
+history.length = 0;
+
+historyStep = -1;
+
+saveState(canvas);
+
+
+// =====================================
+// Drawing settings
+// =====================================
 
 ctx.strokeStyle =
     colourPicker.value;
@@ -327,37 +371,58 @@ canvas.addEventListener(
 // Stop Drawing
 // =====================================
 
-canvas.addEventListener(
-    "pointerup",
-    (event) => {
+function stopDrawing(event) {
 
-        drawing = false;
+    if (!drawing) return;
 
-        ctx.beginPath();
+    drawing = false;
 
-        if (
-            canvas.hasPointerCapture(
-                event.pointerId
-            )
-        ) {
+    ctx.beginPath();
 
-            canvas.releasePointerCapture(
-                event.pointerId
-            );
+    if (
+        event &&
+        canvas.hasPointerCapture(
+            event.pointerId
+        )
+    ) {
 
-        }
+        canvas.releasePointerCapture(
+            event.pointerId
+        );
 
     }
+
+    saveState(canvas);
+
+}
+
+
+canvas.addEventListener(
+    "pointerup",
+    stopDrawing
 );
 
 
 canvas.addEventListener(
     "pointercancel",
-    () => {
+    stopDrawing
+);
 
-        drawing = false;
 
-        ctx.beginPath();
+canvas.addEventListener(
+    "pointerleave",
+    (event) => {
+
+        if (
+            drawing &&
+            !canvas.hasPointerCapture(
+                event.pointerId
+            )
+        ) {
+
+            stopDrawing(event);
+
+        }
 
     }
 );
@@ -397,12 +462,99 @@ document
                 canvas.height
             );
 
+            saveState(canvas);
+
         }
     );
 
 
 // =====================================
-// Submit
+// Undo
+// =====================================
+
+document
+    .getElementById("undo")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (historyStep <= 0) return;
+
+            historyStep--;
+
+            const img =
+                new Image();
+
+            img.src =
+                history[historyStep];
+
+            img.onload = () => {
+
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0
+                );
+
+            };
+
+        }
+    );
+
+
+// =====================================
+// Redo
+// =====================================
+
+document
+    .getElementById("redo")
+    .addEventListener(
+        "click",
+        () => {
+
+            if (
+                historyStep >=
+                history.length - 1
+            ) return;
+
+            historyStep++;
+
+            const img =
+                new Image();
+
+            img.src =
+                history[historyStep];
+
+            img.onload = () => {
+
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+                ctx.drawImage(
+                    img,
+                    0,
+                    0
+                );
+
+            };
+
+        }
+    );
+
+
+// =====================================
+// Submit Drawing
 // =====================================
 
 document
@@ -416,19 +568,22 @@ document
                     "message"
                 );
 
+
             message.innerHTML = `
-                <p>
-                    Pablo is checking your drawing...
-                </p>
+                <div class="loading"></div>
+                <p>Pablo is checking your drawing...</p>
             `;
 
+
+            // =================================
+            // Check AI
+            // =================================
 
             if (!model) {
 
                 message.innerHTML = `
                     <p>
-                        AI is still loading.
-                        Please try again.
+                        AI is still loading. Please try again.
                     </p>
                 `;
 
@@ -440,9 +595,7 @@ document
             try {
 
                 const prediction =
-                    await model.predict(
-                        canvas
-                    );
+                    await model.predict(canvas);
 
 
                 let highestPrediction =
@@ -456,10 +609,8 @@ document
                 ) {
 
                     if (
-                        prediction[i]
-                            .probability >
-                        highestPrediction
-                            .probability
+                        prediction[i].probability >
+                        highestPrediction.probability
                     ) {
 
                         highestPrediction =
@@ -478,6 +629,12 @@ document
                     highestPrediction.probability;
 
 
+                const confidencePercent =
+                    Math.round(
+                        confidence * 100
+                    );
+
+
                 // =================================
                 // Pablo's responses
                 // =================================
@@ -485,9 +642,13 @@ document
                 const responses = [
 
                     "majestic!",
+
                     "yummy!",
+
                     "nicely drawn!",
+
                     "the customers will love that!",
+
                     "yayy!"
 
                 ];
@@ -502,20 +663,22 @@ document
                     ];
 
 
+                // =================================
+                // Confidence requirement
+                // =================================
+
                 const MIN_CONFIDENCE =
                     0.75;
 
 
                 // =================================
-                // Check Drawing
+                // Check drawing
                 // =================================
 
                 if (
 
-                    predictedObject
-                        .toLowerCase() ===
-                    currentRecipe
-                        .toLowerCase()
+                    predictedObject.toLowerCase() ===
+                    currentRecipe.toLowerCase()
 
                     &&
 
@@ -548,9 +711,11 @@ document
                     ) {
 
                         message.innerHTML = `
+
                             <p>
                                 Please add your name and name your creation first!
                             </p>
+
                         `;
 
                         return;
@@ -558,46 +723,14 @@ document
                     }
 
 
-                    // Save drawing for Community Shelf
-
-                    const shelfDrawing = {
-
-                        name: creatorName,
-
-                        creation: creationName,
-
-                        drawing:
-                            canvas.toDataURL(
-                                "image/png"
-                            )
-
-                    };
-
-
-                    const savedDrawings =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "pabloCommunityShelf"
-                            ) || "[]"
-                        );
-
-
-                    savedDrawings.push(
-                        shelfDrawing
-                    );
-
-
-                    localStorage.setItem(
-                        "pabloCommunityShelf",
-                        JSON.stringify(
-                            savedDrawings
-                        )
-                    );
-
-
                     message.innerHTML = `
+
                         <h2>Well Done!</h2>
-                        <p>${randomResponse}</p>
+
+                        <p>
+                            ${randomResponse}
+                        </p>
+
                     `;
 
 
@@ -626,138 +759,19 @@ document
                     error
                 );
 
+
                 message.innerHTML = `
+
                     <p>
                         Pablo couldn't check the drawing.
                     </p>
+
                 `;
 
             }
 
         }
     );
-```
-
-}
-
-// =====================================
-// COMMUNITY SHELF
-// =====================================
-
-document.addEventListener(
-"click",
-(event) => {
-
-```
-    if (
-        event.target.id ===
-        "shelfButton"
-    ) {
-
-        document
-            .getElementById(
-                "communityShelf"
-            )
-            .style.display =
-            "block";
-
-        displayShelf();
-
-    }
-
-
-    if (
-        event.target.id ===
-        "closeShelf"
-    ) {
-
-        document
-            .getElementById(
-                "communityShelf"
-            )
-            .style.display =
-            "none";
-
-    }
-
-}
-```
-
-);
-
-// =====================================
-// DISPLAY SHELF
-// =====================================
-
-function displayShelf() {
-
-```
-const shelf =
-    document.getElementById(
-        "shelfDrawings"
-    );
-
-if (!shelf) return;
-
-
-const savedDrawings =
-    JSON.parse(
-        localStorage.getItem(
-            "pabloCommunityShelf"
-        ) || "[]"
-    );
-
-
-shelf.innerHTML = "";
-
-
-if (savedDrawings.length === 0) {
-
-    shelf.innerHTML = `
-        <p>
-            The shelf is empty!
-        </p>
-    `;
-
-    return;
-
-}
-
-
-savedDrawings.forEach(
-    (drawing) => {
-
-        const card =
-            document.createElement(
-                "div"
-            );
-
-        card.className =
-            "shelfCard";
-
-
-        card.innerHTML = `
-
-            <h3>
-                ${drawing.creation}
-            </h3>
-
-            <p>
-                By ${drawing.name}
-            </p>
-
-            <img
-                src="${drawing.drawing}"
-                alt="${drawing.creation}"
-            >
-
-        `;
-
-
-        shelf.appendChild(card);
-
-    }
-);
 ```
 
 }
