@@ -1,4 +1,19 @@
 // =====================================
+// Supabase
+// =====================================
+
+const SUPABASE_URL =
+    "https://bvlvexagwwzwitcuyttg.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_yG4ZpSU5nyiRMhqRXajclw_OvNWot7b";
+
+const supabase =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+// =====================================
 // Pablo's Patisserie
 // Version 2.0
 // =====================================
