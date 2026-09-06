@@ -586,4 +586,6 @@ function setupCanvas() {
 // Start AI
 // =====================================
 
-loadAI();
+window.addEventListener("load", () => {
+    loadAI();
+});
