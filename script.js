@@ -481,3 +481,20 @@ function setupCanvas() {
 // =====================================
 
 loadAI();
+
+document
+    .getElementById("shelfButton")
+    .addEventListener("click", () => {
+
+        document.getElementById("communityShelf").style.display = "block";
+
+    });
+
+
+document
+    .getElementById("closeShelf")
+    .addEventListener("click", () => {
+
+        document.getElementById("communityShelf").style.display = "none";
+
+    });
