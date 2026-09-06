@@ -482,22 +482,5 @@ function setupCanvas() {
 
 loadAI();
 
-// =====================================
-// Community Shelf
-// =====================================
-
-document.addEventListener("click", (event) => {
-
-    if (event.target.id === "shelfButton") {
-
-        document.getElementById("communityShelf").style.display = "block";
-
-    }
-
-    if (event.target.id === "closeShelf") {
-
-        document.getElementById("communityShelf").style.display = "none";
-
-    }
 
 });
