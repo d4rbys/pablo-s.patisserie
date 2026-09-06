@@ -96,8 +96,8 @@ function startGame() {
         <br><br>
 
         <label for="creationName">
-            What did you create?
-        </label>
+           what did yee draw
+        <label>
 
         <br>
 
