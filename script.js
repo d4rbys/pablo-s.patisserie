@@ -723,6 +723,48 @@ document
                     }
 
 
+                    const shelfDrawing = {
+
+                        name:
+                            creatorName,
+
+                        creation:
+                            creationName,
+
+                        drawing:
+                            canvas.toDataURL(
+                                "image/png"
+                            )
+
+                    };
+
+
+                    const savedDrawings =
+                        JSON.parse(
+
+                            localStorage.getItem(
+                                "pabloCommunityShelf"
+                            ) || "[]"
+
+                        );
+
+
+                    savedDrawings.push(
+                        shelfDrawing
+                    );
+
+
+                    localStorage.setItem(
+
+                        "pabloCommunityShelf",
+
+                        JSON.stringify(
+                            savedDrawings
+                        )
+
+                    );
+
+
                     message.innerHTML = `
 
                         <h2>Well Done!</h2>
