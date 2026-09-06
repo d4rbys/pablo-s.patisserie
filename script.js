@@ -84,6 +84,140 @@ function saveState(canvas) {
 }
 
 // =====================================
+// Community Shelf
+// =====================================
+
+function showShelf() {
+
+    const homeScreen =
+        document.getElementById("homeScreen");
+
+    const communityShelf =
+        document.getElementById("communityShelf");
+
+    if (!homeScreen || !communityShelf) return;
+
+    homeScreen.style.display = "none";
+
+    communityShelf.style.display = "block";
+
+    displayShelf();
+
+}
+
+function hideShelf() {
+
+    const homeScreen =
+        document.getElementById("homeScreen");
+
+    const communityShelf =
+        document.getElementById("communityShelf");
+
+    if (!homeScreen || !communityShelf) return;
+
+    communityShelf.style.display = "none";
+
+    homeScreen.style.display = "block";
+
+}
+
+function displayShelf() {
+
+    const shelfDrawings =
+        document.getElementById("shelfDrawings");
+
+    if (!shelfDrawings) return;
+
+    const savedDrawings =
+        JSON.parse(
+            localStorage.getItem(
+                "pabloCommunityShelf"
+            ) || "[]"
+        );
+
+    shelfDrawings.innerHTML = "";
+
+    if (savedDrawings.length === 0) {
+
+        shelfDrawings.innerHTML = `
+
+            <p>
+                No creations on the shelf yet!
+            </p>
+
+        `;
+
+        return;
+
+    }
+
+    savedDrawings.forEach((item) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "shelfCard";
+
+        const name =
+            document.createElement("h3");
+
+        name.textContent = item.name;
+
+        const creation =
+            document.createElement("p");
+
+        creation.textContent =
+            item.creation;
+
+        const drawing =
+            document.createElement("img");
+
+        drawing.src = item.drawing;
+
+        drawing.alt =
+            "Community creation";
+
+        card.appendChild(name);
+
+        card.appendChild(creation);
+
+        card.appendChild(drawing);
+
+        shelfDrawings.appendChild(card);
+
+    });
+
+}
+
+// =====================================
+// Shelf Buttons
+// =====================================
+
+const shelfButton =
+    document.getElementById("shelfButton");
+
+const closeShelf =
+    document.getElementById("closeShelf");
+
+if (shelfButton) {
+
+    shelfButton.addEventListener(
+        "click",
+        showShelf
+    );
+
+}
+
+if (closeShelf) {
+
+    closeShelf.addEventListener(
+        "click",
+        hideShelf
+    );
+
+}
+
+// =====================================
 // Start Game
 // =====================================
 
@@ -103,7 +237,9 @@ function startGame() {
             Draw a <strong>${currentRecipe}</strong>
         </p>
 
-        <label for="creatorName">Your Name</label>
+        <label for="creatorName">
+            Your Name
+        </label>
 
         <br>
 
@@ -115,7 +251,9 @@ function startGame() {
 
         <br><br>
 
-        <label for="creationName">What did you create?</label>
+        <label for="creationName">
+            What did you create?
+        </label>
 
         <br>
 
@@ -161,15 +299,25 @@ function startGame() {
 
         <br>
 
-        <button id="eraser">Eraser</button>
+        <button id="eraser">
+            Eraser
+        </button>
 
-        <button id="undo">Undo</button>
+        <button id="undo">
+            Undo
+        </button>
 
-        <button id="redo">Redo</button>
+        <button id="redo">
+            Redo
+        </button>
 
-        <button id="clear">Clear</button>
+        <button id="clear">
+            Clear
+        </button>
 
-        <button id="submit">Submit</button>
+        <button id="submit">
+            Submit
+        </button>
 
         <div id="message"></div>
 
@@ -185,14 +333,21 @@ function startGame() {
 
 function setupCanvas() {
 
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas =
+        document.getElementById("canvas");
+
+    const ctx =
+        canvas.getContext("2d");
 
     const colourPicker =
-        document.getElementById("colourPicker");
+        document.getElementById(
+            "colourPicker"
+        );
 
     const brushSize =
-        document.getElementById("brushSize");
+        document.getElementById(
+            "brushSize"
+        );
 
     let drawing = false;
 
@@ -201,6 +356,7 @@ function setupCanvas() {
     // =====================================
 
     history.length = 0;
+
     historyStep = -1;
 
     saveState(canvas);
@@ -209,30 +365,45 @@ function setupCanvas() {
     // Drawing settings
     // =====================================
 
-    ctx.strokeStyle = colourPicker.value;
-    ctx.lineWidth = brushSize.value;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
+    ctx.strokeStyle =
+        colourPicker.value;
+
+    ctx.lineWidth =
+        brushSize.value;
+
+    ctx.lineCap =
+        "round";
+
+    ctx.lineJoin =
+        "round";
 
     // =====================================
     // Colour
     // =====================================
 
-    colourPicker.addEventListener("input", () => {
+    colourPicker.addEventListener(
+        "input",
+        () => {
 
-        ctx.strokeStyle = colourPicker.value;
+            ctx.strokeStyle =
+                colourPicker.value;
 
-    });
+        }
+    );
 
     // =====================================
     // Brush Size
     // =====================================
 
-    brushSize.addEventListener("input", () => {
+    brushSize.addEventListener(
+        "input",
+        () => {
 
-        ctx.lineWidth = brushSize.value;
+            ctx.lineWidth =
+                brushSize.value;
 
-    });
+        }
+    );
 
     // =====================================
     // Get Position
@@ -240,17 +411,20 @@ function setupCanvas() {
 
     function getPosition(event) {
 
-        const rect = canvas.getBoundingClientRect();
+        const rect =
+            canvas.getBoundingClientRect();
 
         return {
 
             x:
                 (event.clientX - rect.left)
-                * (canvas.width / rect.width),
+                *
+                (canvas.width / rect.width),
 
             y:
                 (event.clientY - rect.top)
-                * (canvas.height / rect.height)
+                *
+                (canvas.height / rect.height)
 
         };
 
@@ -260,39 +434,55 @@ function setupCanvas() {
     // Start Drawing
     // =====================================
 
-    canvas.addEventListener("pointerdown", (event) => {
+    canvas.addEventListener(
+        "pointerdown",
+        (event) => {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        drawing = true;
+            drawing = true;
 
-        canvas.setPointerCapture(event.pointerId);
+            canvas.setPointerCapture(
+                event.pointerId
+            );
 
-        const pos = getPosition(event);
+            const pos =
+                getPosition(event);
 
-        ctx.beginPath();
+            ctx.beginPath();
 
-        ctx.moveTo(pos.x, pos.y);
+            ctx.moveTo(
+                pos.x,
+                pos.y
+            );
 
-    });
+        }
+    );
 
     // =====================================
     // Draw
     // =====================================
 
-    canvas.addEventListener("pointermove", (event) => {
+    canvas.addEventListener(
+        "pointermove",
+        (event) => {
 
-        if (!drawing) return;
+            if (!drawing) return;
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const pos = getPosition(event);
+            const pos =
+                getPosition(event);
 
-        ctx.lineTo(pos.x, pos.y);
+            ctx.lineTo(
+                pos.x,
+                pos.y
+            );
 
-        ctx.stroke();
+            ctx.stroke();
 
-    });
+        }
+    );
 
     // =====================================
     // Stop Drawing
@@ -308,10 +498,14 @@ function setupCanvas() {
 
         if (
             event &&
-            canvas.hasPointerCapture(event.pointerId)
+            canvas.hasPointerCapture(
+                event.pointerId
+            )
         ) {
 
-            canvas.releasePointerCapture(event.pointerId);
+            canvas.releasePointerCapture(
+                event.pointerId
+            );
 
         }
 
@@ -319,22 +513,33 @@ function setupCanvas() {
 
     }
 
-    canvas.addEventListener("pointerup", stopDrawing);
+    canvas.addEventListener(
+        "pointerup",
+        stopDrawing
+    );
 
-    canvas.addEventListener("pointercancel", stopDrawing);
+    canvas.addEventListener(
+        "pointercancel",
+        stopDrawing
+    );
 
-    canvas.addEventListener("pointerleave", (event) => {
+    canvas.addEventListener(
+        "pointerleave",
+        (event) => {
 
-        if (
-            drawing &&
-            !canvas.hasPointerCapture(event.pointerId)
-        ) {
+            if (
+                drawing &&
+                !canvas.hasPointerCapture(
+                    event.pointerId
+                )
+            ) {
 
-            stopDrawing(event);
+                stopDrawing(event);
+
+            }
 
         }
-
-    });
+    );
 
     // =====================================
     // Eraser
@@ -342,11 +547,15 @@ function setupCanvas() {
 
     document
         .getElementById("eraser")
-        .addEventListener("click", () => {
+        .addEventListener(
+            "click",
+            () => {
 
-            ctx.strokeStyle = "#FFFFFF";
+                ctx.strokeStyle =
+                    "#FFFFFF";
 
-        });
+            }
+        );
 
     // =====================================
     // Clear
@@ -354,18 +563,21 @@ function setupCanvas() {
 
     document
         .getElementById("clear")
-        .addEventListener("click", () => {
+        .addEventListener(
+            "click",
+            () => {
 
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
+                ctx.clearRect(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
 
-            saveState(canvas);
+                saveState(canvas);
 
-        });
+            }
+        );
 
     // =====================================
     // Undo
@@ -373,34 +585,41 @@ function setupCanvas() {
 
     document
         .getElementById("undo")
-        .addEventListener("click", () => {
+        .addEventListener(
+            "click",
+            () => {
 
-            if (historyStep <= 0) return;
+                if (
+                    historyStep <= 0
+                ) return;
 
-            historyStep--;
+                historyStep--;
 
-            const img = new Image();
+                const img =
+                    new Image();
 
-            img.src = history[historyStep];
+                img.src =
+                    history[historyStep];
 
-            img.onload = () => {
+                img.onload = () => {
 
-                ctx.clearRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
+                    ctx.clearRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
 
-                ctx.drawImage(
-                    img,
-                    0,
-                    0
-                );
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0
+                    );
 
-            };
+                };
 
-        });
+            }
+        );
 
     // =====================================
     // Redo
@@ -408,34 +627,42 @@ function setupCanvas() {
 
     document
         .getElementById("redo")
-        .addEventListener("click", () => {
+        .addEventListener(
+            "click",
+            () => {
 
-            if (historyStep >= history.length - 1) return;
+                if (
+                    historyStep >=
+                    history.length - 1
+                ) return;
 
-            historyStep++;
+                historyStep++;
 
-            const img = new Image();
+                const img =
+                    new Image();
 
-            img.src = history[historyStep];
+                img.src =
+                    history[historyStep];
 
-            img.onload = () => {
+                img.onload = () => {
 
-                ctx.clearRect(
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
+                    ctx.clearRect(
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
 
-                ctx.drawImage(
-                    img,
-                    0,
-                    0
-                );
+                    ctx.drawImage(
+                        img,
+                        0,
+                        0
+                    );
 
-            };
+                };
 
-        });
+            }
+        );
 
     // =====================================
     // Submit Drawing
@@ -443,205 +670,238 @@ function setupCanvas() {
 
     document
         .getElementById("submit")
-        .addEventListener("click", async () => {
+        .addEventListener(
+            "click",
+            async () => {
 
-            const message =
-                document.getElementById("message");
-
-            message.innerHTML = `
-                <div class="loading"></div>
-                <p>Pablo is checking your drawing...</p>
-            `;
-
-            // =================================
-            // Check AI
-            // =================================
-
-            if (!model) {
+                const message =
+                    document.getElementById(
+                        "message"
+                    );
 
                 message.innerHTML = `
-                    <p>AI is still loading. Please try again.</p>
+                    <div class="loading"></div>
+                    <p>Pablo is checking your drawing...</p>
                 `;
 
-                return;
+                // =================================
+                // Check AI
+                // =================================
 
-            }
+                if (!model) {
 
-            try {
+                    message.innerHTML = `
+                        <p>AI is still loading. Please try again.</p>
+                    `;
 
-                const prediction =
-                    await model.predict(canvas);
-
-                let highestPrediction =
-                    prediction[0];
-
-                for (
-                    let i = 1;
-                    i < prediction.length;
-                    i++
-                ) {
-
-                    if (
-                        prediction[i].probability >
-                        highestPrediction.probability
-                    ) {
-
-                        highestPrediction =
-                            prediction[i];
-
-                    }
+                    return;
 
                 }
 
-                const predictedObject =
-                    highestPrediction.className;
+                try {
 
-                const confidence =
-                    highestPrediction.probability;
+                    const prediction =
+                        await model.predict(
+                            canvas
+                        );
 
-                const confidencePercent =
-                    Math.round(confidence * 100);
+                    let highestPrediction =
+                        prediction[0];
 
-                // =================================
-                // Pablo's responses
-                // =================================
+                    for (
+                        let i = 1;
+                        i < prediction.length;
+                        i++
+                    ) {
 
-                const responses = [
+                        if (
+                            prediction[i]
+                                .probability >
+                            highestPrediction
+                                .probability
+                        ) {
 
-                    "majestic!",
+                            highestPrediction =
+                                prediction[i];
 
-                    "yummy!",
+                        }
 
-                    "nicely drawn!",
+                    }
 
-                    "the customers will love that!",
+                    const predictedObject =
+                        highestPrediction.className;
 
-                    "yayy!"
+                    const confidence =
+                        highestPrediction.probability;
 
-                ];
+                    const confidencePercent =
+                        Math.round(
+                            confidence * 100
+                        );
 
-                const randomResponse =
-                    responses[
-                        Math.floor(
-                            Math.random() *
-                            responses.length
-                        )
+                    // =================================
+                    // Pablo's responses
+                    // =================================
+
+                    const responses = [
+
+                        "majestic!",
+
+                        "yummy!",
+
+                        "nicely drawn!",
+
+                        "the customers will love that!",
+
+                        "yayy!"
+
                     ];
 
-                // =================================
-                // Confidence requirement
-                // =================================
+                    const randomResponse =
+                        responses[
+                            Math.floor(
+                                Math.random() *
+                                responses.length
+                            )
+                        ];
 
-                const MIN_CONFIDENCE = 0.75;
+                    // =================================
+                    // Confidence requirement
+                    // =================================
 
-                // =================================
-                // Check drawing
-                // =================================
+                    const MIN_CONFIDENCE =
+                        0.75;
 
-                if (
+                    // =================================
+                    // Check drawing
+                    // =================================
 
-                    predictedObject.toLowerCase() ===
-                    currentRecipe.toLowerCase()
+                    if (
 
-                    &&
+                        predictedObject
+                            .toLowerCase() ===
+                        currentRecipe
+                            .toLowerCase()
 
-                    confidence >= MIN_CONFIDENCE
+                        &&
 
-                ) {
+                        confidence >=
+                        MIN_CONFIDENCE
 
-                    const creatorName =
-                        document
-                            .getElementById("creatorName")
-                            .value
-                            .trim();
+                    ) {
 
-                    const creationName =
-                        document
-                            .getElementById("creationName")
-                            .value
-                            .trim();
+                        const creatorName =
+                            document
+                                .getElementById(
+                                    "creatorName"
+                                )
+                                .value
+                                .trim();
 
-                    if (!creatorName || !creationName) {
+                        const creationName =
+                            document
+                                .getElementById(
+                                    "creationName"
+                                )
+                                .value
+                                .trim();
+
+                        if (
+                            !creatorName ||
+                            !creationName
+                        ) {
+
+                            message.innerHTML = `
+
+                                <p>
+                                    Please add your name and name your creation first!
+                                </p>
+
+                            `;
+
+                            return;
+
+                        }
+
+                        const shelfDrawing = {
+
+                            name:
+                                creatorName,
+
+                            creation:
+                                creationName,
+
+                            drawing:
+                                canvas.toDataURL(
+                                    "image/png"
+                                )
+
+                        };
+
+                        const savedDrawings =
+                            JSON.parse(
+                                localStorage.getItem(
+                                    "pabloCommunityShelf"
+                                ) || "[]"
+                            );
+
+                        savedDrawings.push(
+                            shelfDrawing
+                        );
+
+                        localStorage.setItem(
+                            "pabloCommunityShelf",
+                            JSON.stringify(
+                                savedDrawings
+                            )
+                        );
 
                         message.innerHTML = `
 
+                            <h2>Well Done!</h2>
+
                             <p>
-                                Please add your name and name your creation first!
+                                ${randomResponse}
                             </p>
 
                         `;
 
-                        return;
+                    } else {
+
+                        message.innerHTML = `
+
+                            <p>
+                                Pablo isn't sure that's a
+                                <strong>${currentRecipe}</strong>.
+                            </p>
+
+                            <p>
+                                Try drawing it again!
+                            </p>
+
+                        `;
 
                     }
 
-                    const shelfDrawing = {
+                } catch (error) {
 
-                        name: creatorName,
-
-                        creation: creationName,
-
-                        drawing: canvas.toDataURL("image/png")
-
-                    };
-
-                    const savedDrawings =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "pabloCommunityShelf"
-                            ) || "[]"
-                        );
-
-                    savedDrawings.push(shelfDrawing);
-
-                    localStorage.setItem(
-                        "pabloCommunityShelf",
-                        JSON.stringify(savedDrawings)
+                    console.error(
+                        "Prediction failed:",
+                        error
                     );
 
                     message.innerHTML = `
 
-                        <h2>Well Done!</h2>
-
-                        <p>${randomResponse}</p>
-
-                    `;
-
-                } else {
-
-                    message.innerHTML = `
-
                         <p>
-                            Pablo isn't sure that's a
-                            <strong>${currentRecipe}</strong>.
-                        </p>
-
-                        <p>
-                            Try drawing it again!
+                            Pablo couldn't check the drawing.
                         </p>
 
                     `;
 
                 }
 
-            } catch (error) {
-
-                console.error(
-                    "Prediction failed:",
-                    error
-                );
-
-                message.innerHTML = `
-
-                    <p>
-                        Pablo couldn't check the drawing.
-                    </p>
-
-                `;
-
             }
-
-        });
+        );
 
 }
 
