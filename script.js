@@ -482,19 +482,18 @@ function setupCanvas() {
 
 loadAI();
 
-document
-    .getElementById("shelfButton")
-    .addEventListener("click", () => {
+const shelfButton = document.getElementById("shelfButton");
+const closeShelf = document.getElementById("closeShelf");
+const communityShelf = document.getElementById("communityShelf");
 
-        document.getElementById("communityShelf").style.display = "block";
+shelfButton.addEventListener("click", () => {
 
-    });
+    communityShelf.style.display = "block";
 
+});
 
-document
-    .getElementById("closeShelf")
-    .addEventListener("click", () => {
+closeShelf.addEventListener("click", () => {
 
-        document.getElementById("communityShelf").style.display = "none";
+    communityShelf.style.display = "none";
 
-    });
+});
