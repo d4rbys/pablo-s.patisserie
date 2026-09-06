@@ -556,17 +556,20 @@ function setupCanvas() {
                         drawing: drawingData
 
                     };
+const { error } = await supabase
+    .from("community_drawings")
+    .insert({
+        name: creatorName,
+        creation: creationName,
+        drawing: drawingData
+    });
 
-                    let shelfDrawings =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "pabloCommunityShelf"
-                            )
-                        ) || [];
-
-                    shelfDrawings.push(
-                        communityDrawing
-                    );
+if (error) {
+    console.error("Upload failed:", error);
+    message.innerHTML =
+        `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
+    return;
+}  );
 
                     localStorage.setItem(
                         "pabloCommunityShelf",
