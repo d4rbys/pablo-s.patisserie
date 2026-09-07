@@ -13,6 +13,7 @@ const supabase =
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
+
 // =====================================
 // Pablo's Patisserie
 // Version 2.0
@@ -74,7 +75,9 @@ const recipes = [
 
 function getRandomRecipe() {
 
-    return recipes[Math.floor(Math.random() * recipes.length)];
+    return recipes[
+        Math.floor(Math.random() * recipes.length)
+    ];
 
 }
 
@@ -85,17 +88,22 @@ let currentRecipe = getRandomRecipe();
 // =====================================
 
 const drawingHistory = [];
+
 let historyStep = -1;
 
 function saveState(canvas) {
 
     historyStep++;
 
-    history.length = historyStep;
+    drawingHistory.length = historyStep;
 
-    history.push(canvas.toDataURL());
+    drawingHistory.push(
+        canvas.toDataURL()
+    );
 
-}// =====================================
+}
+
+// =====================================
 // Start Game
 // =====================================
 
@@ -189,14 +197,19 @@ function startGame() {
 
     setupCanvas();
 
-}// =====================================
+}
+
+// =====================================
 // Canvas
 // =====================================
 
 function setupCanvas() {
 
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas =
+        document.getElementById("canvas");
+
+    const ctx =
+        canvas.getContext("2d");
 
     const colourPicker =
         document.getElementById("colourPicker");
@@ -206,51 +219,34 @@ function setupCanvas() {
 
     let drawing = false;
 
-    // =====================================
-    // Reset history
-    // =====================================
-
-    history.length = 0;
+    drawingHistory.length = 0;
     historyStep = -1;
 
     saveState(canvas);
-
-    // =====================================
-    // Drawing settings
-    // =====================================
 
     ctx.strokeStyle = colourPicker.value;
     ctx.lineWidth = brushSize.value;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // =====================================
-    // Colour
-    // =====================================
-
     colourPicker.addEventListener("input", () => {
 
-        ctx.strokeStyle = colourPicker.value;
+        ctx.strokeStyle =
+            colourPicker.value;
 
     });
-
-    // =====================================
-    // Brush Size
-    // =====================================
 
     brushSize.addEventListener("input", () => {
 
-        ctx.lineWidth = brushSize.value;
+        ctx.lineWidth =
+            brushSize.value;
 
     });
 
-    // =====================================
-    // Get Position
-    // =====================================
-
     function getPosition(event) {
 
-        const rect = canvas.getBoundingClientRect();
+        const rect =
+            canvas.getBoundingClientRect();
 
         return {
 
@@ -266,47 +262,51 @@ function setupCanvas() {
 
     }
 
-    // =====================================
-    // Start Drawing
-    // =====================================
+    canvas.addEventListener(
+        "pointerdown",
+        (event) => {
 
-    canvas.addEventListener("pointerdown", (event) => {
+            event.preventDefault();
 
-        event.preventDefault();
+            drawing = true;
 
-        drawing = true;
+            canvas.setPointerCapture(
+                event.pointerId
+            );
 
-        canvas.setPointerCapture(event.pointerId);
+            const pos =
+                getPosition(event);
 
-        const pos = getPosition(event);
+            ctx.beginPath();
 
-        ctx.beginPath();
+            ctx.moveTo(
+                pos.x,
+                pos.y
+            );
 
-        ctx.moveTo(pos.x, pos.y);
+        }
+    );
 
-    });
+    canvas.addEventListener(
+        "pointermove",
+        (event) => {
 
-    // =====================================
-    // Draw
-    // =====================================
+            if (!drawing) return;
 
-    canvas.addEventListener("pointermove", (event) => {
+            event.preventDefault();
 
-        if (!drawing) return;
+            const pos =
+                getPosition(event);
 
-        event.preventDefault();
+            ctx.lineTo(
+                pos.x,
+                pos.y
+            );
 
-        const pos = getPosition(event);
+            ctx.stroke();
 
-        ctx.lineTo(pos.x, pos.y);
-
-        ctx.stroke();
-
-    });
-
-    // =====================================
-    // Stop Drawing
-    // =====================================
+        }
+    );
 
     function stopDrawing(event) {
 
@@ -318,10 +318,14 @@ function setupCanvas() {
 
         if (
             event &&
-            canvas.hasPointerCapture(event.pointerId)
+            canvas.hasPointerCapture(
+                event.pointerId
+            )
         ) {
 
-            canvas.releasePointerCapture(event.pointerId);
+            canvas.releasePointerCapture(
+                event.pointerId
+            );
 
         }
 
@@ -329,22 +333,33 @@ function setupCanvas() {
 
     }
 
-    canvas.addEventListener("pointerup", stopDrawing);
+    canvas.addEventListener(
+        "pointerup",
+        stopDrawing
+    );
 
-    canvas.addEventListener("pointercancel", stopDrawing);
+    canvas.addEventListener(
+        "pointercancel",
+        stopDrawing
+    );
 
-    canvas.addEventListener("pointerleave", (event) => {
+    canvas.addEventListener(
+        "pointerleave",
+        (event) => {
 
-        if (
-            drawing &&
-            !canvas.hasPointerCapture(event.pointerId)
-        ) {
+            if (
+                drawing &&
+                !canvas.hasPointerCapture(
+                    event.pointerId
+                )
+            ) {
 
-            stopDrawing(event);
+                stopDrawing(event);
+
+            }
 
         }
-
-    });
+    );
 
     // =====================================
     // Eraser
@@ -389,9 +404,11 @@ function setupCanvas() {
 
             historyStep--;
 
-            const img = new Image();
+            const img =
+                new Image();
 
-            img.src = history[historyStep];
+            img.src =
+                drawingHistory[historyStep];
 
             img.onload = () => {
 
@@ -420,13 +437,18 @@ function setupCanvas() {
         .getElementById("redo")
         .addEventListener("click", () => {
 
-            if (historyStep >= history.length - 1) return;
+            if (
+                historyStep >=
+                drawingHistory.length - 1
+            ) return;
 
             historyStep++;
 
-            const img = new Image();
+            const img =
+                new Image();
 
-            img.src = history[historyStep];
+            img.src =
+                drawingHistory[historyStep];
 
             img.onload = () => {
 
@@ -446,156 +468,180 @@ function setupCanvas() {
             };
 
         });
+
     // =====================================
     // Submit Drawing
     // =====================================
 
     document
         .getElementById("submit")
-        .addEventListener("click", async () => {
+        .addEventListener(
+            "click",
+            async () => {
 
-            const message =
-                document.getElementById("message");
+                const message =
+                    document.getElementById(
+                        "message"
+                    );
 
-            message.innerHTML =
-                `<p>Pablo is checking your drawing...</p>`;
+                message.innerHTML =
+                    `<p>Pablo is checking your drawing...</p>`;
 
-            try {
+                try {
 
-                if (!model) {
+                    if (!model) {
 
-                    message.innerHTML =
-                        `<p>Pablo isn't ready yet.</p>`;
+                        message.innerHTML =
+                            `<p>Pablo isn't ready yet.</p>`;
 
-                    return;
-
-                }
-
-                const prediction =
-                    await model.predict(canvas);
-
-                let highestProbability = 0;
-                let predictedObject = "";
-
-                for (let i = 0; i < prediction.length; i++) {
-
-                    if (
-                        prediction[i].probability
-                        > highestProbability
-                    ) {
-
-                        highestProbability =
-                            prediction[i].probability;
-
-                        predictedObject =
-                            prediction[i].className;
+                        return;
 
                     }
 
-                }
+                    const prediction =
+                        await model.predict(canvas);
 
-                const confidence =
-                    highestProbability;
+                    let highestProbability = 0;
+                    let predictedObject = "";
 
-                const MIN_CONFIDENCE = 0.75;
+                    for (
+                        let i = 0;
+                        i < prediction.length;
+                        i++
+                    ) {
 
-                const creatorName =
-                    document.getElementById("creatorName").value.trim();
+                        if (
+                            prediction[i].probability >
+                            highestProbability
+                        ) {
 
-                const creationName =
-                    document.getElementById("creationName").value.trim();
+                            highestProbability =
+                                prediction[i].probability;
 
-                if (!creatorName || !creationName) {
+                            predictedObject =
+                                prediction[i].className;
 
-                    message.innerHTML =
-                        `<p>Please add your name and name your creation!</p>`;
+                        }
 
-                    return;
+                    }
 
-                }
+                    const confidence =
+                        highestProbability;
 
-                const responses = [
-                    "majestic!",
-                    "yummy!",
-                    "nicely drawn!",
-                    "the customers will love that!",
-                    "yayy!"
-                ];
+                    const MIN_CONFIDENCE = 0.75;
 
-                const randomResponse =
-                    responses[
-                        Math.floor(
-                            Math.random() * responses.length
-                        )
+                    const creatorName =
+                        document
+                            .getElementById(
+                                "creatorName"
+                            )
+                            .value
+                            .trim();
+
+                    const creationName =
+                        document
+                            .getElementById(
+                                "creationName"
+                            )
+                            .value
+                            .trim();
+
+                    if (
+                        !creatorName ||
+                        !creationName
+                    ) {
+
+                        message.innerHTML =
+                            `<p>Please add your name and name your creation!</p>`;
+
+                        return;
+
+                    }
+
+                    const responses = [
+                        "majestic!",
+                        "yummy!",
+                        "nicely drawn!",
+                        "the customers will love that!",
+                        "yayy!"
                     ];
 
-                if (
-                    predictedObject === currentRecipe &&
-                    confidence >= MIN_CONFIDENCE
-                ) {
+                    const randomResponse =
+                        responses[
+                            Math.floor(
+                                Math.random() *
+                                responses.length
+                            )
+                        ];
 
-                    message.innerHTML = `
-                        <h2>Well Done!</h2>
-                        <p>${randomResponse}</p>
-                    `;
+                    if (
+                        predictedObject ===
+                        currentRecipe &&
+                        confidence >=
+                        MIN_CONFIDENCE
+                    ) {
 
-                    // =====================================
-                    // Save to Community Shelf
-                    // =====================================
+                        const drawingData =
+                            canvas.toDataURL(
+                                "image/png"
+                            );
 
-                    const drawingData =
-                        canvas.toDataURL("image/png");
+                        const {
+                            error
+                        } = await supabase
+                            .from(
+                                "community_drawings"
+                            )
+                            .insert({
+                                name:
+                                    creatorName,
 
-                    const communityDrawing = {
+                                creation:
+                                    creationName,
 
-                        name: creatorName,
+                                drawing:
+                                    drawingData
+                            });
 
-                        creation: creationName,
+                        if (error) {
 
-                        drawing: drawingData
+                            console.error(
+                                "Upload failed:",
+                                error
+                            );
 
-                    };
-const { error } = await supabase
-    .from("community_drawings")
-    .insert({
-        name: creatorName,
-        creation: creationName,
-        drawing: drawingData
-    });
+                            message.innerHTML =
+                                `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
 
-if (error) {
-    console.error("Upload failed:", error);
-    message.innerHTML =
-        `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
-    return;
-}  );
+                            return;
 
-                    localStorage.setItem(
-                        "pabloCommunityShelf",
-                        JSON.stringify(
-                            shelfDrawings
-                        )
-                    );
+                        }
 
-                } else {
+                        message.innerHTML = `
+                            <h2>Well Done!</h2>
+                            <p>${randomResponse}</p>
+                        `;
 
-                    message.innerHTML = `
-                        <p>Pablo isn't sure that's a <strong>${currentRecipe}</strong>.</p>
-                        <p>Try drawing it again!</p>
-                    `;
+                    } else {
+
+                        message.innerHTML = `
+                            <p>Pablo isn't sure that's a <strong>${currentRecipe}</strong>.</p>
+                            <p>Try drawing it again!</p>
+                        `;
+
+                    }
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    message.innerHTML =
+                        `<p>Pablo couldn't check the drawing.</p>`;
 
                 }
 
-            } catch (error) {
-
-                console.error(error);
-
-                message.innerHTML =
-                    `<p>Pablo couldn't check the drawing.</p>`;
-
             }
-
-        });
+        );
 
 }
 
@@ -603,9 +649,13 @@ if (error) {
 // Start AI
 // =====================================
 
-window.addEventListener("load", () => {
-    loadAI();
-});
+window.addEventListener(
+    "load",
+    () => {
+        loadAI();
+    }
+);
+
 // =====================================
 // Community Shelf
 // =====================================
@@ -613,22 +663,54 @@ window.addEventListener("load", () => {
 async function loadCommunityShelf() {
 
     const shelfDrawings =
-        document.getElementById("shelfDrawings");
+        document.getElementById(
+            "shelfDrawings"
+        );
 
     if (!shelfDrawings) return;
 
-    shelfDrawings.innerHTML = "<p>Loading...</p>";
+    shelfDrawings.innerHTML =
+        "<p>Loading...</p>";
 
-    const { data, error } = await supabase
+    const {
+        data,
+        error
+    } = await supabase
         .from("community_drawings")
-        .select("name, creation, drawing")
-        .order("id", { ascending: false });
-if (error) {
-    console.error("Upload failed:", error);
-    message.innerHTML =
-        `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
-    return;
-}  }
+        .select(
+            "name, creation, drawing"
+        )
+        .order(
+            "id",
+            {
+                ascending: false
+            }
+        );
+
+    if (error) {
+
+        console.error(
+            "Shelf failed to load:",
+            error
+        );
+
+        shelfDrawings.innerHTML =
+            "<p>Pablo couldn't load the Community Shelf.</p>";
+
+        return;
+
+    }
+
+    shelfDrawings.innerHTML = "";
+
+    if (!data || data.length === 0) {
+
+        shelfDrawings.innerHTML =
+            "<p>No creations yet. Be the first!</p>";
+
+        return;
+
+    }
 
     data.forEach((item) => {
 
@@ -644,11 +726,17 @@ if (error) {
         const creation =
             document.createElement("h3");
 
-        image.src = item.drawing;
-        image.alt = item.creation;
+        image.src =
+            item.drawing;
 
-        image.style.maxWidth = "300px";
-        image.style.borderRadius = "15px";
+        image.alt =
+            item.creation;
+
+        image.style.maxWidth =
+            "300px";
+
+        image.style.borderRadius =
+            "15px";
 
         creator.textContent =
             "Drawn by " + item.name;
@@ -656,10 +744,22 @@ if (error) {
         creation.textContent =
             item.creation;
 
-        drawingBox.appendChild(creation);
-        drawingBox.appendChild(image);
-        drawingBox.appendChild(creator);
+        drawingBox.appendChild(
+            creation
+        );
 
-        shelfDrawings.appendChild(drawingBox);
+        drawingBox.appendChild(
+            image
+        );
+
+        drawingBox.appendChild(
+            creator
+        );
+
+        shelfDrawings.appendChild(
+            drawingBox
+        );
+
     });
+
 }
