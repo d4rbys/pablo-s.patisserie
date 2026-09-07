@@ -84,8 +84,7 @@ let currentRecipe = getRandomRecipe();
 // Drawing history
 // =====================================
 
-const history = [];
-
+const drawingHistory = [];
 let historyStep = -1;
 
 function saveState(canvas) {
