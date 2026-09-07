@@ -8,12 +8,21 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
     "sb_publishable_yG4ZpSU5nyiRMhqRXajclw_OvNWot7b";
 
-const supabase =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
+let supabaseClient = null;
 
+if (window.supabase) {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+} else {
+
+    console.error("Supabase library did not load.");
+
+}
 // =====================================
 // Pablo's Patisserie
 // Version 2.0
