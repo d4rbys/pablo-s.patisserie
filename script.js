@@ -624,21 +624,12 @@ async function loadCommunityShelf() {
         .from("community_drawings")
         .select("name, creation, drawing")
         .order("id", { ascending: false });
-
-    if (error) {
-        console.error("Shelf failed to load:", error);
-        shelfDrawings.innerHTML =
-            "<p>Pablo couldn't load the Community Shelf.</p>";
-        return;
-    }
-
-    shelfDrawings.innerHTML = "";
-
-    if (data.length === 0) {
-        shelfDrawings.innerHTML =
-            "<p>No creations yet. Be the first!</p>";
-        return;
-    }
+if (error) {
+    console.error("Upload failed:", error);
+    message.innerHTML =
+        `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
+    return;
+}  }
 
     data.forEach((item) => {
 
