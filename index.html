@@ -16,6 +16,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile-fix.css">
 
 </head>
 
@@ -52,42 +53,44 @@
                 Play
             </button>
 
-          <button id="shelfButton" onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()">
-    Community Shelf
-</button>
+            <button id="shelfButton" onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()">
+                Community Shelf
+            </button>
 
-<section id="communityShelf" style="display: none;">
+            <section id="communityShelf" style="display: none;">
 
-    <h2>Community Shelf</h2>
+                <h2>Community Shelf</h2>
 
-    <div id="shelfDrawings"></div>
+                <div id="shelfDrawings"></div>
 
-    <button id="closeShelf" onclick="document.getElementById('communityShelf').style.display='none'">
-    Back
-</button>
+                <button id="closeShelf" onclick="document.getElementById('communityShelf').style.display='none'">
+                    Back
+                </button>
 
-</section>
+            </section>
+
         </section>
 
     </main>
 
 </div>
 
+<!-- Game (loads first so the Play button works straight away) -->
+
+<script src="script.js"></script>
+
 <!-- TensorFlow -->
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 
 <!-- Teachable Machine -->
 
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
 <!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Game -->
-
-<script src="script.js"></script>
 </body>
 
 </html>
