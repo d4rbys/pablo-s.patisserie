@@ -1,4 +1,3 @@
-```javascript
 // =====================================
 // Supabase
 // =====================================
@@ -12,23 +11,13 @@ const SUPABASE_ANON_KEY =
 let supabaseClient = null;
 
 if (window.supabase) {
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
-
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
 } else {
-
     console.error("Supabase library did not load.");
-
 }
-
-
-// =====================================
-// Pablo's Patisserie
-// =====================================
 
 
 // =====================================
@@ -39,30 +28,20 @@ const MODEL_URL =
     "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
 
 let model = null;
-let maxPredictions = 0;
 
 async function loadAI() {
 
-    const modelURL =
-        MODEL_URL + "model.json";
-
-    const metadataURL =
-        MODEL_URL + "metadata.json";
+    const modelURL = MODEL_URL + "model.json";
+    const metadataURL = MODEL_URL + "metadata.json";
 
     try {
 
-        model =
-            await tmImage.load(
-                modelURL,
-                metadataURL
-            );
-
-        maxPredictions =
-            model.getTotalClasses();
-
-        console.log(
-            "Pablo AI is ready!"
+        model = await tmImage.load(
+            modelURL,
+            metadataURL
         );
+
+        console.log("Pablo AI is ready!");
 
     } catch (error) {
 
@@ -72,7 +51,6 @@ async function loadAI() {
         );
 
     }
-
 }
 
 
@@ -80,8 +58,7 @@ async function loadAI() {
 // App
 // =====================================
 
-const app =
-    document.getElementById("app");
+const app = document.getElementById("app");
 
 
 // =====================================
@@ -101,21 +78,17 @@ const recipes = [
     "Birthday Cake"
 ];
 
-
 function getRandomRecipe() {
 
     return recipes[
         Math.floor(
-            Math.random() *
-            recipes.length
+            Math.random() * recipes.length
         )
     ];
 
 }
 
-
-let currentRecipe =
-    getRandomRecipe();
+let currentRecipe = getRandomRecipe();
 
 
 // =====================================
@@ -126,13 +99,11 @@ const drawingHistory = [];
 
 let historyStep = -1;
 
-
 function saveState(canvas) {
 
     historyStep++;
 
-    drawingHistory.length =
-        historyStep;
+    drawingHistory.length = historyStep;
 
     drawingHistory.push(
         canvas.toDataURL()
@@ -146,10 +117,7 @@ function saveState(canvas) {
 // =====================================
 
 const playButton =
-    document.getElementById(
-        "playButton"
-    );
-
+    document.getElementById("playButton");
 
 if (playButton) {
 
@@ -160,65 +128,54 @@ if (playButton) {
 
 }
 
-
 function startGame() {
 
     app.innerHTML = `
 
         <header>
 
-            <h1>
-                Pablo's Patisserie
-            </h1>
+            <h1>Pablo's Patisserie</h1>
 
         </header>
 
         <main>
 
-            <h2>
-                Today's Order
-            </h2>
+            <h2>Today's Order</h2>
 
             <p id="recipe">
                 Draw a
-                <strong>
-                    ${currentRecipe}
-                </strong>
+                <strong>${currentRecipe}</strong>
             </p>
 
-            <div class="creatorDetails">
-
-                <label for="creatorName">
-                    Your Name
-                </label>
-
-                <br>
-
-                <input
-                    type="text"
-                    id="creatorName"
-                    placeholder="Your name"
-                    maxlength="30"
-                >
-
-                <br><br>
-
-                <label for="creationName">
-                    What did you create?
-                </label>
-
-                <br>
-
-                <input
-                    type="text"
-                    id="creationName"
-                    placeholder="Name your creation"
-                    maxlength="40"
-                >
-
-            </div>
+            <label for="creatorName">
+                Your Name
+            </label>
 
             <br>
+
+            <input
+                type="text"
+                id="creatorName"
+                placeholder="Your name"
+                maxlength="30"
+            >
+
+            <br><br>
+
+            <label for="creationName">
+                What did you create?
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="creationName"
+                placeholder="Name your creation"
+                maxlength="40"
+            >
+
+            <br><br>
 
             <div class="toolbar">
 
@@ -252,8 +209,6 @@ function startGame() {
 
             </div>
 
-            <br>
-
             <canvas
                 id="canvas"
                 width="700"
@@ -262,29 +217,25 @@ function startGame() {
 
             <br><br>
 
-            <div class="drawingButtons">
+            <button id="eraser">
+                Eraser
+            </button>
 
-                <button id="eraser">
-                    Eraser
-                </button>
+            <button id="undo">
+                Undo
+            </button>
 
-                <button id="undo">
-                    Undo
-                </button>
+            <button id="redo">
+                Redo
+            </button>
 
-                <button id="redo">
-                    Redo
-                </button>
+            <button id="clear">
+                Clear
+            </button>
 
-                <button id="clear">
-                    Clear
-                </button>
-
-                <button id="submit">
-                    Submit
-                </button>
-
-            </div>
+            <button id="submit">
+                Submit
+            </button>
 
             <div id="message"></div>
 
@@ -304,80 +255,54 @@ function startGame() {
 function setupCanvas() {
 
     const canvas =
-        document.getElementById(
-            "canvas"
-        );
+        document.getElementById("canvas");
 
     const ctx =
         canvas.getContext("2d");
 
     const colourPicker =
-        document.getElementById(
-            "colourPicker"
-        );
+        document.getElementById("colourPicker");
 
     const brushSize =
-        document.getElementById(
-            "brushSize"
-        );
+        document.getElementById("brushSize");
 
     const eraser =
-        document.getElementById(
-            "eraser"
-        );
+        document.getElementById("eraser");
 
     const undo =
-        document.getElementById(
-            "undo"
-        );
+        document.getElementById("undo");
 
     const redo =
-        document.getElementById(
-            "redo"
-        );
+        document.getElementById("redo");
 
     const clear =
-        document.getElementById(
-            "clear"
-        );
+        document.getElementById("clear");
 
     const submit =
-        document.getElementById(
-            "submit"
-        );
+        document.getElementById("submit");
 
 
     let drawing = false;
 
-    let erasing = false;
 
-
-    // Reset history for new drawing
+    // Reset history
 
     drawingHistory.length = 0;
-
     historyStep = -1;
 
     saveState(canvas);
 
 
-    // =====================================
-    // Drawing Settings
-    // =====================================
+    // Drawing settings
 
     ctx.strokeStyle =
         colourPicker.value;
 
     ctx.lineWidth =
-        Number(
-            brushSize.value
-        );
+        Number(brushSize.value);
 
-    ctx.lineCap =
-        "round";
-
-    ctx.lineJoin =
-        "round";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
 
     // =====================================
@@ -387,8 +312,6 @@ function setupCanvas() {
     colourPicker.addEventListener(
         "input",
         () => {
-
-            erasing = false;
 
             ctx.globalCompositeOperation =
                 "source-over";
@@ -409,16 +332,14 @@ function setupCanvas() {
         () => {
 
             ctx.lineWidth =
-                Number(
-                    brushSize.value
-                );
+                Number(brushSize.value);
 
         }
     );
 
 
     // =====================================
-    // Mouse / Touch Position
+    // Position
     // =====================================
 
     function getPosition(event) {
@@ -429,20 +350,12 @@ function setupCanvas() {
         return {
 
             x:
-                (event.clientX - rect.left)
-                *
-                (
-                    canvas.width /
-                    rect.width
-                ),
+                (event.clientX - rect.left) *
+                (canvas.width / rect.width),
 
             y:
-                (event.clientY - rect.top)
-                *
-                (
-                    canvas.height /
-                    rect.height
-                )
+                (event.clientY - rect.top) *
+                (canvas.height / rect.height)
 
         };
 
@@ -517,7 +430,6 @@ function setupCanvas() {
 
         ctx.beginPath();
 
-
         if (
             event &&
             canvas.hasPointerCapture(
@@ -530,7 +442,6 @@ function setupCanvas() {
             );
 
         }
-
 
         saveState(canvas);
 
@@ -556,8 +467,6 @@ function setupCanvas() {
         "click",
         () => {
 
-            erasing = true;
-
             ctx.globalCompositeOperation =
                 "destination-out";
 
@@ -573,23 +482,14 @@ function setupCanvas() {
         "click",
         () => {
 
-            if (
-                historyStep <= 0
-            ) {
-
-                return;
-
-            }
-
+            if (historyStep <= 0) return;
 
             historyStep--;
 
             restoreState(
                 canvas,
                 ctx,
-                drawingHistory[
-                    historyStep
-                ]
+                drawingHistory[historyStep]
             );
 
         }
@@ -607,21 +507,14 @@ function setupCanvas() {
             if (
                 historyStep >=
                 drawingHistory.length - 1
-            ) {
-
-                return;
-
-            }
-
+            ) return;
 
             historyStep++;
 
             restoreState(
                 canvas,
                 ctx,
-                drawingHistory[
-                    historyStep
-                ]
+                drawingHistory[historyStep]
             );
 
         }
@@ -658,77 +551,42 @@ function setupCanvas() {
         async () => {
 
             const message =
-                document.getElementById(
-                    "message"
-                );
-
+                document.getElementById("message");
 
             const creatorName =
                 document
-                    .getElementById(
-                        "creatorName"
-                    )
+                    .getElementById("creatorName")
                     .value
                     .trim();
-
 
             const creationName =
                 document
-                    .getElementById(
-                        "creationName"
-                    )
+                    .getElementById("creationName")
                     .value
                     .trim();
 
-
-            // =====================================
-            // Check Names
-            // =====================================
 
             if (
                 !creatorName ||
                 !creationName
             ) {
 
-                message.innerHTML = `
-
-                    <p>
-                        Please add your name
-                        and name your creation!
-                    </p>
-
-                `;
+                message.innerHTML =
+                    `<p>Please add your name and name your creation!</p>`;
 
                 return;
 
             }
 
 
-            // =====================================
-            // Check AI
-            // =====================================
-
-            message.innerHTML = `
-
-                <p>
-                    Pablo is checking
-                    your drawing...
-                </p>
-
-            `;
+            message.innerHTML =
+                `<p>Pablo is checking your drawing...</p>`;
 
 
             if (!model) {
 
-                message.innerHTML = `
-
-                    <p>
-                        Pablo isn't ready yet.
-                        Please wait a moment
-                        and try again.
-                    </p>
-
-                `;
+                message.innerHTML =
+                    `<p>Pablo isn't ready yet. Please wait a moment and try again.</p>`;
 
                 return;
 
@@ -738,13 +596,10 @@ function setupCanvas() {
             try {
 
                 const prediction =
-                    await model.predict(
-                        canvas
-                    );
+                    await model.predict(canvas);
 
 
                 let highestProbability = 0;
-
                 let predictedObject = "";
 
 
@@ -755,18 +610,15 @@ function setupCanvas() {
                 ) {
 
                     if (
-                        prediction[i]
-                            .probability >
+                        prediction[i].probability >
                         highestProbability
                     ) {
 
                         highestProbability =
-                            prediction[i]
-                                .probability;
+                            prediction[i].probability;
 
                         predictedObject =
-                            prediction[i]
-                                .className;
+                            prediction[i].className;
 
                     }
 
@@ -777,8 +629,7 @@ function setupCanvas() {
                     highestProbability;
 
 
-                const MIN_CONFIDENCE =
-                    0.75;
+                const MIN_CONFIDENCE = 0.75;
 
 
                 console.log(
@@ -792,20 +643,12 @@ function setupCanvas() {
                 );
 
 
-                // =====================================
-                // Pablo Responses
-                // =====================================
-
                 const responses = [
 
                     "majestic!",
-
                     "yummy!",
-
                     "nicely drawn!",
-
                     "the customers will love that!",
-
                     "yayy!"
 
                 ];
@@ -820,18 +663,12 @@ function setupCanvas() {
                     ];
 
 
-                // =====================================
-                // Correct Drawing
-                // =====================================
-
                 if (
                     predictedObject ===
-                    currentRecipe
-                    &&
+                    currentRecipe &&
                     confidence >=
                     MIN_CONFIDENCE
                 ) {
-
 
                     const drawingData =
                         canvas.toDataURL(
@@ -839,23 +676,10 @@ function setupCanvas() {
                         );
 
 
-                    // =====================================
-                    // Save to Community Shelf
-                    // =====================================
+                    if (!supabaseClient) {
 
-                    if (
-                        !supabaseClient
-                    ) {
-
-                        message.innerHTML = `
-
-                            <p>
-                                Pablo couldn't
-                                connect to the
-                                Community Shelf.
-                            </p>
-
-                        `;
+                        message.innerHTML =
+                            `<p>Pablo couldn't connect to the Community Shelf.</p>`;
 
                         return;
 
@@ -864,9 +688,7 @@ function setupCanvas() {
 
                     const result =
                         await supabaseClient
-                            .from(
-                                "community_drawings"
-                            )
+                            .from("community_drawings")
                             .insert({
 
                                 name:
@@ -881,25 +703,15 @@ function setupCanvas() {
                             });
 
 
-                    if (
-                        result.error
-                    ) {
+                    if (result.error) {
 
                         console.error(
                             "Upload failed:",
                             result.error
                         );
 
-
-                        message.innerHTML = `
-
-                            <p>
-                                Pablo couldn't
-                                put your drawing
-                                on the Community Shelf.
-                            </p>
-
-                        `;
+                        message.innerHTML =
+                            `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
 
                         return;
 
@@ -908,36 +720,20 @@ function setupCanvas() {
 
                     message.innerHTML = `
 
-                        <h2>
-                            Well Done!
-                        </h2>
+                        <h2>Well Done!</h2>
 
-                        <p>
-                            ${randomResponse}
-                        </p>
+                        <p>${randomResponse}</p>
 
                     `;
 
 
                 } else {
 
-
-                    // =====================================
-                    // Incorrect Drawing
-                    // =====================================
-
                     message.innerHTML = `
 
-                        <h2>
-                            Almost!
-                        </h2>
-
                         <p>
-                            Pablo isn't sure
-                            that's a
-                            <strong>
-                                ${currentRecipe}
-                            </strong>.
+                            Pablo isn't sure that's a
+                            <strong>${currentRecipe}</strong>.
                         </p>
 
                         <p>
@@ -956,15 +752,8 @@ function setupCanvas() {
                     error
                 );
 
-
-                message.innerHTML = `
-
-                    <p>
-                        Pablo couldn't check
-                        the drawing.
-                    </p>
-
-                `;
+                message.innerHTML =
+                    `<p>Pablo couldn't check the drawing.</p>`;
 
             }
 
@@ -975,7 +764,7 @@ function setupCanvas() {
 
 
 // =====================================
-// Restore Canvas State
+// Restore Canvas
 // =====================================
 
 function restoreState(
@@ -1037,12 +826,7 @@ async function loadCommunityShelf() {
             "shelfDrawings"
         );
 
-
-    if (!shelfDrawings) {
-
-        return;
-
-    }
+    if (!shelfDrawings) return;
 
 
     shelfDrawings.innerHTML =
@@ -1063,9 +847,7 @@ async function loadCommunityShelf() {
 
         const result =
             await supabaseClient
-                .from(
-                    "community_drawings"
-                )
+                .from("community_drawings")
                 .select(
                     "name, creation, drawing"
                 )
@@ -1077,20 +859,12 @@ async function loadCommunityShelf() {
                 );
 
 
-        const data =
-            result.data;
-
-        const error =
-            result.error;
-
-
-        if (error) {
+        if (result.error) {
 
             console.error(
                 "Shelf failed to load:",
-                error
+                result.error
             );
-
 
             shelfDrawings.innerHTML =
                 "<p>Pablo couldn't load the Community Shelf.</p>";
@@ -1104,8 +878,8 @@ async function loadCommunityShelf() {
 
 
         if (
-            !data ||
-            data.length === 0
+            !result.data ||
+            result.data.length === 0
         ) {
 
             shelfDrawings.innerHTML =
@@ -1116,35 +890,20 @@ async function loadCommunityShelf() {
         }
 
 
-        // =====================================
-        // Display Drawings
-        // =====================================
-
-        data.forEach(
+        result.data.forEach(
             (item) => {
 
                 const drawingBox =
-                    document.createElement(
-                        "div"
-                    );
-
+                    document.createElement("div");
 
                 const image =
-                    document.createElement(
-                        "img"
-                    );
-
+                    document.createElement("img");
 
                 const creator =
-                    document.createElement(
-                        "p"
-                    );
-
+                    document.createElement("p");
 
                 const creation =
-                    document.createElement(
-                        "h3"
-                    );
+                    document.createElement("h3");
 
 
                 image.src =
@@ -1164,7 +923,6 @@ async function loadCommunityShelf() {
                     "Drawn by " +
                     item.name;
 
-
                 creation.textContent =
                     item.creation;
 
@@ -1181,13 +939,13 @@ async function loadCommunityShelf() {
                     creator
                 );
 
-
                 shelfDrawings.appendChild(
                     drawingBox
                 );
 
             }
         );
+
 
     } catch (error) {
 
@@ -1196,11 +954,9 @@ async function loadCommunityShelf() {
             error
         );
 
-
         shelfDrawings.innerHTML =
             "<p>Pablo couldn't load the Community Shelf.</p>";
 
     }
 
 }
-```
