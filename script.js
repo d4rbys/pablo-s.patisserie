@@ -523,7 +523,7 @@ function setupCanvas() {
             const predictedObject = best.className;
             const confidence = best.probability;
 
-            const MIN_CONFIDENCE = 0.75;
+            const MIN_CONFIDENCE = 0.55;
 
             // Set to false once everything works
             const DEBUG = true;
