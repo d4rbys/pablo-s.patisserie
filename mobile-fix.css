@@ -1,0 +1,67 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+}
+
+img,
+canvas {
+    max-width: 100%;
+}
+
+#app {
+    max-width: 100%;
+}
+
+#pablo {
+    max-width: 110px;
+    height: auto;
+}
+
+input[type="text"] {
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+#canvas {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    background: #ffffff;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#shelfDrawings img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .woodSign {
+        max-width: 100%;
+    }
+
+}
