@@ -1,35 +1,207 @@
 ```css
-/* =====================================
-   BODY
-   ===================================== */
-
-html,
 body {
+
     margin: 0;
     min-height: 100vh;
 
-    background: #fff4dc !important;
+    background: #fff4dc;
 
     font-family: Arial, sans-serif;
 
-    color: #8b6240 !important;
-}
-
-
-/* =====================================
-   MAIN APP
-   ===================================== */
-
-#app {
-    background: #fff4dc;
     color: #8b6240;
-    min-height: 100vh;
+
 }
 
 
 /* =====================================
-   PABLO'S FONT
+   Pablo's Font
    ===================================== */
+
+h1,
+h2,
+h3,
+strong,
+b {
+
+    font-family: "Cedarville Cursive", cursive !important;
+
+}
+
+
+/* =====================================
+   Main Title
+   ===================================== */
+
+h1 {
+
+    font-size: 60px;
+
+    color: #a06f45;
+
+}
+
+
+/* =====================================
+   Clickable Links
+   ===================================== */
+
+a,
+a:visited {
+
+    color: #c49a24 !important;
+
+    text-decoration: none;
+
+}
+
+
+a:hover,
+a:active {
+
+    color: #a87912 !important;
+
+    text-decoration: underline;
+
+}
+
+
+/* =====================================
+   Navigation Links
+   ===================================== */
+
+.site-nav a,
+.site-nav a:visited {
+
+    color: #c49a24 !important;
+
+    font-family: Arial, sans-serif;
+
+    text-decoration: none;
+
+}
+
+
+.site-nav a:hover {
+
+    color: #a87912 !important;
+
+    text-decoration: underline;
+
+}
+
+
+/* =====================================
+   Buttons
+   ===================================== */
+
+button {
+
+    background: #f6d77a;
+
+    color: #8b6240;
+
+    border: none;
+
+    padding: 12px 30px;
+
+    margin: 8px;
+
+    border-radius: 25px;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+
+}
+
+
+button:hover {
+
+    transform: scale(1.05);
+
+    background: #f2cd5c;
+
+}
+
+
+/* =====================================
+   Recipe / Order
+   ===================================== */
+
+#recipe,
+#todaysRecipe {
+
+    color: #8b6240;
+
+    font-size: 24px;
+
+}
+
+
+/* =====================================
+   Drawing Area
+   ===================================== */
+
+canvas {
+
+    background: white;
+
+    border: 8px solid #d6a56d;
+
+    border-radius: 20px;
+
+    margin-top: 20px;
+
+}
+
+
+/* =====================================
+   Toolbar
+   ===================================== */
+
+.toolbar {
+
+    background: #ffeec7;
+
+    width: 300px;
+
+    margin: 20px auto;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+}
+
+
+/* =====================================
+   Messages
+   ===================================== */
+
+#message {
+
+    color: #8b6240;
+
+}
+
+
+/* Make headings inside messages use Pablo's font */
+
+#message h2,
+#message h3,
+#message strong {
+
+    font-family: "Cedarville Cursive", cursive !important;
+
+}
+```
+
+```css
+/* =========================================
+   PABLO'S PATISSERIE FONT
+   ========================================= */
 
 h1,
 h2,
@@ -39,37 +211,9 @@ b {
     font-family: "Cedarville Cursive", cursive !important;
 }
 
-
-/* =====================================
-   HEADINGS
-   ===================================== */
-
-h1 {
-    font-size: 60px;
-    color: #a06f45 !important;
-}
-
-h2,
-h3 {
-    color: #8b6240 !important;
-}
-
-
-/* =====================================
-   NORMAL TEXT
-   ===================================== */
-
-p,
-label,
-span,
-div {
-    color: #8b6240;
-}
-
-
-/* =====================================
-   CLICKABLE LINKS
-   ===================================== */
+/* =========================================
+   MUSTARD LINKS
+   ========================================= */
 
 a,
 a:link,
@@ -84,18 +228,11 @@ a:active {
     text-decoration: underline !important;
 }
 
-
-/* =====================================
-   NAVIGATION
-   ===================================== */
-
+/* Navigation */
 .site-nav a,
 .site-nav a:link,
 .site-nav a:visited {
     color: #c49a24 !important;
-
-    font-family: "Cedarville Cursive", cursive !important;
-
     text-decoration: none !important;
 }
 
@@ -103,119 +240,5 @@ a:active {
 .site-nav a:active {
     color: #a87912 !important;
     text-decoration: underline !important;
-}
-
-
-/* =====================================
-   BUTTONS
-   ===================================== */
-
-button {
-    background: #f6d77a !important;
-
-    color: #8b6240 !important;
-
-    border: none;
-
-    padding: 12px 30px;
-
-    margin: 8px;
-
-    border-radius: 25px;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-}
-
-button:hover {
-    transform: scale(1.05);
-
-    background: #f2cd5c !important;
-}
-
-
-/* =====================================
-   RECIPE / ORDER
-   ===================================== */
-
-#recipe,
-#todaysRecipe,
-#recipeName {
-    color: #8b6240 !important;
-    font-size: 24px;
-}
-
-
-/* =====================================
-   WOOD SIGN
-   ===================================== */
-
-.woodSign {
-    color: #8b6240;
-}
-
-
-/* =====================================
-   DRAWING AREA
-   ===================================== */
-
-canvas {
-    background: white !important;
-
-    border: 8px solid #d6a56d;
-
-    border-radius: 20px;
-
-    margin-top: 20px;
-}
-
-
-/* =====================================
-   TOOLBAR
-   ===================================== */
-
-.toolbar {
-    background: #ffeec7 !important;
-
-    width: 300px;
-
-    margin: 20px auto;
-
-    padding: 15px;
-
-    border-radius: 20px;
-}
-
-
-/* =====================================
-   INPUTS
-   ===================================== */
-
-input {
-    color: #8b6240;
-}
-
-
-/* =====================================
-   MESSAGES
-   ===================================== */
-
-#message,
-#message p,
-#message strong,
-#message b,
-#message h2,
-#message h3 {
-    color: #8b6240 !important;
-}
-
-#message h2,
-#message h3,
-#message strong,
-#message b {
-    font-family: "Cedarville Cursive", cursive !important;
 }
 ```
