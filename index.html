@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile-fix.css">
 
+    <!-- Pablo's bakery colours -->
     <style>
 
         html,
@@ -43,10 +44,26 @@
 
         h1 {
             font-size: 3rem;
+            margin: 10px 0 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
         }
 
         a {
             color: #c49a24 !important;
+        }
+
+        a:hover {
+            color: #a87912 !important;
+        }
+
+        nav a {
+            color: #c49a24 !important;
+            font-family: "Cedarville Cursive", cursive;
+            text-decoration: none;
+            margin: 0 8px;
         }
 
         button {
@@ -64,14 +81,43 @@
             background: #f2cd5c;
         }
 
+        .toolbar {
+            background: #ffeec7;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px auto;
+            max-width: 600px;
+        }
 
-        /* =========================
-           BADGES
-           ========================= */
+        #message {
+            color: #8b6240;
+            margin: 20px;
+        }
+
+        #homeScreen {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #communityShelf {
+            margin-top: 30px;
+        }
+
+        #shelfDrawings {
+            display: grid;
+            gap: 20px;
+            justify-items: center;
+        }
+
+        #shelfDrawings img {
+            max-width: 300px;
+            border-radius: 15px;
+        }
 
         #badgesScreen {
             max-width: 1000px;
-            margin: auto;
+            margin: 0 auto;
             padding: 20px;
         }
 
@@ -86,8 +132,8 @@
             background: #ffeec7;
             border: 4px solid #d6a56d;
             border-radius: 25px;
-            padding: 20px;
-            min-height: 280px;
+            padding: 20px 15px;
+            min-height: 270px;
 
             display: flex;
             flex-direction: column;
@@ -96,47 +142,55 @@
         }
 
         .badge-card.locked {
-            opacity: 0.55;
+            opacity: 0.6;
         }
 
-        .badge-image {
-            width: 140px;
-            height: 140px;
-            object-fit: contain;
-        }
-
+        .badge-image,
         .badge-placeholder {
             width: 140px;
             height: 140px;
-            border-radius: 50%;
-            background: #f6d77a;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
 
+        .badge-placeholder {
             display: flex;
             align-items: center;
             justify-content: center;
-
+            background: #f6d77a;
+            border-radius: 50%;
             font-size: 60px;
         }
 
         .badge-card h3 {
             font-size: 25px;
-            margin: 10px 0 5px;
+            margin: 5px 0;
         }
 
         .badge-card p {
-            margin: 5px;
+            font-size: 15px;
+            margin: 8px 0;
         }
 
         .badge-status {
             color: #c49a24;
             font-weight: bold;
+            margin-top: 8px;
         }
-
 
         @media (max-width: 700px) {
 
+            h1 {
+                font-size: 2rem;
+            }
+
             #badgeGrid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .badge-card {
+                padding: 15px 10px;
             }
 
             .badge-image,
@@ -146,7 +200,6 @@
             }
 
         }
-
 
         @media (max-width: 450px) {
 
@@ -166,13 +219,25 @@
 
 <div id="app">
 
-    <!-- =========================
-         HOME
-         ========================= -->
+    <!-- =====================================
+         HOME SCREEN
+         ===================================== -->
 
     <section id="homeScreen">
 
         <header>
+
+            <nav>
+
+                <a href="#homeScreen">
+                    Home
+                </a>
+
+                <a href="#communityShelf">
+                    Community Shelf
+                </a>
+
+            </nav>
 
             <img
                 src="images/pablo.png"
@@ -189,33 +254,47 @@
 
         <main>
 
-            <h2>
-                Today's Bake
-            </h2>
+            <!-- Today's Bake -->
 
-            <p>
-                Draw a
-                <strong id="recipeName">
-                    Loading...
-                </strong>
-            </p>
+            <section id="todaysBake">
+
+                <h2>
+                    Today's Bake
+                </h2>
+
+                <p>
+                    Pablo has a special order for you!
+                </p>
+
+                <p>
+                    Draw a
+                    <strong id="recipeName">
+                        Loading...
+                    </strong>
+                </p>
+
+            </section>
 
 
-            <button id="playButton">
-                🍰 Play
-            </button>
+            <!-- Buttons -->
+
+            <section id="homeButtons">
+
+                <button id="playButton">
+                    🍰 Play
+                </button>
+
+                <button
+                    id="badgesButton"
+                    onclick="showBadges()"
+                >
+                    🏆 Badges
+                </button>
+
+            </section>
 
 
-            <button
-                onclick="
-                    document.getElementById('homeScreen').style.display='none';
-                    document.getElementById('badgesScreen').style.display='block';
-                    renderBadges();
-                "
-            >
-                🏆 Badges
-            </button>
-
+            <!-- Community Shelf -->
 
             <section id="communityShelf">
 
@@ -223,9 +302,30 @@
                     Community Shelf
                 </h2>
 
+                <p>
+                    See what other bakers have created!
+                </p>
+
                 <div id="shelfDrawings">
                     Loading...
                 </div>
+
+            </section>
+
+
+            <!-- Intro -->
+
+            <section id="aboutPablo">
+
+                <h2>
+                    Welcome to Pablo's Patisserie!
+                </h2>
+
+                <p>
+                    Draw delicious bakes, let Pablo's AI
+                    check your creation, and collect badges
+                    as you improve your baking skills.
+                </p>
 
             </section>
 
@@ -234,33 +334,26 @@
     </section>
 
 
-    <!-- =========================
+    <!-- =====================================
          BADGES SCREEN
-         ========================= -->
+         ===================================== -->
 
     <section
         id="badgesScreen"
-        style="display:none;"
+        style="display: none;"
     >
 
         <h2>
-            🏆 My Badges
+            My Badges
         </h2>
 
         <p id="badgeSummary">
-            0 of 6 badges unlocked
+            Keep baking to collect them all!
         </p>
-
 
         <div id="badgeGrid"></div>
 
-
-        <button
-            onclick="
-                document.getElementById('badgesScreen').style.display='none';
-                document.getElementById('homeScreen').style.display='block';
-            "
-        >
+        <button onclick="closeBadges()">
             ← Back
         </button>
 
@@ -269,212 +362,9 @@
 </div>
 
 
-<!-- =========================
-     BADGE SYSTEM
-     ========================= -->
-
-<script>
-
-const badgeList = [
-
-    {
-        id: "wrongBake",
-        name: "Wrong Bake",
-        requirement: "Make your first wrong bake.",
-        image: "badges/wrong-bake.png"
-    },
-
-    {
-        id: "firstBake",
-        name: "First Bake",
-        requirement: "Complete your first correct bake.",
-        image: "badges/first-bake.png"
-    },
-
-    {
-        id: "amateurBaker",
-        name: "Amateur Baker",
-        requirement: "Complete 2 correct bakes.",
-        image: "badges/amateur-baker.png"
-    },
-
-    {
-        id: "pablosHelper",
-        name: "Pablo's Helper",
-        requirement: "Complete 3 correct bakes in a row.",
-        image: "badges/pablos-helper.png"
-    },
-
-    {
-        id: "skilledBaker",
-        name: "Skilled Baker",
-        requirement: "Complete 5 correct bakes.",
-        image: "badges/skilled-baker.png"
-    },
-
-    {
-        id: "patisseriePro",
-        name: "Patisserie Pro",
-        requirement: "Complete 10 correct bakes.",
-        image: "badges/patisserie-pro.png"
-    }
-
-];
-
-
-function getSavedBadges() {
-
-    const saved =
-        localStorage.getItem("pablosBadgeProgress");
-
-    if (!saved) {
-
-        return {
-            wrongBake: false,
-            firstBake: false,
-            amateurBaker: false,
-            pablosHelper: false,
-            skilledBaker: false,
-            patisseriePro: false
-        };
-
-    }
-
-    try {
-
-        return JSON.parse(saved);
-
-    } catch {
-
-        return {};
-
-    }
-
-}
-
-
-function renderBadges() {
-
-    const grid =
-        document.getElementById("badgeGrid");
-
-    const summary =
-        document.getElementById("badgeSummary");
-
-    const progress =
-        getSavedBadges();
-
-
-    grid.innerHTML = "";
-
-
-    let unlocked = 0;
-
-
-    badgeList.forEach((badge) => {
-
-        const isUnlocked =
-            progress[badge.id] === true;
-
-
-        if (isUnlocked) {
-            unlocked++;
-        }
-
-
-        const card =
-            document.createElement("div");
-
-        card.className =
-            isUnlocked
-                ? "badge-card"
-                : "badge-card locked";
-
-
-        const image =
-            document.createElement("img");
-
-        image.className =
-            "badge-image";
-
-        image.src =
-            badge.image;
-
-        image.alt =
-            badge.name;
-
-
-        image.onerror = function() {
-
-            this.style.display = "none";
-
-
-            const placeholder =
-                document.createElement("div");
-
-            placeholder.className =
-                "badge-placeholder";
-
-            placeholder.textContent =
-                isUnlocked ? "🏆" : "🔒";
-
-
-            card.insertBefore(
-                placeholder,
-                card.firstChild
-            );
-
-        };
-
-
-        const title =
-            document.createElement("h3");
-
-        title.textContent =
-            badge.name;
-
-
-        const requirement =
-            document.createElement("p");
-
-        requirement.textContent =
-            badge.requirement;
-
-
-        const status =
-            document.createElement("div");
-
-        status.className =
-            "badge-status";
-
-        status.textContent =
-            isUnlocked
-                ? "✓ Unlocked!"
-                : "🔒 Locked";
-
-
-        card.appendChild(image);
-        card.appendChild(title);
-        card.appendChild(requirement);
-        card.appendChild(status);
-
-
-        grid.appendChild(card);
-
-    });
-
-
-    summary.textContent =
-        `${unlocked} of 6 badges unlocked`;
-
-}
-
-</script>
-
-
-<!-- =========================
-     YOUR GAME JAVASCRIPT
-     ========================= -->
+<!-- =====================================
+     JAVASCRIPT
+     ===================================== -->
 
 <script src="script.js"></script>
 
