@@ -11,407 +11,351 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Pablo's Patisserie – Baking Game | Play Online</title>
+    <title>Pablo's Patisserie</title>
 
-    <meta
-        name="description"
-        content="Play Pablo's Patisserie, a fun baking game where you draw today's bake, serve customers and share your creations with the community."
-    >
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile-fix.css">
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
-
-    <link
-        rel="canonical"
-        href="https://www.pablospatisserie.com/"
-    >
-
-    <meta
-        property="og:type"
-        content="website"
-    >
-
-    <meta
-        property="og:title"
-        content="Pablo's Patisserie – Baking Game"
-    >
-
-    <meta
-        property="og:description"
-        content="Draw today's bake, complete orders and share your creations in the Community Shelf."
-    >
-
-    <meta
-        property="og:url"
-        content="https://www.pablospatisserie.com/"
-    >
-
-
-    <!-- =====================================
-         FONT
-         ===================================== -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <!-- =====================================
-         CSS
-         ===================================== -->
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="mobile-fix.css"
-    >
-
-
-    <!-- =====================================
-         PABLO'S MAIN STYLING
-         ===================================== -->
-
+    <!-- Pablo's bakery colours -->
     <style>
 
         html,
-        body {
-
-            margin: 0;
-
-            min-height: 100vh;
-
-            background: #fff4dc !important;
-
-            color: #8b6240 !important;
-
-            font-family: Arial, sans-serif;
-
-        }
-
-
+        body,
         #app {
-
-            min-height: 100vh;
-
             background: #fff4dc !important;
-
             color: #8b6240 !important;
-
+            margin: 0;
+            min-height: 100%;
         }
 
-
-        /* Pablo's font */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
 
         h1,
         h2,
         h3,
         strong,
         b {
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
+            font-family: "Cedarville Cursive", cursive;
+            color: #a06f45;
         }
-
-
-        /* Main title */
 
         h1 {
-
-            color: #a06f45 !important;
-
+            font-size: 3rem;
+            margin: 10px 0 20px;
         }
 
-
-        /* Brown text */
-
-        h2,
-        h3,
-        p,
-        label,
-        span {
-
-            color: #8b6240 !important;
-
+        h2 {
+            font-size: 2rem;
         }
 
-
-        /* Mustard links */
-
-        a,
-        a:link,
-        a:visited {
-
+        a {
             color: #c49a24 !important;
-
-            text-decoration: none !important;
-
         }
 
-
-        a:hover,
-        a:active {
-
+        a:hover {
             color: #a87912 !important;
-
-            text-decoration: underline !important;
-
         }
 
-
-        /* Navigation */
-
-        .site-nav a,
-        .site-nav a:link,
-        .site-nav a:visited {
-
+        nav a {
             color: #c49a24 !important;
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
+            font-family: "Cedarville Cursive", cursive;
+            text-decoration: none;
+            margin: 0 8px;
         }
-
-
-        /* Buttons */
 
         button {
-
-            background: #f6d77a !important;
-
-            color: #8b6240 !important;
-
+            background: #f6d77a;
+            color: #8b6240;
+            border: 2px solid #d6a56d;
+            border-radius: 12px;
+            padding: 10px 16px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
         }
-
 
         button:hover {
-
-            background: #f2cd5c !important;
-
+            background: #f2cd5c;
         }
-
-
-        /* Toolbar */
 
         .toolbar {
-
-            background: #ffeec7 !important;
-
+            background: #ffeec7;
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px auto;
+            max-width: 600px;
         }
-
-
-        /* Message */
 
         #message {
+            color: #8b6240;
+            margin: 20px;
+        }
 
-            color: #8b6240 !important;
+        #homeScreen {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #communityShelf {
+            margin-top: 30px;
+        }
+
+        #shelfDrawings {
+            display: grid;
+            gap: 20px;
+            justify-items: center;
+        }
+
+        #shelfDrawings img {
+            max-width: 300px;
+            border-radius: 15px;
+        }
+
+        #badgesScreen {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #badgeGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px auto;
+        }
+
+        .badge-card {
+            background: #ffeec7;
+            border: 4px solid #d6a56d;
+            border-radius: 25px;
+            padding: 20px 15px;
+            min-height: 270px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-card.locked {
+            opacity: 0.6;
+        }
+
+        .badge-image,
+        .badge-placeholder {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .badge-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f6d77a;
+            border-radius: 50%;
+            font-size: 60px;
+        }
+
+        .badge-card h3 {
+            font-size: 25px;
+            margin: 5px 0;
+        }
+
+        .badge-card p {
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        .badge-status {
+            color: #c49a24;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 700px) {
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            #badgeGrid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .badge-card {
+                padding: 15px 10px;
+            }
+
+            .badge-image,
+            .badge-placeholder {
+                width: 100px;
+                height: 100px;
+            }
 
         }
 
+        @media (max-width: 450px) {
 
-        #message h2,
-        #message h3,
-        #message strong,
-        #message b {
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
-            color: #8b6240 !important;
+            #badgeGrid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
 
         }
 
     </style>
 
-
-    <!-- =====================================
-         SEARCH / SEO
-         ===================================== -->
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Pablo's Patisserie",
-        "url": "https://www.pablospatisserie.com/",
-        "description": "A playful baking and drawing game where players create today's bake and share successful creations with the community.",
-        "genre": [
-            "Baking Game",
-            "Drawing Game"
-        ],
-        "gamePlatform": "Web browser",
-        "applicationCategory": "Game"
-    }
-    </script>
-
 </head>
 
 
 <body>
-    
 
 <div id="app">
 
-
     <!-- =====================================
-         NAVIGATION
+         HOME SCREEN
          ===================================== -->
 
-    <nav
-        class="site-nav"
-        aria-label="Main navigation"
-    >
+    <section id="homeScreen">
 
-        <a href="/">Play</a>
+        <header>
 
-        <a href="/about.html">About</a>
+            <nav>
 
-        <a href="/how-to-play.html">How to Play</a>
+                <a href="#homeScreen">
+                    Home
+                </a>
 
-        <a href="/characters.html">Characters</a>
+                <a href="#communityShelf">
+                    Community Shelf
+                </a>
 
-        <a href="/recipes.html">Recipes</a>
+            </nav>
 
-        <a href="/updates.html">Updates</a>
+            <img
+                src="images/pablo.png"
+                alt="Pablo"
+                id="pablo"
+            >
 
-    </nav>
+            <h1>
+                Pablo's Patisserie
+            </h1>
 
-
-    <!-- =====================================
-         HEADER
-         ===================================== -->
-
-    <header>
-
-        <img
-            src="images/pablo.png"
-            alt="Pablo"
-            id="pablo"
-        >
-
-        <h1>Pablo's Patisserie</h1>
-
-    </header>
+        </header>
 
 
-    <!-- =====================================
-         GAME
-         ===================================== -->
+        <main>
 
-    <main id="game">
+            <!-- Today's Bake -->
 
-        <section id="homeScreen">
+            <section id="todaysBake">
 
+                <h2>
+                    Today's Bake
+                </h2>
 
-            <div class="woodSign">
-
-                <h2>Today's Bake</h2>
-
-                <p id="recipeName">
-                    Loading...
+                <p>
+                    Pablo has a special order for you!
                 </p>
 
-            </div>
+                <p>
+                    Draw a
+                    <strong id="recipeName">
+                        Loading...
+                    </strong>
+                </p>
+
+            </section>
 
 
-            <button id="playButton">
-                Play
-            </button>
+            <!-- Buttons -->
 
+            <section id="homeButtons">
 
-            <button
-                id="shelfButton"
-                onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()"
-            >
-                Community Shelf
-            </button>
-
-
-            <!-- =====================================
-                 COMMUNITY SHELF
-                 ===================================== -->
-
-            <section
-                id="communityShelf"
-                style="display: none;"
-            >
-
-                <h2>Community Shelf</h2>
-
-                <div id="shelfDrawings"></div>
-
+                <button id="playButton">
+                    🍰 Play
+                </button>
 
                 <button
-                    id="closeShelf"
-                    onclick="document.getElementById('communityShelf').style.display='none'"
+                    id="badgesButton"
+                    onclick="showBadges()"
                 >
-                    Back
+                    🏆 Badges
                 </button>
 
             </section>
 
-        </section>
 
-    </main>
+            <!-- Community Shelf -->
+
+            <section id="communityShelf">
+
+                <h2>
+                    Community Shelf
+                </h2>
+
+                <p>
+                    See what other bakers have created!
+                </p>
+
+                <div id="shelfDrawings">
+                    Loading...
+                </div>
+
+            </section>
+
+
+            <!-- Intro -->
+
+            <section id="aboutPablo">
+
+                <h2>
+                    Welcome to Pablo's Patisserie!
+                </h2>
+
+                <p>
+                    Draw delicious bakes, let Pablo's AI
+                    check your creation, and collect badges
+                    as you improve your baking skills.
+                </p>
+
+            </section>
+
+        </main>
+
+    </section>
 
 
     <!-- =====================================
-         SEO INTRO
+         BADGES SCREEN
          ===================================== -->
 
     <section
-        class="seo-intro"
-        aria-labelledby="about-game"
+        id="badgesScreen"
+        style="display: none;"
     >
 
-        <h2 id="about-game">
-            Pablo's Patisserie – A Baking Game
+        <h2>
+            My Badges
         </h2>
 
-        <p>
-            Welcome to Pablo's Patisserie, a playful drawing
-            and baking game. Each day brings a new bake to
-            create. Draw the order, let Pablo check your
-            creation, and share your successful bakes on the
-            Community Shelf.
+        <p id="badgeSummary">
+            Keep baking to collect them all!
         </p>
 
-        <p>
+        <div id="badgeGrid"></div>
 
-            Ready to bake?
-
-            <a href="#game">
-                Play Pablo's Patisserie
-            </a>
-
-            or learn
-
-            <a href="/how-to-play.html">
-                how to play
-            </a>.
-
-        </p>
+        <button onclick="closeBadges()">
+            ← Back
+        </button>
 
     </section>
 
@@ -419,37 +363,17 @@
 
 
 <!-- =====================================
-     GAME JAVASCRIPT
+     JAVASCRIPT
      ===================================== -->
 
 <script src="script.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 
-<!-- =====================================
-     TENSORFLOW
-     ===================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 
-<script
-    src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-<!-- =====================================
-     TEACHABLE MACHINE
-     ===================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
-></script>
-
-
-<!-- =====================================
-     SUPABASE
-     ===================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
 
 </body>
 
