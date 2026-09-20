@@ -1,3 +1,4 @@
+```css
 *,
 *::before,
 *::after {
@@ -20,16 +21,20 @@ canvas {
     max-width: 100%;
 }
 
+/* Pablo image */
 #pablo {
     max-width: 110px;
     height: auto;
 }
 
+/* Text inputs */
 input[type="text"] {
     font-size: 16px;
     width: 100%;
     max-width: 400px;
-    /* Force everything to fit the screen and centre it */
+}
+
+/* Keep everything inside the screen */
 #app,
 header,
 main {
@@ -43,25 +48,29 @@ main {
     text-align: center;
 }
 
+/* Toolbar */
 .toolbar {
     width: 100%;
     max-width: 100%;
 }
 
+/* Brush size */
 input[type="range"] {
     width: 100%;
     max-width: 300px;
 }
 
+/* Main title */
 h1 {
     overflow-wrap: anywhere;
 }
-}
 
+/* Buttons */
 button {
     touch-action: manipulation;
 }
 
+/* Drawing canvas */
 #canvas {
     display: block;
     width: 100%;
@@ -75,12 +84,14 @@ button {
     user-select: none;
 }
 
+/* Community Shelf images */
 #shelfDrawings img {
     width: 100%;
     max-width: 300px;
     height: auto;
 }
 
+/* Mobile */
 @media (max-width: 600px) {
 
     h1 {
@@ -92,3 +103,4 @@ button {
     }
 
 }
+```
