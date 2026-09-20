@@ -13,11 +13,26 @@ body {
 }
 
 
-/* Title */
+/* =====================================
+   Pablo's Font
+   ===================================== */
+
+h1,
+h2,
+h3,
+strong,
+b {
+
+    font-family: "Cedarville Cursive", cursive !important;
+
+}
+
+
+/* =====================================
+   Main Title
+   ===================================== */
 
 h1 {
-
-    font-family: "Cedarville Cursive", cursive;
 
     font-size: 60px;
 
@@ -26,40 +41,58 @@ h1 {
 }
 
 
-/* Pablo's title font */
+/* =====================================
+   Clickable Links
+   ===================================== */
 
-strong,
-h2,
-h3 {
+a,
+a:visited {
 
-    font-family: "Cedarville Cursive", cursive;
-
-}
-
-
-/* Clickable links */
-
-a {
-
-    color: #c49a24;
+    color: #c49a24 !important;
 
     text-decoration: none;
 
-    font-weight: bold;
-
 }
 
 
-a:hover {
+a:hover,
+a:active {
 
-    color: #a87912;
+    color: #a87912 !important;
 
     text-decoration: underline;
 
 }
 
 
-/* Buttons */
+/* =====================================
+   Navigation Links
+   ===================================== */
+
+.site-nav a,
+.site-nav a:visited {
+
+    color: #c49a24 !important;
+
+    font-family: Arial, sans-serif;
+
+    text-decoration: none;
+
+}
+
+
+.site-nav a:hover {
+
+    color: #a87912 !important;
+
+    text-decoration: underline;
+
+}
+
+
+/* =====================================
+   Buttons
+   ===================================== */
 
 button {
 
@@ -93,7 +126,9 @@ button:hover {
 }
 
 
-/* Recipe/order text */
+/* =====================================
+   Recipe / Order
+   ===================================== */
 
 #recipe,
 #todaysRecipe {
@@ -105,7 +140,9 @@ button:hover {
 }
 
 
-/* Drawing area */
+/* =====================================
+   Drawing Area
+   ===================================== */
 
 canvas {
 
@@ -120,7 +157,9 @@ canvas {
 }
 
 
-/* Toolbar */
+/* =====================================
+   Toolbar
+   ===================================== */
 
 .toolbar {
 
@@ -137,11 +176,24 @@ canvas {
 }
 
 
-/* Messages */
+/* =====================================
+   Messages
+   ===================================== */
 
 #message {
 
     color: #8b6240;
+
+}
+
+
+/* Make headings inside messages use Pablo's font */
+
+#message h2,
+#message h3,
+#message strong {
+
+    font-family: "Cedarville Cursive", cursive !important;
 
 }
 ```
