@@ -1,6 +1,9 @@
 ```css
-body {
+/* =====================================
+   BODY
+   ===================================== */
 
+body {
     margin: 0;
     min-height: 100vh;
 
@@ -9,93 +12,79 @@ body {
     font-family: Arial, sans-serif;
 
     color: #8b6240;
-
 }
 
 
 /* =====================================
-   Pablo's Font
+   PABLO'S FONT
    ===================================== */
+
+/* All headings and bold text */
 
 h1,
 h2,
 h3,
 strong,
 b {
-
     font-family: "Cedarville Cursive", cursive !important;
-
 }
 
 
 /* =====================================
-   Main Title
+   MAIN TITLE
    ===================================== */
 
 h1 {
-
     font-size: 60px;
-
     color: #a06f45;
-
 }
 
 
 /* =====================================
-   Clickable Links
+   CLICKABLE LINKS
    ===================================== */
 
 a,
+a:link,
 a:visited {
-
     color: #c49a24 !important;
-
-    text-decoration: none;
-
+    text-decoration: none !important;
 }
-
 
 a:hover,
 a:active {
-
     color: #a87912 !important;
-
-    text-decoration: underline;
-
+    text-decoration: underline !important;
 }
 
 
 /* =====================================
-   Navigation Links
+   NAVIGATION
    ===================================== */
 
 .site-nav a,
+.site-nav a:link,
 .site-nav a:visited {
-
     color: #c49a24 !important;
 
-    font-family: Arial, sans-serif;
+    /* Pablo's font */
+    font-family: "Cedarville Cursive", cursive !important;
 
-    text-decoration: none;
-
+    text-decoration: none !important;
 }
 
-
-.site-nav a:hover {
-
+.site-nav a:hover,
+.site-nav a:active {
     color: #a87912 !important;
-
-    text-decoration: underline;
-
+    text-decoration: underline !important;
 }
 
 
 /* =====================================
-   Buttons
+   BUTTONS
    ===================================== */
 
 button {
-
     background: #f6d77a;
 
     color: #8b6240;
@@ -112,40 +101,33 @@ button {
 
     cursor: pointer;
 
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-
 button:hover {
-
     transform: scale(1.05);
 
     background: #f2cd5c;
-
 }
 
 
 /* =====================================
-   Recipe / Order
+   RECIPE / ORDER
    ===================================== */
 
 #recipe,
 #todaysRecipe {
-
     color: #8b6240;
 
     font-size: 24px;
-
 }
 
 
 /* =====================================
-   Drawing Area
+   DRAWING AREA
    ===================================== */
 
 canvas {
-
     background: white;
 
     border: 8px solid #d6a56d;
@@ -153,16 +135,14 @@ canvas {
     border-radius: 20px;
 
     margin-top: 20px;
-
 }
 
 
 /* =====================================
-   Toolbar
+   TOOLBAR
    ===================================== */
 
 .toolbar {
-
     background: #ffeec7;
 
     width: 300px;
@@ -172,73 +152,24 @@ canvas {
     padding: 15px;
 
     border-radius: 20px;
-
 }
 
 
 /* =====================================
-   Messages
+   MESSAGES
    ===================================== */
 
 #message {
-
     color: #8b6240;
-
 }
 
 
-/* Make headings inside messages use Pablo's font */
+/* Pablo's font inside messages */
 
 #message h2,
 #message h3,
-#message strong {
-
+#message strong,
+#message b {
     font-family: "Cedarville Cursive", cursive !important;
-
-}
-```
-
-```css
-/* =========================================
-   PABLO'S PATISSERIE FONT
-   ========================================= */
-
-h1,
-h2,
-h3,
-strong,
-b {
-    font-family: "Cedarville Cursive", cursive !important;
-}
-
-/* =========================================
-   MUSTARD LINKS
-   ========================================= */
-
-a,
-a:link,
-a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-a:hover,
-a:active {
-    color: #a87912 !important;
-    text-decoration: underline !important;
-}
-
-/* Navigation */
-.site-nav a,
-.site-nav a:link,
-.site-nav a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-.site-nav a:hover,
-.site-nav a:active {
-    color: #a87912 !important;
-    text-decoration: underline !important;
 }
 ```
