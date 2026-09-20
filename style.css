@@ -197,3 +197,48 @@ canvas {
 
 }
 ```
+
+```css
+/* =========================================
+   PABLO'S PATISSERIE FONT
+   ========================================= */
+
+h1,
+h2,
+h3,
+strong,
+b {
+    font-family: "Cedarville Cursive", cursive !important;
+}
+
+/* =========================================
+   MUSTARD LINKS
+   ========================================= */
+
+a,
+a:link,
+a:visited {
+    color: #c49a24 !important;
+    text-decoration: none !important;
+}
+
+a:hover,
+a:active {
+    color: #a87912 !important;
+    text-decoration: underline !important;
+}
+
+/* Navigation */
+.site-nav a,
+.site-nav a:link,
+.site-nav a:visited {
+    color: #c49a24 !important;
+    text-decoration: none !important;
+}
+
+.site-nav a:hover,
+.site-nav a:active {
+    color: #a87912 !important;
+    text-decoration: underline !important;
+}
+```
