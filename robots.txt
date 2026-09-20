@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pablospatisserie.com/sitemap.xml
+Sitemap: https://www.pablospatisserie.com/sitemap.xml
