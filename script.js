@@ -51,13 +51,11 @@ const recipes = [
     "Cookie",
     "Cupcake",
     "Croissant",
-    "Cake",
     "Pie",
     "Bread",
     "Pretzel",
     "Doughnut",
-    "Baguette",
-    "Birthday Cake"
+    "Cake"
 ];
 
 function getRandomRecipe() {
