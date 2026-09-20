@@ -1,4 +1,3 @@
-```js
 // =====================================
 // Supabase
 // =====================================
@@ -544,7 +543,6 @@ function setupCanvas() {
                 "yayy!"
             ];
 
-
             const randomResponse =
                 responses[Math.floor(Math.random() * responses.length)];
 
@@ -552,7 +550,6 @@ function setupCanvas() {
             const isMatch =
                 predictedObject.trim().toLowerCase() ===
                 currentRecipe.toLowerCase();
-
 
             if (isMatch && confidence >= MIN_CONFIDENCE) {
 
@@ -759,4 +756,3 @@ async function loadCommunityShelf() {
     }
 
 }
-```
