@@ -3,23 +3,33 @@
    BODY
    ===================================== */
 
+html,
 body {
     margin: 0;
     min-height: 100vh;
 
-    background: #fff4dc;
+    background: #fff4dc !important;
 
     font-family: Arial, sans-serif;
 
+    color: #8b6240 !important;
+}
+
+
+/* =====================================
+   MAIN APP
+   ===================================== */
+
+#app {
+    background: #fff4dc;
     color: #8b6240;
+    min-height: 100vh;
 }
 
 
 /* =====================================
    PABLO'S FONT
    ===================================== */
-
-/* All headings and bold text */
 
 h1,
 h2,
@@ -31,12 +41,29 @@ b {
 
 
 /* =====================================
-   MAIN TITLE
+   HEADINGS
    ===================================== */
 
 h1 {
     font-size: 60px;
-    color: #a06f45;
+    color: #a06f45 !important;
+}
+
+h2,
+h3 {
+    color: #8b6240 !important;
+}
+
+
+/* =====================================
+   NORMAL TEXT
+   ===================================== */
+
+p,
+label,
+span,
+div {
+    color: #8b6240;
 }
 
 
@@ -67,7 +94,6 @@ a:active {
 .site-nav a:visited {
     color: #c49a24 !important;
 
-    /* Pablo's font */
     font-family: "Cedarville Cursive", cursive !important;
 
     text-decoration: none !important;
@@ -85,9 +111,9 @@ a:active {
    ===================================== */
 
 button {
-    background: #f6d77a;
+    background: #f6d77a !important;
 
-    color: #8b6240;
+    color: #8b6240 !important;
 
     border: none;
 
@@ -107,7 +133,7 @@ button {
 button:hover {
     transform: scale(1.05);
 
-    background: #f2cd5c;
+    background: #f2cd5c !important;
 }
 
 
@@ -116,10 +142,19 @@ button:hover {
    ===================================== */
 
 #recipe,
-#todaysRecipe {
-    color: #8b6240;
-
+#todaysRecipe,
+#recipeName {
+    color: #8b6240 !important;
     font-size: 24px;
+}
+
+
+/* =====================================
+   WOOD SIGN
+   ===================================== */
+
+.woodSign {
+    color: #8b6240;
 }
 
 
@@ -128,7 +163,7 @@ button:hover {
    ===================================== */
 
 canvas {
-    background: white;
+    background: white !important;
 
     border: 8px solid #d6a56d;
 
@@ -143,7 +178,7 @@ canvas {
    ===================================== */
 
 .toolbar {
-    background: #ffeec7;
+    background: #ffeec7 !important;
 
     width: 300px;
 
@@ -156,15 +191,26 @@ canvas {
 
 
 /* =====================================
-   MESSAGES
+   INPUTS
    ===================================== */
 
-#message {
+input {
     color: #8b6240;
 }
 
 
-/* Pablo's font inside messages */
+/* =====================================
+   MESSAGES
+   ===================================== */
+
+#message,
+#message p,
+#message strong,
+#message b,
+#message h2,
+#message h3 {
+    color: #8b6240 !important;
+}
 
 #message h2,
 #message h3,
