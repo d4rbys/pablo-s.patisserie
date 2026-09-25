@@ -242,3 +242,13 @@ a:active {
     text-decoration: underline !important;
 }
 ```
+/* =========================================
+STICKY TOP NAVIGATION
+========================================= */
+
+.site-nav {
+position: sticky;
+top: 0;
+z-index: 1000;
+background: #ffeec7;
+}
