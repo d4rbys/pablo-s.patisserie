@@ -7,10 +7,7 @@
 ```
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pablo's Patisserie – Baking Game | Play Online</title>
 
@@ -19,20 +16,14 @@
     content="Play Pablo's Patisserie, a fun baking game where you draw today's bake, serve customers and share your creations with the community."
 >
 
-<meta
-    name="robots"
-    content="index, follow"
->
+<meta name="robots" content="index, follow">
 
 <link
     rel="canonical"
     href="https://www.pablospatisserie.com/"
 >
 
-<meta
-    property="og:type"
-    content="website"
->
+<meta property="og:type" content="website">
 
 <meta
     property="og:title"
@@ -49,14 +40,9 @@
     content="https://www.pablospatisserie.com/"
 >
 
-<!-- =====================================
-     FONT
-     ===================================== -->
+<!-- FONT -->
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link
     rel="preconnect"
@@ -69,50 +55,29 @@
     rel="stylesheet"
 >
 
-<!-- =====================================
-     CSS
-     ===================================== -->
+<!-- CSS -->
 
-<link
-    rel="stylesheet"
-    href="style.css"
->
+<link rel="stylesheet" href="style.css">
 
-<link
-    rel="stylesheet"
-    href="mobile-fix.css"
->
+<link rel="stylesheet" href="mobile-fix.css">
 
-<!-- =====================================
-     PABLO'S MAIN STYLING
-     ===================================== -->
 
 <style>
 
     html,
     body {
-
         margin: 0;
-
         min-height: 100vh;
-
         background: #fff4dc !important;
-
         color: #8b6240 !important;
-
         font-family: Arial, sans-serif;
-
     }
 
 
     #app {
-
         min-height: 100vh;
-
         background: #fff4dc !important;
-
         color: #8b6240 !important;
-
     }
 
 
@@ -123,20 +88,14 @@
     h3,
     strong,
     b {
-
-        font-family:
-            "Cedarville Cursive",
-            cursive !important;
-
+        font-family: "Cedarville Cursive", cursive !important;
     }
 
 
     /* Main title */
 
     h1 {
-
         color: #a06f45 !important;
-
     }
 
 
@@ -147,100 +106,92 @@
     p,
     label,
     span {
-
         color: #8b6240 !important;
-
     }
 
 
-    /* Mustard links */
+    /* Links */
 
     a,
     a:link,
     a:visited {
-
         color: #c49a24 !important;
-
         text-decoration: none !important;
-
     }
 
 
     a:hover,
     a:active {
-
         color: #a87912 !important;
-
         text-decoration: underline !important;
-
     }
 
 
-    /* Navigation */
+    /* =====================================
+       TOP MENU
+       ===================================== */
 
     .site-nav {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+
+        width: 100%;
+        box-sizing: border-box;
+
+        padding: 14px 12px !important;
 
         background: #ffeec7 !important;
-
     }
 
 
     .site-nav a,
     .site-nav a:link,
     .site-nav a:visited {
-
         color: #c49a24 !important;
-
-        font-family:
-            Arial,
-            sans-serif !important;
-
+        font-family: Arial, sans-serif !important;
         font-weight: 700;
+        text-decoration: none !important;
 
+        padding: 8px 12px;
+        border-radius: 18px;
     }
 
 
     .site-nav a:hover,
     .site-nav a:active {
-
         color: #a87912 !important;
-
+        background: #f6d77a;
+        text-decoration: none !important;
     }
 
 
     /* Buttons */
 
     button {
-
         background: #f6d77a !important;
-
         color: #8b6240 !important;
-
     }
 
 
     button:hover {
-
         background: #f2cd5c !important;
-
     }
 
 
     /* Toolbar */
 
     .toolbar {
-
         background: #ffeec7 !important;
-
     }
 
 
     /* Message */
 
     #message {
-
         color: #8b6240 !important;
-
     }
 
 
@@ -248,61 +199,70 @@
     #message h3,
     #message strong,
     #message b {
-
-        font-family:
-            "Cedarville Cursive",
-            cursive !important;
-
+        font-family: "Cedarville Cursive", cursive !important;
         color: #8b6240 !important;
-
     }
 
 
     /* =====================================
-       BOTTOM PABLO BANNER
+       BOTTOM BANNER
        ===================================== */
 
     .seo-footer {
+        display: block;
+
+        width: 100%;
+        box-sizing: border-box;
 
         text-align: center;
 
         padding: 25px;
 
-        background: #ffeec7;
-
-        color: #8b6240;
-
-        font-family: Arial, sans-serif;
-
         margin-top: 30px;
 
+        background: #ffeec7 !important;
+
+        color: #8b6240 !important;
+
+        font-family: Arial, sans-serif;
     }
 
 
     .seo-footer a,
     .seo-footer a:visited {
-
         color: #c49a24 !important;
-
         text-decoration: none !important;
-
     }
 
 
     .seo-footer a:hover {
-
         color: #a87912 !important;
-
         text-decoration: underline !important;
+    }
+
+
+    /* =====================================
+       MOBILE
+       ===================================== */
+
+    @media (max-width: 600px) {
+
+        .site-nav {
+            gap: 4px;
+            padding: 10px 6px !important;
+        }
+
+        .site-nav a {
+            padding: 7px 8px;
+            font-size: 14px;
+        }
 
     }
 
 </style>
 
 
-<!-- =====================================
-     SEARCH / SEO
-     ===================================== -->
+<!-- SEO -->
 
 <script type="application/ld+json">
 {
@@ -329,7 +289,7 @@
 
 ```
 <!-- =====================================
-     NAVIGATION
+     TOP NAVIGATION
      ===================================== -->
 
 <nav
