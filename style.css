@@ -221,3 +221,18 @@ canvas {
     color: #a87912 !important;
     text-decoration: underline !important;
 }
+
+/* =====================================
+   MATCH TOP OF ALL PAGES
+   ===================================== */
+
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.site-nav {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
