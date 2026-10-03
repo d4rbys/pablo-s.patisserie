@@ -1,15 +1,25 @@
-```css
 /* =====================================
    PABLO'S PATISSERIE
    Main Styles
    ===================================== */
 
+html {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 body {
-    margin: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     min-height: 100vh;
     background: #fff4dc;
     font-family: Arial, sans-serif;
     color: #8b6240;
+}
+
+#app {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 
@@ -33,6 +43,7 @@ b {
 h1 {
     font-size: 60px;
     color: #a06f45;
+    margin-top: 0 !important;
 }
 
 
@@ -64,6 +75,7 @@ a:active {
     justify-content: center;
     gap: 8px;
     padding: 14px 12px;
+    margin: 0 !important;
     background: #ffeec7 !important;
 }
 
@@ -92,7 +104,7 @@ a:active {
    ===================================== */
 
 header {
-    margin: 0;
+    margin: 0 !important;
     padding: 20px 10px;
     text-align: center;
 }
@@ -209,4 +221,3 @@ canvas {
     color: #a87912 !important;
     text-decoration: underline !important;
 }
-```
