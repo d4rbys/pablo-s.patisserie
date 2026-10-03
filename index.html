@@ -129,41 +129,34 @@
 
     /* =====================================
        TOP MENU
+       Matches the other pages
        ===================================== */
 
     .site-nav {
-        display: flex !important;
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
         gap: 8px;
-
-        width: 100%;
-        box-sizing: border-box;
-
-        padding: 14px 12px !important;
-
+        padding: 14px 12px;
         background: #ffeec7 !important;
     }
 
 
     .site-nav a,
-    .site-nav a:link,
     .site-nav a:visited {
         color: #c49a24 !important;
+        text-decoration: none !important;
         font-family: Arial, sans-serif !important;
         font-weight: 700;
-        text-decoration: none !important;
-
         padding: 8px 12px;
         border-radius: 18px;
     }
 
 
     .site-nav a:hover,
-    .site-nav a:active {
-        color: #a87912 !important;
+    .site-nav a:focus {
         background: #f6d77a;
+        color: #a87912 !important;
         text-decoration: none !important;
     }
 
@@ -206,25 +199,16 @@
 
     /* =====================================
        BOTTOM BANNER
+       Matches the other pages
        ===================================== */
 
     .seo-footer {
-        display: block;
-
-        width: 100%;
-        box-sizing: border-box;
-
         text-align: center;
-
         padding: 25px;
-
-        margin-top: 30px;
-
-        background: #ffeec7 !important;
-
-        color: #8b6240 !important;
-
+        background: #ffeec7;
+        color: #8b6240;
         font-family: Arial, sans-serif;
+        margin-top: 30px;
     }
 
 
@@ -235,34 +219,16 @@
     }
 
 
-    .seo-footer a:hover {
+    .seo-footer a:hover,
+    .seo-footer a:focus {
         color: #a87912 !important;
         text-decoration: underline !important;
-    }
-
-
-    /* =====================================
-       MOBILE
-       ===================================== */
-
-    @media (max-width: 600px) {
-
-        .site-nav {
-            gap: 4px;
-            padding: 10px 6px !important;
-        }
-
-        .site-nav a {
-            padding: 7px 8px;
-            font-size: 14px;
-        }
-
     }
 
 </style>
 
 
-<!-- SEO -->
+<!-- SEARCH / SEO -->
 
 <script type="application/ld+json">
 {
@@ -289,7 +255,7 @@
 
 ```
 <!-- =====================================
-     TOP NAVIGATION
+     NAVIGATION
      ===================================== -->
 
 <nav
@@ -362,9 +328,7 @@
         </button>
 
 
-        <!-- =====================================
-             COMMUNITY SHELF
-             ===================================== -->
+        <!-- COMMUNITY SHELF -->
 
         <section
             id="communityShelf"
@@ -390,9 +354,7 @@
 </main>
 
 
-<!-- =====================================
-     SEO INTRO
-     ===================================== -->
+<!-- SEO INTRO -->
 
 <section
     class="seo-intro"
@@ -448,31 +410,23 @@
 
 </footer>
 
-<!-- =====================================
-     GAME JAVASCRIPT
-     ===================================== -->
+<!-- GAME JAVASCRIPT -->
 
 <script src="script.js"></script>
 
-<!-- =====================================
-     TENSORFLOW
-     ===================================== -->
+<!-- TENSORFLOW -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
 ></script>
 
-<!-- =====================================
-     TEACHABLE MACHINE
-     ===================================== -->
+<!-- TEACHABLE MACHINE -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
 ></script>
 
-<!-- =====================================
-     SUPABASE
-     ===================================== -->
+<!-- SUPABASE -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
