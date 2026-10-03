@@ -1,429 +1,498 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Pablo's Patisserie – Baking Game | Play Online</title>
+<title>Pablo's Patisserie – Baking Game | Play Online</title>
 
-    <meta
-        name="description"
-        content="Play Pablo's Patisserie, a fun baking game where you draw today's bake, serve customers and share your creations with the community."
-    >
+<meta
+    name="description"
+    content="Play Pablo's Patisserie, a fun baking game where you draw today's bake, serve customers and share your creations with the community."
+>
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
+<meta
+    name="robots"
+    content="index, follow"
+>
 
-    <link
-        rel="canonical"
-        href="https://www.pablospatisserie.com/"
-    >
+<link
+    rel="canonical"
+    href="https://www.pablospatisserie.com/"
+>
 
-    <meta
-        property="og:type"
-        content="website"
-    >
+<meta
+    property="og:type"
+    content="website"
+>
 
-    <meta
-        property="og:title"
-        content="Pablo's Patisserie – Baking Game"
-    >
+<meta
+    property="og:title"
+    content="Pablo's Patisserie – Baking Game"
+>
 
-    <meta
-        property="og:description"
-        content="Draw today's bake, complete orders and share your creations in the Community Shelf."
-    >
+<meta
+    property="og:description"
+    content="Draw today's bake, complete orders and share your creations in the Community Shelf."
+>
 
-    <meta
-        property="og:url"
-        content="https://www.pablospatisserie.com/"
-    >
+<meta
+    property="og:url"
+    content="https://www.pablospatisserie.com/"
+>
 
+<!-- =====================================
+     FONT
+     ===================================== -->
 
-    <!-- =====================================
-         FONT
-         ===================================== -->
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+<link
+    href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap"
+    rel="stylesheet"
+>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap"
-        rel="stylesheet"
-    >
+<!-- =====================================
+     CSS
+     ===================================== -->
 
+<link
+    rel="stylesheet"
+    href="style.css"
+>
 
-    <!-- =====================================
-         CSS
-         ===================================== -->
+<link
+    rel="stylesheet"
+    href="mobile-fix.css"
+>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<!-- =====================================
+     PABLO'S MAIN STYLING
+     ===================================== -->
 
-    <link
-        rel="stylesheet"
-        href="mobile-fix.css"
-    >
+<style>
 
+    html,
+    body {
 
-    <!-- =====================================
-         PABLO'S MAIN STYLING
-         ===================================== -->
+        margin: 0;
 
-    <style>
+        min-height: 100vh;
 
-        html,
-        body {
+        background: #fff4dc !important;
 
-            margin: 0;
+        color: #8b6240 !important;
 
-            min-height: 100vh;
+        font-family: Arial, sans-serif;
 
-            background: #fff4dc !important;
-
-            color: #8b6240 !important;
-
-            font-family: Arial, sans-serif;
-
-        }
-
-
-        #app {
-
-            min-height: 100vh;
-
-            background: #fff4dc !important;
-
-            color: #8b6240 !important;
-
-        }
-
-
-        /* Pablo's font */
-
-        h1,
-        h2,
-        h3,
-        strong,
-        b {
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
-        }
-
-
-        /* Main title */
-
-        h1 {
-
-            color: #a06f45 !important;
-
-        }
-
-
-        /* Brown text */
-
-        h2,
-        h3,
-        p,
-        label,
-        span {
-
-            color: #8b6240 !important;
-
-        }
-
-
-        /* Mustard links */
-
-        a,
-        a:link,
-        a:visited {
-
-            color: #c49a24 !important;
-
-            text-decoration: none !important;
-
-        }
-
-
-        a:hover,
-        a:active {
-
-            color: #a87912 !important;
-
-            text-decoration: underline !important;
-
-        }
-
-
-        /* Navigation */
-
-        .site-nav a,
-        .site-nav a:link,
-        .site-nav a:visited {
-
-            color: #c49a24 !important;
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
-        }
-
-
-        /* Buttons */
-
-        button {
-
-            background: #f6d77a !important;
-
-            color: #8b6240 !important;
-
-        }
-
-
-        button:hover {
-
-            background: #f2cd5c !important;
-
-        }
-
-
-        /* Toolbar */
-
-        .toolbar {
-
-            background: #ffeec7 !important;
-
-        }
-
-
-        /* Message */
-
-        #message {
-
-            color: #8b6240 !important;
-
-        }
-
-
-        #message h2,
-        #message h3,
-        #message strong,
-        #message b {
-
-            font-family:
-                "Cedarville Cursive",
-                cursive !important;
-
-            color: #8b6240 !important;
-
-        }
-
-    </style>
-
-
-    <!-- =====================================
-         SEARCH / SEO
-         ===================================== -->
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Pablo's Patisserie",
-        "url": "https://www.pablospatisserie.com/",
-        "description": "A playful baking and drawing game where players create today's bake and share successful creations with the community.",
-        "genre": [
-            "Baking Game",
-            "Drawing Game"
-        ],
-        "gamePlatform": "Web browser",
-        "applicationCategory": "Game"
     }
-    </script>
+
+
+    #app {
+
+        min-height: 100vh;
+
+        background: #fff4dc !important;
+
+        color: #8b6240 !important;
+
+    }
+
+
+    /* Pablo's font */
+
+    h1,
+    h2,
+    h3,
+    strong,
+    b {
+
+        font-family:
+            "Cedarville Cursive",
+            cursive !important;
+
+    }
+
+
+    /* Main title */
+
+    h1 {
+
+        color: #a06f45 !important;
+
+    }
+
+
+    /* Brown text */
+
+    h2,
+    h3,
+    p,
+    label,
+    span {
+
+        color: #8b6240 !important;
+
+    }
+
+
+    /* Mustard links */
+
+    a,
+    a:link,
+    a:visited {
+
+        color: #c49a24 !important;
+
+        text-decoration: none !important;
+
+    }
+
+
+    a:hover,
+    a:active {
+
+        color: #a87912 !important;
+
+        text-decoration: underline !important;
+
+    }
+
+
+    /* Navigation */
+
+    .site-nav {
+
+        background: #ffeec7 !important;
+
+    }
+
+
+    .site-nav a,
+    .site-nav a:link,
+    .site-nav a:visited {
+
+        color: #c49a24 !important;
+
+        font-family:
+            Arial,
+            sans-serif !important;
+
+        font-weight: 700;
+
+    }
+
+
+    .site-nav a:hover,
+    .site-nav a:active {
+
+        color: #a87912 !important;
+
+    }
+
+
+    /* Buttons */
+
+    button {
+
+        background: #f6d77a !important;
+
+        color: #8b6240 !important;
+
+    }
+
+
+    button:hover {
+
+        background: #f2cd5c !important;
+
+    }
+
+
+    /* Toolbar */
+
+    .toolbar {
+
+        background: #ffeec7 !important;
+
+    }
+
+
+    /* Message */
+
+    #message {
+
+        color: #8b6240 !important;
+
+    }
+
+
+    #message h2,
+    #message h3,
+    #message strong,
+    #message b {
+
+        font-family:
+            "Cedarville Cursive",
+            cursive !important;
+
+        color: #8b6240 !important;
+
+    }
+
+
+    /* =====================================
+       BOTTOM PABLO BANNER
+       ===================================== */
+
+    .seo-footer {
+
+        text-align: center;
+
+        padding: 25px;
+
+        background: #ffeec7;
+
+        color: #8b6240;
+
+        font-family: Arial, sans-serif;
+
+        margin-top: 30px;
+
+    }
+
+
+    .seo-footer a,
+    .seo-footer a:visited {
+
+        color: #c49a24 !important;
+
+        text-decoration: none !important;
+
+    }
+
+
+    .seo-footer a:hover {
+
+        color: #a87912 !important;
+
+        text-decoration: underline !important;
+
+    }
+
+</style>
+
+
+<!-- =====================================
+     SEARCH / SEO
+     ===================================== -->
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Pablo's Patisserie",
+    "url": "https://www.pablospatisserie.com/",
+    "description": "A playful baking and drawing game where players create today's bake and share successful creations with the community.",
+    "genre": [
+        "Baking Game",
+        "Drawing Game"
+    ],
+    "gamePlatform": "Web browser",
+    "applicationCategory": "Game"
+}
+</script>
+```
 
 </head>
 
-
 <body>
-    
 
 <div id="app">
 
+```
+<!-- =====================================
+     NAVIGATION
+     ===================================== -->
 
-    <!-- =====================================
-         NAVIGATION
-         ===================================== -->
+<nav
+    class="site-nav"
+    aria-label="Main navigation"
+>
 
-    <nav
-        class="site-nav"
-        aria-label="Main navigation"
+    <a href="/">Play</a>
+
+    <a href="/about.html">About</a>
+
+    <a href="/how-to-play.html">How to Play</a>
+
+    <a href="/characters.html">Characters</a>
+
+    <a href="/recipes.html">Recipes</a>
+
+    <a href="/updates.html">Updates</a>
+
+</nav>
+
+
+<!-- =====================================
+     HEADER
+     ===================================== -->
+
+<header>
+
+    <img
+        src="images/pablo.png"
+        alt="Pablo"
+        id="pablo"
     >
 
-        <a href="/">Play</a>
+    <h1>Pablo's Patisserie</h1>
 
-        <a href="/about.html">About</a>
-
-        <a href="/how-to-play.html">How to Play</a>
-
-        <a href="/characters.html">Characters</a>
-
-        <a href="/recipes.html">Recipes</a>
-
-        <a href="/updates.html">Updates</a>
-
-    </nav>
+</header>
 
 
-    <!-- =====================================
-         HEADER
-         ===================================== -->
+<!-- =====================================
+     GAME
+     ===================================== -->
 
-    <header>
+<main id="game">
 
-        <img
-            src="images/pablo.png"
-            alt="Pablo"
-            id="pablo"
+    <section id="homeScreen">
+
+
+        <div class="woodSign">
+
+            <h2>Today's Bake</h2>
+
+            <p id="recipeName">
+                Loading...
+            </p>
+
+        </div>
+
+
+        <button id="playButton">
+            Play
+        </button>
+
+
+        <button
+            id="shelfButton"
+            onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()"
+        >
+            Community Shelf
+        </button>
+
+
+        <!-- =====================================
+             COMMUNITY SHELF
+             ===================================== -->
+
+        <section
+            id="communityShelf"
+            style="display: none;"
         >
 
-        <h1>Pablo's Patisserie</h1>
+            <h2>Community Shelf</h2>
 
-    </header>
-
-
-    <!-- =====================================
-         GAME
-         ===================================== -->
-
-    <main id="game">
-
-        <section id="homeScreen">
-
-
-            <div class="woodSign">
-
-                <h2>Today's Bake</h2>
-
-                <p id="recipeName">
-                    Loading...
-                </p>
-
-            </div>
-
-
-            <button id="playButton">
-                Play
-            </button>
+            <div id="shelfDrawings"></div>
 
 
             <button
-                id="shelfButton"
-                onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()"
+                id="closeShelf"
+                onclick="document.getElementById('communityShelf').style.display='none'"
             >
-                Community Shelf
+                Back
             </button>
-
-
-            <!-- =====================================
-                 COMMUNITY SHELF
-                 ===================================== -->
-
-            <section
-                id="communityShelf"
-                style="display: none;"
-            >
-
-                <h2>Community Shelf</h2>
-
-                <div id="shelfDrawings"></div>
-
-
-                <button
-                    id="closeShelf"
-                    onclick="document.getElementById('communityShelf').style.display='none'"
-                >
-                    Back
-                </button>
-
-            </section>
 
         </section>
 
-    </main>
-
-
-    <!-- =====================================
-         SEO INTRO
-         ===================================== -->
-
-    <section
-        class="seo-intro"
-        aria-labelledby="about-game"
-    >
-
-        <h2 id="about-game">
-            Pablo's Patisserie – A Baking Game
-        </h2>
-
-        <p>
-            Welcome to Pablo's Patisserie, a playful drawing
-            and baking game. Each day brings a new bake to
-            create. Draw the order, let Pablo check your
-            creation, and share your successful bakes on the
-            Community Shelf.
-        </p>
-
-        <p>
-
-            Ready to bake?
-
-            <a href="#game">
-                Play Pablo's Patisserie
-            </a>
-
-            or learn
-
-            <a href="/how-to-play.html">
-                how to play
-            </a>.
-
-        </p>
-
     </section>
+
+</main>
+
+
+<!-- =====================================
+     SEO INTRO
+     ===================================== -->
+
+<section
+    class="seo-intro"
+    aria-labelledby="about-game"
+>
+
+    <h2 id="about-game">
+        Pablo's Patisserie – A Baking Game
+    </h2>
+
+    <p>
+        Welcome to Pablo's Patisserie, a playful drawing
+        and baking game. Each day brings a new bake to
+        create. Draw the order, let Pablo check your
+        creation, and share your successful bakes on the
+        Community Shelf.
+    </p>
+
+    <p>
+
+        Ready to bake?
+
+        <a href="#game">
+            Play Pablo's Patisserie
+        </a>
+
+        or learn
+
+        <a href="/how-to-play.html">
+            how to play
+        </a>.
+
+    </p>
+
+</section>
+```
 
 </div>
 
+<!-- =====================================
+     BOTTOM PABLO BANNER
+     ===================================== -->
+
+<footer class="seo-footer">
+
+```
+<a href="/">
+    Pablo's Patisserie
+</a>
+
+· A baking game
+```
+
+</footer>
 
 <!-- =====================================
      GAME JAVASCRIPT
      ===================================== -->
 
 <script src="script.js"></script>
-
 
 <!-- =====================================
      TENSORFLOW
@@ -433,7 +502,6 @@
     src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
 ></script>
 
-
 <!-- =====================================
      TEACHABLE MACHINE
      ===================================== -->
@@ -441,7 +509,6 @@
 <script
     src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
 ></script>
-
 
 <!-- =====================================
      SUPABASE
@@ -454,4 +521,3 @@
 </body>
 
 </html>
-```
