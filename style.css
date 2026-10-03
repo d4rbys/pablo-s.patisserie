@@ -1,20 +1,20 @@
 ```css
-body {
+/* =====================================
+   PABLO'S PATISSERIE
+   Main Styles
+   ===================================== */
 
+body {
     margin: 0;
     min-height: 100vh;
-
     background: #fff4dc;
-
     font-family: Arial, sans-serif;
-
     color: #8b6240;
-
 }
 
 
 /* =====================================
-   Pablo's Font
+   PABLO'S FONT
    ===================================== */
 
 h1,
@@ -22,198 +22,23 @@ h2,
 h3,
 strong,
 b {
-
     font-family: "Cedarville Cursive", cursive !important;
-
 }
 
 
 /* =====================================
-   Main Title
+   MAIN TITLE
    ===================================== */
 
 h1 {
-
     font-size: 60px;
-
     color: #a06f45;
-
 }
 
 
 /* =====================================
-   Clickable Links
+   LINKS
    ===================================== */
-
-a,
-a:visited {
-
-    color: #c49a24 !important;
-
-    text-decoration: none;
-
-}
-
-
-a:hover,
-a:active {
-
-    color: #a87912 !important;
-
-    text-decoration: underline;
-
-}
-
-
-/* =====================================
-   Navigation Links
-   ===================================== */
-
-.site-nav a,
-.site-nav a:visited {
-
-    color: #c49a24 !important;
-
-    font-family: Arial, sans-serif;
-
-    text-decoration: none;
-
-}
-
-
-.site-nav a:hover {
-
-    color: #a87912 !important;
-
-    text-decoration: underline;
-
-}
-
-
-/* =====================================
-   Buttons
-   ===================================== */
-
-button {
-
-    background: #f6d77a;
-
-    color: #8b6240;
-
-    border: none;
-
-    padding: 12px 30px;
-
-    margin: 8px;
-
-    border-radius: 25px;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-
-}
-
-
-button:hover {
-
-    transform: scale(1.05);
-
-    background: #f2cd5c;
-
-}
-
-
-/* =====================================
-   Recipe / Order
-   ===================================== */
-
-#recipe,
-#todaysRecipe {
-
-    color: #8b6240;
-
-    font-size: 24px;
-
-}
-
-
-/* =====================================
-   Drawing Area
-   ===================================== */
-
-canvas {
-
-    background: white;
-
-    border: 8px solid #d6a56d;
-
-    border-radius: 20px;
-
-    margin-top: 20px;
-
-}
-
-
-/* =====================================
-   Toolbar
-   ===================================== */
-
-.toolbar {
-
-    background: #ffeec7;
-
-    width: 300px;
-
-    margin: 20px auto;
-
-    padding: 15px;
-
-    border-radius: 20px;
-
-}
-
-
-/* =====================================
-   Messages
-   ===================================== */
-
-#message {
-
-    color: #8b6240;
-
-}
-
-
-/* Make headings inside messages use Pablo's font */
-
-#message h2,
-#message h3,
-#message strong {
-
-    font-family: "Cedarville Cursive", cursive !important;
-
-}
-```
-
-```css
-/* =========================================
-   PABLO'S PATISSERIE FONT
-   ========================================= */
-
-h1,
-h2,
-h3,
-strong,
-b {
-    font-family: "Cedarville Cursive", cursive !important;
-}
-
-/* =========================================
-   MUSTARD LINKS
-   ========================================= */
 
 a,
 a:link,
@@ -228,45 +53,160 @@ a:active {
     text-decoration: underline !important;
 }
 
-/* Navigation */
+
+/* =====================================
+   TOP NAVIGATION
+   ===================================== */
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 12px;
+    background: #ffeec7 !important;
+}
+
 .site-nav a,
 .site-nav a:link,
 .site-nav a:visited {
     color: #c49a24 !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: 700;
     text-decoration: none !important;
+    padding: 8px 12px;
+    border-radius: 18px;
 }
 
 .site-nav a:hover,
+.site-nav a:focus,
 .site-nav a:active {
+    background: #f6d77a;
+    color: #a87912 !important;
+    text-decoration: none !important;
+}
+
+
+/* =====================================
+   HEADER
+   ===================================== */
+
+header {
+    margin: 0;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+
+/* =====================================
+   BUTTONS
+   ===================================== */
+
+button {
+    background: #f6d77a;
+    color: #8b6240;
+    border: none;
+    padding: 12px 30px;
+    margin: 8px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #f2cd5c;
+}
+
+
+/* =====================================
+   RECIPE / ORDER
+   ===================================== */
+
+#recipe,
+#todaysRecipe,
+#recipeName {
+    color: #8b6240;
+    font-size: 24px;
+}
+
+
+/* =====================================
+   DRAWING AREA
+   ===================================== */
+
+canvas {
+    background: white;
+    border: 8px solid #d6a56d;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+
+/* =====================================
+   TOOLBAR
+   ===================================== */
+
+.toolbar {
+    background: #ffeec7;
+    width: 300px;
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+
+/* =====================================
+   MESSAGES
+   ===================================== */
+
+#message {
+    color: #8b6240;
+}
+
+#message h2,
+#message h3,
+#message strong,
+#message b {
+    font-family: "Cedarville Cursive", cursive !important;
+    color: #8b6240;
+}
+
+
+/* =====================================
+   SEO INTRO
+   ===================================== */
+
+.seo-intro {
+    text-align: center;
+    padding: 25px;
+    color: #8b6240;
+}
+
+
+/* =====================================
+   BOTTOM BANNER
+   ===================================== */
+
+.seo-footer {
+    text-align: center;
+    padding: 25px;
+    background: #ffeec7 !important;
+    color: #8b6240;
+    font-family: Arial, sans-serif;
+    margin-top: 30px;
+}
+
+.seo-footer a,
+.seo-footer a:visited {
+    color: #c49a24 !important;
+    text-decoration: none !important;
+}
+
+.seo-footer a:hover,
+.seo-footer a:focus {
     color: #a87912 !important;
     text-decoration: underline !important;
-/* =========================================
-ALWAYS-VISIBLE TOP AND BOTTOM BANNERS
-========================================= */
-
-.site-nav {
-position: fixed !important;
-top: 0 !important;
-left: 0 !important;
-right: 0 !important;
-width: 100% !important;
-z-index: 9999 !important;
-background: #ffeec7 !important;
 }
-
-/* Keep page content below the top menu */
-body {
-padding-top: 75px !important;
-padding-bottom: 75px !important;
-}
-
-/* Keep the footer at the bottom of the screen */
-.seo-footer {
-position: fixed !important;
-bottom: 0 !important;
-left: 0 !important;
-right: 0 !important;
-width: 100% !important;
-z-index: 9999 !important;
-background: #ffeec7 !important;
-}
+```
