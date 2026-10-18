@@ -157,11 +157,37 @@ function fillWhite(canvas, ctx) {
 // Start Game
 // =====================================
 
+
+const doorButton = document.getElementById("doorButton");
+const doorMenu = document.getElementById("doorMenu");
 const playButton = document.getElementById("playButton");
+const shelfButton = document.getElementById("shelfButton");
+const communityShelf = document.getElementById("communityShelf");
+const closeShelf = document.getElementById("closeShelf");
+
+if (doorButton && doorMenu) {
+    doorButton.addEventListener("click", () => {
+        doorMenu.hidden = false;
+    });
+}
 
 if (playButton) {
     playButton.addEventListener("click", startGame);
 }
+
+if (shelfButton && communityShelf) {
+    shelfButton.addEventListener("click", () => {
+        communityShelf.hidden = false;
+        loadCommunityShelf();
+    });
+}
+
+if (closeShelf && communityShelf) {
+    closeShelf.addEventListener("click", () => {
+        communityShelf.hidden = true;
+    });
+}
+
 
 function startGame() {
 
