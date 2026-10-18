@@ -1,503 +1,760 @@
 
+// =====================================
+// Supabase
+// =====================================
+
 const SUPABASE_URL =
-  "https://bvlvexagwwzwitcuyttg.supabase.co";
+    "https://bvlvexagwwzwitcuyttg.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_yG4ZpSU5nyiRMhqRXajclw_OvNWot7b";
+    "sb_publishable_yG4ZpSU5nyiRMhqRXajclw_OvNWot7b";
 
-const MODEL_URL =
-  "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
-
-const recipes = [
-  "Cookie",
-  "Cupcake",
-  "Croissant",
-  "Pie",
-  "Bread",
-  "Pretzel",
-  "Doughnut",
-  "Cake"
-];
-
-let currentRecipe = getRandomRecipe();
-let model = null;
 let supabaseClient = null;
 
-function getRandomRecipe() {
-  return recipes[Math.floor(Math.random() * recipes.length)];
-}
-
+// Created only when needed, and wrapped in try/catch, so a
+// Supabase problem can never stop the Play button working.
 function getSupabase() {
-  if (supabaseClient) return supabaseClient;
 
-  try {
-    if (window.supabase) {
-      supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
+    if (supabaseClient) return supabaseClient;
+
+    try {
+
+        if (window.supabase) {
+
+            supabaseClient = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+        } else {
+
+            console.error("Supabase library did not load.");
+
+        }
+
+    } catch (error) {
+
+        console.error("Supabase setup failed:", error);
+
     }
-  } catch (error) {
-    console.error("Supabase setup failed:", error);
-  }
 
-  return supabaseClient;
+    return supabaseClient;
+
 }
 
-// -------------------------------------
-// DOOR MENU
-// -------------------------------------
 
-const homeScreen = document.getElementById("homeScreen");
-const doorButton = document.getElementById("doorButton");
-const doorMenu = document.getElementById("doorMenu");
-const playButton = document.getElementById("playButton");
-const shelfButton = document.getElementById("shelfButton");
-const communityShelf = document.getElementById("communityShelf");
-const closeShelf = document.getElementById("closeShelf");
+// =====================================
+// Recipes
+// =====================================
 
-doorButton.addEventListener("click", () => {
-  doorMenu.hidden = false;
-});
+// These names must match your Teachable Machine class names EXACTLY
+const recipes = [
+    "Cookie",
+    "Cupcake",
+    "Croissant",
+    "Pie",
+    "Bread",
+    "Pretzel",
+    "Doughnut",
+    "Cake"
+];
 
-playButton.addEventListener("click", startGame);
+function getRandomRecipe() {
+    return recipes[Math.floor(Math.random() * recipes.length)];
+}
 
-shelfButton.addEventListener("click", () => {
-  homeScreen.hidden = true;
-  communityShelf.hidden = false;
-  loadCommunityShelf();
-});
+let currentRecipe = getRandomRecipe();
 
-closeShelf.addEventListener("click", () => {
-  communityShelf.hidden = true;
-  homeScreen.hidden = false;
-});
 
-// -------------------------------------
-// AI
-// -------------------------------------
+// =====================================
+// Teachable Machine AI
+// =====================================
+
+const MODEL_URL =
+    "https://teachablemachine.withgoogle.com/models/_TaaPk0nP/";
+
+let model = null;
 
 async function loadAI() {
-  try {
-    if (!window.tmImage) {
-      throw new Error("Teachable Machine library did not load.");
+
+    try {
+
+        model = await tmImage.load(
+            MODEL_URL + "model.json",
+            MODEL_URL + "metadata.json"
+        );
+
+        console.log("Pablo AI is ready!");
+
+        // Helpful check: does the model know every recipe?
+        const labels = model.getClassLabels();
+        console.log("Model classes:", labels);
+
+        recipes.forEach((recipe) => {
+            if (!labels.includes(recipe)) {
+                console.warn(
+                    `Your model has no class called "${recipe}". ` +
+                    `Pablo can never accept that drawing until you add it.`
+                );
+            }
+        });
+
+    } catch (error) {
+
+        console.error("AI failed to load:", error);
+
     }
-
-    model = await tmImage.load(
-      MODEL_URL + "model.json",
-      MODEL_URL + "metadata.json"
-    );
-
-    console.log("Pablo AI is ready!");
-    console.log("Model classes:", model.getClassLabels());
-  } catch (error) {
-    console.error("AI failed to load:", error);
-  }
 }
 
-window.addEventListener("load", loadAI);
 
-// -------------------------------------
-// DRAWING HISTORY
-// -------------------------------------
+// =====================================
+// App
+// =====================================
 
-let drawingHistory = [];
+const app = document.getElementById("app");
+
+// Show today's recipe on the home screen (this was missing,
+// which is why it said "Loading..." forever)
+const recipeNameEl = document.getElementById("recipeName");
+
+if (recipeNameEl) {
+    recipeNameEl.textContent = currentRecipe;
+}
+
+
+// =====================================
+// Drawing History
+// =====================================
+
+const drawingHistory = [];
+
 let historyStep = -1;
 
 function saveState(canvas) {
-  historyStep++;
-  drawingHistory.length = historyStep;
-  drawingHistory.push(canvas.toDataURL("image/png"));
+
+    historyStep++;
+
+    drawingHistory.length = historyStep;
+
+    drawingHistory.push(canvas.toDataURL());
+
 }
 
+
+// Fill the canvas with solid white. The AI needs a white
+// background, because a transparent canvas is read as BLACK.
 function fillWhite(canvas, ctx) {
-  ctx.globalCompositeOperation = "source-over";
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.globalCompositeOperation = "source-over";
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 }
 
-function restoreState(canvas, ctx, state) {
-  const image = new Image();
 
-  image.onload = () => {
-    fillWhite(canvas, ctx);
-    ctx.drawImage(image, 0, 0);
-  };
+// =====================================
+// Start Game
+// =====================================
 
-  image.src = state;
+const playButton = document.getElementById("playButton");
+
+if (playButton) {
+    playButton.addEventListener("click", startGame);
 }
-
-// -------------------------------------
-// START GAME
-// -------------------------------------
 
 function startGame() {
-  homeScreen.hidden = true;
 
-  const game = document.createElement("section");
-  game.id = "drawingGame";
-  game.className = "game-screen";
+    app.innerHTML = `
 
-  game.innerHTML = `
-    <header>
-      <img
-        src="images/pablo.png"
-        alt="Pablo"
-        id="pablo"
-        onerror="this.style.display='none'"
-      >
-      <h1>Pablo's Patisserie</h1>
-    </header>
+        <header>
 
-    <h2>Today's Order</h2>
+            <img src="images/pablo.png" alt="Pablo" id="pablo">
 
-    <p id="recipe">Draw a <strong>${currentRecipe}</strong></p>
+            <h1>Pablo's Patisserie</h1>
 
-    <label for="creatorName">Your Name</label><br>
-    <input id="creatorName" type="text"
-      placeholder="Your name" maxlength="30">
+        </header>
 
-    <br><br>
+        <main>
 
-    <label for="creationName">What did you create?</label><br>
-    <input id="creationName" type="text"
-      placeholder="Name your creation" maxlength="40">
+            <h2>Today's Order</h2>
 
-    <div class="toolbar">
-      <label for="colourPicker">Colour</label><br>
-      <input id="colourPicker" type="color" value="#5B3A29">
+            <p id="recipe">
+                Draw a
+                <strong>${currentRecipe}</strong>
+            </p>
 
-      <br><br>
+            <label for="creatorName">Your Name</label>
+            <br>
+            <input
+                type="text"
+                id="creatorName"
+                placeholder="Your name"
+                maxlength="30"
+            >
 
-      <label for="brushSize">Brush Size</label><br>
-      <input id="brushSize" type="range" min="2" max="30" value="6">
-    </div>
+            <br><br>
 
-    <canvas id="canvas" width="600" height="600"></canvas>
+            <label for="creationName">What did you create?</label>
+            <br>
+            <input
+                type="text"
+                id="creationName"
+                placeholder="Name your creation"
+                maxlength="40"
+            >
 
-    <div class="tool-buttons">
-      <button id="brush">Brush</button>
-      <button id="eraser">Eraser</button>
-      <button id="undo">Undo</button>
-      <button id="redo">Redo</button>
-      <button id="clear">Clear</button>
-      <button id="submit">Submit</button>
-      <button id="backToBakery">Back to bakery</button>
-    </div>
+            <br><br>
 
-    <div id="message" aria-live="polite"></div>
-  `;
+            <div class="toolbar">
 
-  document.getElementById("app").appendChild(game);
+                <label for="colourPicker">Colour</label>
+                <br>
+                <input
+                    type="color"
+                    id="colourPicker"
+                    value="#5B3A29"
+                >
 
-  document.getElementById("backToBakery").addEventListener("click", () => {
-    game.remove();
-    homeScreen.hidden = false;
-    doorMenu.hidden = false;
-  });
+                <br><br>
 
-  setupCanvas();
-  window.scrollTo(0, 0);
+                <label for="brushSize">Brush Size</label>
+                <br>
+                <input
+                    type="range"
+                    id="brushSize"
+                    min="2"
+                    max="30"
+                    value="6"
+                >
+
+            </div>
+
+            <canvas
+                id="canvas"
+                width="600"
+                height="600"
+            ></canvas>
+
+            <br><br>
+
+            <button id="brush">Brush</button>
+            <button id="eraser">Eraser</button>
+            <button id="undo">Undo</button>
+            <button id="redo">Redo</button>
+            <button id="clear">Clear</button>
+            <button id="submit">Submit</button>
+
+            <div id="message"></div>
+
+        </main>
+
+    `;
+
+    setupCanvas();
+
+    window.scrollTo(0, 0);
+
 }
 
-// -------------------------------------
-// CANVAS TOOLS
-// -------------------------------------
+
+// =====================================
+// Canvas
+// =====================================
 
 function setupCanvas() {
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
 
-  const colourPicker = document.getElementById("colourPicker");
-  const brushSize = document.getElementById("brushSize");
-  const message = document.getElementById("message");
-  const submit = document.getElementById("submit");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
 
-  let drawing = false;
-  let erasing = false;
-  let saved = false;
+    const colourPicker = document.getElementById("colourPicker");
+    const brushSize = document.getElementById("brushSize");
+    const brush = document.getElementById("brush");
+    const eraser = document.getElementById("eraser");
+    const undo = document.getElementById("undo");
+    const redo = document.getElementById("redo");
+    const clear = document.getElementById("clear");
+    const submit = document.getElementById("submit");
 
-  canvas.style.touchAction = "none";
-  fillWhite(canvas, ctx);
+    let drawing = false;
+    let erasing = false;
 
-  drawingHistory = [];
-  historyStep = -1;
-  saveState(canvas);
+    // Stops the page scrolling while drawing on a phone/tablet
+    canvas.style.touchAction = "none";
 
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  function applyTool() {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = erasing ? "#ffffff" : colourPicker.value;
-    ctx.lineWidth = Number(brushSize.value);
-  }
-
-  function getPosition(event) {
-    const rect = canvas.getBoundingClientRect();
-
-    return {
-      x: (event.clientX - rect.left) * canvas.width / rect.width,
-      y: (event.clientY - rect.top) * canvas.height / rect.height
-    };
-  }
-
-  colourPicker.addEventListener("input", () => {
-    erasing = false;
-    applyTool();
-  });
-
-  brushSize.addEventListener("input", applyTool);
-
-  document.getElementById("brush").addEventListener("click", () => {
-    erasing = false;
-    applyTool();
-  });
-
-  document.getElementById("eraser").addEventListener("click", () => {
-    erasing = true;
-    applyTool();
-  });
-
-  canvas.addEventListener("pointerdown", (event) => {
-    event.preventDefault();
-    drawing = true;
-    canvas.setPointerCapture(event.pointerId);
-
-    const position = getPosition(event);
-    applyTool();
-
-    ctx.beginPath();
-    ctx.moveTo(position.x, position.y);
-    ctx.lineTo(position.x + 0.01, position.y);
-    ctx.stroke();
-  });
-
-  canvas.addEventListener("pointermove", (event) => {
-    if (!drawing) return;
-
-    event.preventDefault();
-    const position = getPosition(event);
-    ctx.lineTo(position.x, position.y);
-    ctx.stroke();
-  });
-
-  function stopDrawing(event) {
-    if (!drawing) return;
-
-    drawing = false;
-    ctx.beginPath();
-
-    if (event && canvas.hasPointerCapture(event.pointerId)) {
-      canvas.releasePointerCapture(event.pointerId);
-    }
-
-    saveState(canvas);
-  }
-
-  canvas.addEventListener("pointerup", stopDrawing);
-  canvas.addEventListener("pointercancel", stopDrawing);
-
-  document.getElementById("undo").addEventListener("click", () => {
-    if (historyStep <= 0) return;
-    historyStep--;
-    restoreState(canvas, ctx, drawingHistory[historyStep]);
-  });
-
-  document.getElementById("redo").addEventListener("click", () => {
-    if (historyStep >= drawingHistory.length - 1) return;
-    historyStep++;
-    restoreState(canvas, ctx, drawingHistory[historyStep]);
-  });
-
-  document.getElementById("clear").addEventListener("click", () => {
+    // White background to start
     fillWhite(canvas, ctx);
-    applyTool();
+
+    // Reset history
+    drawingHistory.length = 0;
+    historyStep = -1;
+
     saveState(canvas);
-  });
 
-  submit.addEventListener("click", async () => {
-    const creatorName =
-      document.getElementById("creatorName").value.trim();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
-    const creationName =
-      document.getElementById("creationName").value.trim();
 
-    if (!creatorName || !creationName) {
-      message.textContent =
-        "Please add your name and name your creation!";
-      return;
+    // Apply the current tool (brush or eraser) to the canvas
+    function applyTool() {
+
+        ctx.globalCompositeOperation = "source-over";
+
+        ctx.strokeStyle =
+            erasing ? "#ffffff" : colourPicker.value;
+
+        ctx.lineWidth = Number(brushSize.value);
+
     }
 
-    if (!model) {
-      message.textContent =
-        "Pablo isn't ready yet. Please wait a moment and try again.";
-      return;
-    }
+    applyTool();
 
-    submit.disabled = true;
-    message.textContent = "Pablo is checking your drawing...";
 
-    try {
-      const predictions = await model.predict(canvas);
+    // ---- Colour ----
 
-      let best = predictions[0];
+    colourPicker.addEventListener("input", () => {
 
-      predictions.forEach((prediction) => {
-        if (prediction.probability > best.probability) {
-          best = prediction;
-        }
-      });
+        erasing = false;
 
-      console.log(
-        "Pablo's guesses:",
-        predictions.map(p =>
-          `${p.className}: ${p.probability.toFixed(2)}`
-        )
-      );
+        applyTool();
 
-      const matches =
-        best.className.trim().toLowerCase() ===
-        currentRecipe.toLowerCase();
-
-      if (matches && best.probability >= 0.55) {
-        const client = getSupabase();
-
-        if (!client) {
-          message.textContent =
-            "Pablo couldn't connect to the Community Shelf.";
-          return;
-        }
-
-        const result = await client
-          .from("community_drawings")
-          .insert({
-            name: creatorName,
-            creation: creationName,
-            drawing: canvas.toDataURL("image/jpeg", 0.8)
-          });
-
-        if (result.error) {
-          console.error(result.error);
-          message.textContent =
-            "Pablo couldn't put your drawing on the Community Shelf.";
-          return;
-        }
-
-        saved = true;
-
-        const heading = document.createElement("h2");
-        heading.textContent = "Well Done!";
-
-        const replies = [
-          "majestic!",
-          "yummy!",
-          "nicely drawn!",
-          "the customers will love that!",
-          "yayy!"
-        ];
-
-        const reply = document.createElement("p");
-        reply.textContent =
-          replies[Math.floor(Math.random() * replies.length)];
-
-        message.replaceChildren(heading, reply);
-
-      } else {
-        message.innerHTML = `
-          <p>Pablo isn't sure that's a
-            <strong>${escapeHtml(currentRecipe)}</strong>.
-          </p>
-          <p>Try drawing it again!</p>
-          <p class="status-note">
-            Pablo saw: ${escapeHtml(best.className)},
-            ${Math.round(best.probability * 100)}% sure.
-          </p>
-        `;
-      }
-
-    } catch (error) {
-      console.error("Drawing check failed:", error);
-      message.textContent = "Pablo couldn't check the drawing.";
-    } finally {
-      submit.disabled = saved;
-    }
-  });
-
-  applyTool();
-}
-
-// -------------------------------------
-// SAFE TEXT
-// -------------------------------------
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
-
-// -------------------------------------
-// COMMUNITY SHELF
-// -------------------------------------
-
-async function loadCommunityShelf() {
-  const container = document.getElementById("shelfDrawings");
-
-  container.replaceChildren();
-
-  const client = getSupabase();
-
-  if (!client) {
-    container.textContent =
-      "Pablo couldn't connect to the Community Shelf.";
-    return;
-  }
-
-  const loading = document.createElement("p");
-  loading.textContent = "Loading...";
-  container.appendChild(loading);
-
-  try {
-    const result = await client
-      .from("community_drawings")
-      .select("name, creation, drawing")
-      .order("id", { ascending: false })
-      .limit(50);
-
-    if (result.error) throw result.error;
-
-    container.replaceChildren();
-
-    if (!result.data || result.data.length === 0) {
-      container.textContent = "No creations yet. Be the first!";
-      return;
-    }
-
-    result.data.forEach(item => {
-      const card = document.createElement("article");
-      card.className = "shelf-card";
-
-      const title = document.createElement("h3");
-      title.textContent = item.creation || "Untitled creation";
-
-      const image = document.createElement("img");
-      image.src = item.drawing;
-      image.alt = item.creation || "Community drawing";
-
-      const creator = document.createElement("p");
-      creator.textContent = "Drawn by " + (item.name || "A baker");
-
-      card.append(title, image, creator);
-      container.appendChild(card);
     });
 
-  } catch (error) {
-    console.error("Community Shelf error:", error);
-    container.textContent = "Pablo couldn't load the Community Shelf.";
-  }
+
+    // ---- Brush size ----
+
+    brushSize.addEventListener("input", applyTool);
+
+
+    // ---- Brush / Eraser buttons ----
+
+    brush.addEventListener("click", () => {
+
+        erasing = false;
+
+        applyTool();
+
+    });
+
+    eraser.addEventListener("click", () => {
+
+        erasing = true;
+
+        applyTool();
+
+    });
+
+
+    // ---- Position ----
+
+    function getPosition(event) {
+
+        const rect = canvas.getBoundingClientRect();
+
+        return {
+
+            x: (event.clientX - rect.left) * (canvas.width / rect.width),
+
+            y: (event.clientY - rect.top) * (canvas.height / rect.height)
+
+        };
+
+    }
+
+
+    // ---- Start drawing ----
+
+    canvas.addEventListener("pointerdown", (event) => {
+
+        event.preventDefault();
+
+        drawing = true;
+
+        canvas.setPointerCapture(event.pointerId);
+
+        const pos = getPosition(event);
+
+        ctx.beginPath();
+
+        ctx.moveTo(pos.x, pos.y);
+
+        // Tiny line so a single tap makes a dot
+        ctx.lineTo(pos.x + 0.01, pos.y);
+
+        ctx.stroke();
+
+    });
+
+
+    // ---- Draw ----
+
+    canvas.addEventListener("pointermove", (event) => {
+
+        if (!drawing) return;
+
+        event.preventDefault();
+
+        const pos = getPosition(event);
+
+        ctx.lineTo(pos.x, pos.y);
+
+        ctx.stroke();
+
+    });
+
+
+    // ---- Stop drawing ----
+
+    function stopDrawing(event) {
+
+        if (!drawing) return;
+
+        drawing = false;
+
+        ctx.beginPath();
+
+        if (
+            event &&
+            canvas.hasPointerCapture(event.pointerId)
+        ) {
+            canvas.releasePointerCapture(event.pointerId);
+        }
+
+        saveState(canvas);
+
+    }
+
+    canvas.addEventListener("pointerup", stopDrawing);
+    canvas.addEventListener("pointercancel", stopDrawing);
+
+
+    // ---- Undo ----
+
+    undo.addEventListener("click", () => {
+
+        if (historyStep <= 0) return;
+
+        historyStep--;
+
+        restoreState(canvas, ctx, drawingHistory[historyStep]);
+
+    });
+
+
+    // ---- Redo ----
+
+    redo.addEventListener("click", () => {
+
+        if (historyStep >= drawingHistory.length - 1) return;
+
+        historyStep++;
+
+        restoreState(canvas, ctx, drawingHistory[historyStep]);
+
+    });
+
+
+    // ---- Clear ----
+
+    clear.addEventListener("click", () => {
+
+        fillWhite(canvas, ctx);
+
+        applyTool();
+
+        saveState(canvas);
+
+    });
+
+
+    // ---- Submit ----
+
+    let saved = false;
+
+    submit.addEventListener("click", async () => {
+
+        const message = document.getElementById("message");
+
+        const creatorName =
+            document.getElementById("creatorName").value.trim();
+
+        const creationName =
+            document.getElementById("creationName").value.trim();
+
+
+        if (!creatorName || !creationName) {
+
+            message.innerHTML =
+                `<p>Please add your name and name your creation!</p>`;
+
+            return;
+
+        }
+
+        if (!model) {
+
+            message.innerHTML =
+                `<p>Pablo isn't ready yet. Please wait a moment and try again.</p>`;
+
+            return;
+
+        }
+
+        // Stop double-clicks creating duplicate shelf entries
+        submit.disabled = true;
+
+        message.innerHTML =
+            `<p>Pablo is checking your drawing...</p>`;
+
+
+        try {
+
+            const prediction = await model.predict(canvas);
+
+            // Find the class the AI is most sure about
+            let best = prediction[0];
+
+            prediction.forEach((p) => {
+                if (p.probability > best.probability) best = p;
+            });
+
+            const predictedObject = best.className;
+            const confidence = best.probability;
+
+            const MIN_CONFIDENCE = 0.55;
+
+            // Set to false once everything works
+            const DEBUG = true;
+
+            // Full list so you can see what the AI is thinking
+            console.log(
+                "Pablo's guesses:",
+                prediction.map(
+                    (p) => `${p.className}: ${p.probability.toFixed(2)}`
+                )
+            );
+
+
+            const responses = [
+                "majestic!",
+                "yummy!",
+                "nicely drawn!",
+                "the customers will love that!",
+                "yayy!"
+            ];
+
+            const randomResponse =
+                responses[Math.floor(Math.random() * responses.length)];
+
+
+            const isMatch =
+                predictedObject.trim().toLowerCase() ===
+                currentRecipe.toLowerCase();
+
+            if (isMatch && confidence >= MIN_CONFIDENCE) {
+
+                // JPEG keeps the file much smaller for the database
+                const drawingData =
+                    canvas.toDataURL("image/jpeg", 0.8);
+
+                if (!getSupabase()) {
+
+                    message.innerHTML =
+                        `<p>Pablo couldn't connect to the Community Shelf.</p>`;
+
+                    return;
+
+                }
+
+                const result =
+                    await getSupabase()
+                        .from("community_drawings")
+                        .insert({
+                            name: creatorName,
+                            creation: creationName,
+                            drawing: drawingData
+                        });
+
+                if (result.error) {
+
+                    console.error("Upload failed:", result.error);
+
+                    message.innerHTML =
+                        `<p>Pablo couldn't put your drawing on the Community Shelf.</p>`;
+
+                    return;
+
+                }
+
+                saved = true;
+
+                message.innerHTML = `
+
+                    <h2>Well Done!</h2>
+
+                    <p>${randomResponse}</p>
+
+                    <button onclick="location.reload()">
+                        Back to the bakery
+                    </button>
+
+                `;
+
+            } else {
+
+                message.innerHTML = `
+
+                    <p>
+                        Pablo isn't sure that's a
+                        <strong>${currentRecipe}</strong>.
+                    </p>
+
+                    <p>Try drawing it again!</p>
+
+                    ${DEBUG
+                        ? `<p><em>Debug: Pablo saw a ${predictedObject},
+                           ${Math.round(confidence * 100)}% sure</em></p>`
+                        : ""}
+
+                `;
+
+            }
+
+        } catch (error) {
+
+            console.error("Drawing check failed:", error);
+
+            message.innerHTML =
+                `<p>Pablo couldn't check the drawing.</p>`;
+
+        } finally {
+
+            // Only keep the button locked after a successful save
+            submit.disabled = saved;
+
+        }
+
+    });
+
 }
+
+
+// =====================================
+// Restore Canvas (undo / redo)
+// =====================================
+
+function restoreState(canvas, ctx, state) {
+
+    const img = new Image();
+
+    img.onload = () => {
+
+        fillWhite(canvas, ctx);
+
+        ctx.drawImage(img, 0, 0);
+
+    };
+
+    img.src = state;
+
+}
+
+
+// =====================================
+// Start AI
+// =====================================
+
+window.addEventListener("load", () => {
+
+    loadAI();
+
+});
+
+
+// =====================================
+// Community Shelf
+// =====================================
+
+async function loadCommunityShelf() {
+
+    const shelfDrawings = document.getElementById("shelfDrawings");
+
+    if (!shelfDrawings) return;
+
+    shelfDrawings.innerHTML = "<p>Loading...</p>";
+
+    if (!getSupabase()) {
+
+        shelfDrawings.innerHTML =
+            "<p>Pablo couldn't connect to the Community Shelf.</p>";
+
+        return;
+
+    }
+
+    try {
+
+        const result =
+            await getSupabase()
+                .from("community_drawings")
+                .select("name, creation, drawing")
+                .order("id", { ascending: false })
+                .limit(50);
+
+        if (result.error) {
+
+            console.error("Shelf failed to load:", result.error);
+
+            shelfDrawings.innerHTML =
+                "<p>Pablo couldn't load the Community Shelf.</p>";
+
+            return;
+
+        }
+
+        shelfDrawings.innerHTML = "";
+
+        if (!result.data || result.data.length === 0) {
+
+            shelfDrawings.innerHTML =
+                "<p>No creations yet. Be the first!</p>";
+
+            return;
+
+        }
+
+        result.data.forEach((item) => {
+
+            const drawingBox = document.createElement("div");
+            const image = document.createElement("img");
+            const creator = document.createElement("p");
+            const creation = document.createElement("h3");
+
+            image.src = item.drawing;
+            image.alt = item.creation;
+            image.style.maxWidth = "300px";
+            image.style.borderRadius = "15px";
+
+            creator.textContent = "Drawn by " + item.name;
+            creation.textContent = item.creation;
+
+            drawingBox.appendChild(creation);
+            drawingBox.appendChild(image);
+            drawingBox.appendChild(creator);
+
+            shelfDrawings.appendChild(drawingBox);
+
+        });
+
+    } catch (error) {
+
+        console.error("Community Shelf error:", error);
+
+        shelfDrawings.innerHTML =
+            "<p>Pablo couldn't load the Community Shelf.</p>";
+
+    }
+
+}
+
