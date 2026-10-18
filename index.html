@@ -1,336 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pablo's Patisserie – Baking Game</title>
 
-<meta charset="UTF-8">
+  <meta name="description" content="Draw today's bake, complete orders and share your creations on the Community Shelf.">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
 
-<title>Pablo's Patisserie – Baking Game | Play Online</title>
-
-<meta
-    name="description"
-    content="Play Pablo's Patisserie, a fun baking game where you draw today's bake, serve customers and share your creations with the community."
->
-
-<meta name="robots" content="index, follow">
-
-<link
-    rel="canonical"
-    href="https://www.pablospatisserie.com/"
->
-
-<meta property="og:type" content="website">
-
-<meta
-    property="og:title"
-    content="Pablo's Patisserie – Baking Game"
->
-
-<meta
-    property="og:description"
-    content="Draw today's bake, complete orders and share your creations in the Community Shelf."
->
-
-<meta
-    property="og:url"
-    content="https://www.pablospatisserie.com/"
->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap"
-    rel="stylesheet"
->
-
-<link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet" href="mobile-fix.css">
-
-<style>
-
-html,
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-    min-height: 100vh;
-    background: #fff4dc !important;
-    color: #8b6240 !important;
-    font-family: Arial, sans-serif;
-}
-
-#app {
-    margin: 0 !important;
-    padding: 0 !important;
-    min-height: 100vh;
-    background: #fff4dc !important;
-}
-
-h1,
-h2,
-h3,
-strong,
-b {
-    font-family: "Cedarville Cursive", cursive !important;
-}
-
-h1 {
-    color: #a06f45 !important;
-    margin: 0 !important;
-}
-
-h2,
-h3,
-p,
-label,
-span {
-    color: #8b6240 !important;
-}
-
-a,
-a:link,
-a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-a:hover,
-a:active {
-    color: #a87912 !important;
-    text-decoration: underline !important;
-}
-
-/* TOP MENU */
-
-.site-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 12px;
-    margin: 0 !important;
-    background: #ffeec7 !important;
-}
-
-.site-nav a,
-.site-nav a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-    font-family: Arial, sans-serif !important;
-    font-weight: 700;
-    padding: 8px 12px;
-    border-radius: 18px;
-}
-
-.site-nav a:hover,
-.site-nav a:focus {
-    background: #f6d77a;
-    color: #a87912 !important;
-    text-decoration: none !important;
-}
-
-/* HEADER */
-
-header {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* BUTTONS */
-
-button {
-    background: #f6d77a !important;
-    color: #8b6240 !important;
-}
-
-button:hover {
-    background: #f2cd5c !important;
-}
-
-/* TOOLBAR */
-
-.toolbar {
-    background: #ffeec7 !important;
-}
-
-/* MESSAGE */
-
-#message {
-    color: #8b6240 !important;
-}
-
-#message h2,
-#message h3,
-#message strong,
-#message b {
-    font-family: "Cedarville Cursive", cursive !important;
-    color: #8b6240 !important;
-}
-
-/* BOTTOM BANNER */
-
-.seo-footer {
-    text-align: center;
-    padding: 25px;
-    background: #ffeec7;
-    color: #8b6240;
-    font-family: Arial, sans-serif;
-    margin-top: 30px;
-}
-
-.seo-footer a,
-.seo-footer a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-.seo-footer a:hover,
-.seo-footer a:focus {
-    color: #a87912 !important;
-    text-decoration: underline !important;
-}
-
-</style>
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": "Pablo's Patisserie",
-    "url": "https://www.pablospatisserie.com/",
-    "description": "A playful baking and drawing game where players create today's bake and share successful creations with the community.",
-    "genre": [
-        "Baking Game",
-        "Drawing Game"
-    ],
-    "gamePlatform": "Web browser",
-    "applicationCategory": "Game"
-}
-</script>
-
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<div id="app">
-
-<nav class="site-nav" aria-label="Main navigation">
-
-    <a href="/">Play</a>
-    <a href="/about.html">About</a>
-    <a href="/how-to-play.html">How to Play</a>
-    <a href="/characters.html">Characters</a>
-    <a href="/recipes.html">Recipes</a>
-    <a href="/updates.html">Updates</a>
-
-</nav>
-
-<header>
-
-    <h1>Pablo's Patisserie</h1>
-
-</header>
-
-
-<main id="game">
-    <section id="homeScreen">
+  <div id="app">
+    <main id="game">
+      <section id="homeScreen" aria-label="Pablo's Patisserie home">
         <div class="storefront-container">
-            <img
-                src="storefront.png"
-                alt="Pablo's Patisserie storefront"
-                id="storefrontImage"
-            >
+          <img
+            src="storefront.png"
+            id="storefrontImage"
+            alt="Pablo's Patisserie storefront"
+          >
 
-            <!-- Click this area to open the bakery menu -->
-            <button
-                id="doorButton"
-                class="door-hotspot"
-                aria-label="Open the bakery door"
-            ></button>
+          <button
+            id="doorButton"
+            class="door-hotspot"
+            aria-label="Open the bakery door"
+          ></button>
 
-            <div id="doorMenu" class="door-menu" hidden>
-                <button id="playButton">Play</button>
-                <button id="shelfButton">Shelf</button>
-            </div>
+          <div id="doorMenu" class="door-menu" hidden>
+            <button id="playButton">Play</button>
+            <button id="shelfButton">Shelf</button>
+          </div>
         </div>
 
         <section id="communityShelf" hidden>
-            <h2>Community Shelf</h2>
-            <div id="shelfDrawings"></div>
-            <button id="closeShelf">Back</button>
+          <h2>Community Shelf</h2>
+          <div id="shelfDrawings"></div>
+          <button id="closeShelf">Back to the bakery</button>
         </section>
-    </section>
-</main>
+      </section>
+    </main>
+  </div>
 
+  <!-- Load the libraries before script.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<section
-    class="seo-intro"
-    aria-labelledby="about-game"
->
-
-    <h2 id="about-game">
-        Pablo's Patisserie – A Baking Game
-    </h2>
-
-    <p>
-        Welcome to Pablo's Patisserie, a drawing
-        baking game. orders give you a new bake to
-        create. Draw it, and put your drawings on the
-        shelf.
-    </p>
-
-    <p>
-
-        Ready to bake?
-
-        <a href="#game">
-            Play Pablo's Patisserie
-        </a>
-
-        or learn
-
-        <a href="/how-to-play.html">
-            how to play
-        </a>.
-
-    </p>
-
-</section>
-
-</div>
-
-<footer class="seo-footer">
-
-    <a href="/">
-        Pablo's Patisserie
-    </a>
-
-    · A baking game
-
-</footer>
-
-<script src="script.js"></script>
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
-></script>
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
-></script>
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
-
+  <script src="script.js"></script>
 </body>
-
 </html>
