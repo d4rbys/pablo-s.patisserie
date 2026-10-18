@@ -1,246 +1,241 @@
+Style
 
-* {
-  box-sizing: border-box;
-}
+/* =====================================
+   PABLO'S PATISSERIE
+   Main Styles
+   ===================================== */
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  min-height: 100%;
-  background: #fff4dc;
-  color: #8b6240;
-  font-family: Arial, sans-serif;
+html {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 body {
-  min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh;
+    background: #fff4dc;
+    font-family: Arial, sans-serif;
+    color: #8b6240;
 }
 
-[hidden] {
-  display: none !important;
+#app {
+    margin: 0 !important;
+    padding: 0 !important;
 }
+
+
+/* =====================================
+   PABLO'S FONT
+   ===================================== */
 
 h1,
 h2,
 h3,
 strong,
 b {
-  font-family: "Cedarville Cursive", cursive;
-  color: #a06f45;
+    font-family: "Cedarville Cursive", cursive !important;
 }
 
+
+/* =====================================
+   MAIN TITLE
+   ===================================== */
+
+h1 {
+    font-size: 60px;
+    color: #a06f45;
+    margin-top: 0 !important;
+}
+
+
+/* =====================================
+   LINKS
+   ===================================== */
+
+a,
+a:link,
+a:visited {
+    color: #c49a24 !important;
+    text-decoration: none !important;
+}
+
+a:hover,
+a:active {
+    color: #a87912 !important;
+    text-decoration: underline !important;
+}
+
+
+/* =====================================
+   TOP NAVIGATION
+   ===================================== */
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 12px;
+    margin: 0 !important;
+    background: #ffeec7 !important;
+}
+
+.site-nav a,
+.site-nav a:link,
+.site-nav a:visited {
+    color: #c49a24 !important;
+    font-family: Arial, sans-serif !important;
+    font-weight: 700;
+    text-decoration: none !important;
+    padding: 8px 12px;
+    border-radius: 18px;
+}
+
+.site-nav a:hover,
+.site-nav a:focus,
+.site-nav a:active {
+    background: #f6d77a;
+    color: #a87912 !important;
+    text-decoration: none !important;
+}
+
+
+/* =====================================
+   HEADER
+   ===================================== */
+
+header {
+    margin: 0 !important;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+
+/* =====================================
+   BUTTONS
+   ===================================== */
+
 button {
-  padding: 12px 24px;
-  margin: 5px;
-  border: 2px solid #d6a56d;
-  border-radius: 24px;
-  background: #f6d77a;
-  color: #8b6240;
-  font-size: 17px;
-  cursor: pointer;
+    background: #f6d77a;
+    color: #8b6240;
+    border: none;
+    padding: 12px 30px;
+    margin: 8px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
-  background: #f2cd5c;
+    transform: scale(1.05);
+    background: #f2cd5c;
 }
 
-/* Full-screen bakery */
 
-#app,
-#homeScreen {
-  width: 100%;
-  min-height: 100vh;
+/* =====================================
+   RECIPE / ORDER
+   ===================================== */
+
+#recipe,
+#todaysRecipe,
+#recipeName {
+    color: #8b6240;
+    font-size: 24px;
 }
 
-.storefront-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  background: #fff4dc;
+
+/* =====================================
+   DRAWING AREA
+   ===================================== */
+
+canvas {
+    background: white;
+    border: 8px solid #d6a56d;
+    border-radius: 20px;
+    margin-top: 20px;
 }
 
-#storefrontImage {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  display: block;
-}
 
-/*
-  Door click area.
-  Adjust these percentages if they don't line up
-  with the door on your screen.
-*/
-
-#doorButton {
-  position: absolute;
-  left: 24.5%;
-  top: 55%;
-  width: 12.5%;
-  height: 24%;
-  margin: 0;
-  padding: 0;
-  border: 2px solid transparent;
-  border-radius: 3px;
-  background: transparent;
-  box-shadow: none;
-  z-index: 5;
-}
-
-#doorButton:hover,
-#doorButton:focus-visible {
-  border-color: #a06f45;
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* Door menu */
-
-#doorMenu {
-  position: absolute;
-  left: 20%;
-  top: 80%;
-  z-index: 6;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px;
-  border: 2px solid #d6a56d;
-  border-radius: 18px;
-  background: #fff4dc;
-}
-
-#doorMenu[hidden] {
-  display: none !important;
-}
-
-/* Community Shelf */
-
-#communityShelf {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  overflow-y: auto;
-  padding: 20px;
-  text-align: center;
-  background: #fff4dc;
-}
-
-#shelfDrawings {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
-  justify-content: center;
-  gap: 18px;
-  margin: 20px auto;
-}
-
-.shelf-card {
-  padding: 14px;
-  border: 2px solid #efcf97;
-  border-radius: 18px;
-  background: #ffeec7;
-  overflow-wrap: anywhere;
-}
-
-.shelf-card img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  background: white;
-}
-
-/* Drawing game */
-
-.game-screen {
-  min-height: 100vh;
-  padding: 16px 12px 35px;
-  text-align: center;
-  background: #fff4dc;
-}
-
-.game-screen header {
-  padding: 8px;
-}
-
-.game-screen h1 {
-  margin: 8px 0;
-  font-size: clamp(36px, 7vw, 60px);
-}
-
-#pablo {
-  width: 100px;
-  max-height: 110px;
-  object-fit: contain;
-}
-
-.game-screen label {
-  display: inline-block;
-  margin: 4px;
-}
-
-.game-screen input[type="text"] {
-  width: min(300px, 90vw);
-  padding: 10px 12px;
-  border: 2px solid #e5c18c;
-  border-radius: 12px;
-  background: white;
-  color: #8b6240;
-  font-size: 16px;
-}
+/* =====================================
+   TOOLBAR
+   ===================================== */
 
 .toolbar {
-  width: min(340px, 94vw);
-  margin: 18px auto;
-  padding: 14px;
-  border-radius: 18px;
-  background: #ffeec7;
+    background: #ffeec7;
+    width: 300px;
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 20px;
 }
 
-#canvas {
-  display: block;
-  width: min(600px, 94vw);
-  height: auto;
-  aspect-ratio: 1;
-  margin: 12px auto;
-  border: 6px solid #d6a56d;
-  border-radius: 16px;
-  background: white;
-  touch-action: none;
-}
 
-.tool-buttons {
-  max-width: 650px;
-  margin: 0 auto;
-}
+/* =====================================
+   MESSAGES
+   ===================================== */
 
 #message {
-  max-width: 600px;
-  margin: 18px auto;
-  line-height: 1.5;
+    color: #8b6240;
 }
 
-#message h2 {
-  font-size: 32px;
+#message h2,
+#message h3,
+#message strong,
+#message b {
+    font-family: "Cedarville Cursive", cursive !important;
+    color: #8b6240;
 }
 
-@media (max-width: 600px) {
-  #doorMenu {
-    left: 18%;
-    top: 80%;
-  }
 
-  #doorButton {
-    left: 24%;
-    top: 55%;
-    width: 14%;
-    height: 24%;
-  }
+/* =====================================
+   SEO INTRO
+   ===================================== */
+
+.seo-intro {
+    text-align: center;
+    padding: 25px;
+    color: #8b6240;
 }
+
+
+/* =====================================
+   BOTTOM BANNER
+   ===================================== */
+
+.seo-footer {
+    text-align: center;
+    padding: 25px;
+    background: #ffeec7 !important;
+    color: #8b6240;
+    font-family: Arial, sans-serif;
+    margin-top: 30px;
+}
+
+.seo-footer a,
+.seo-footer a:visited {
+    color: #c49a24 !important;
+    text-decoration: none !important;
+}
+
+.seo-footer a:hover,
+.seo-footer a:focus {
+    color: #a87912 !important;
+    text-decoration: underline !important;
+}
+
+/* =====================================
+   MATCH TOP OF ALL PAGES
+   ===================================== */
+
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.site-nav {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
