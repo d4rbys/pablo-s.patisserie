@@ -236,3 +236,76 @@ body {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
+
+/* =====================================
+   STOREFRONT HOME SCREEN
+   ===================================== */
+
+.storefront-container {
+    position: relative;
+    width: min(100%, 900px);
+    margin: 0 auto;
+    text-align: center;
+}
+
+#storefrontImage {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Transparent clickable area over the door.
+   We may need to adjust these values to match your drawing. */
+.door-hotspot {
+    position: absolute;
+    left: 40%;
+    top: 45%;
+    width: 20%;
+    height: 35%;
+    padding: 0;
+    margin: 0;
+    background: transparent !important;
+    border: 2px solid transparent;
+    box-shadow: none;
+    border-radius: 8px;
+}
+
+.door-hotspot:hover,
+.door-hotspot:focus-visible {
+    background: rgba(255, 238, 199, 0.2) !important;
+    border-color: #a06f45;
+    transform: none;
+}
+
+.door-menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+}
+
+.door-menu[hidden],
+#communityShelf[hidden] {
+    display: none !important;
+}
+
+#communityShelf {
+    padding: 20px;
+    text-align: center;
+}
+
+#shelfDrawings > div {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 340px;
+    background: #ffeec7;
+    border-radius: 18px;
+}
+
+#shelfDrawings img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 10px auto;
+}
