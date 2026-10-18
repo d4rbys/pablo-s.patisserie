@@ -1,311 +1,281 @@
-/* =====================================
-   PABLO'S PATISSERIE
-   Main Styles
-   ===================================== */
+/* PABLO'S PATISSERIE */
 
-html {
-    margin: 0 !important;
-    padding: 0 !important;
+:root {
+  --cream: #fff4dc;
+  --awning-cream: #fff0ce;
+  --pale-yellow: #f6d77a;
+  --caramel: #a06f45;
+  --brown: #8b6240;
+  --pink: #f7b18e;
+  --floor-green: #b5ff65;
+  --wood: #d6a56d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: Arial, sans-serif;
 }
 
 body {
-    margin: 0 !important;
-    padding: 0 !important;
-    min-height: 100vh;
-    background: #fff4dc;
-    font-family: Arial, sans-serif;
-    color: #8b6240;
+  min-height: 100vh;
 }
 
-#app {
-    margin: 0 !important;
-    padding: 0 !important;
+[hidden] {
+  display: none !important;
 }
-
-
-/* =====================================
-   PABLO'S FONT
-   ===================================== */
 
 h1,
 h2,
 h3,
 strong,
 b {
-    font-family: "Cedarville Cursive", cursive !important;
+  font-family: "Cedarville Cursive", cursive;
+  color: var(--caramel);
 }
-
-
-/* =====================================
-   MAIN TITLE
-   ===================================== */
-
-h1 {
-    font-size: 60px;
-    color: #a06f45;
-    margin-top: 0 !important;
-}
-
-
-/* =====================================
-   LINKS
-   ===================================== */
-
-a,
-a:link,
-a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-a:hover,
-a:active {
-    color: #a87912 !important;
-    text-decoration: underline !important;
-}
-
-
-/* =====================================
-   TOP NAVIGATION
-   ===================================== */
-
-.site-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 12px;
-    margin: 0 !important;
-    background: #ffeec7 !important;
-}
-
-.site-nav a,
-.site-nav a:link,
-.site-nav a:visited {
-    color: #c49a24 !important;
-    font-family: Arial, sans-serif !important;
-    font-weight: 700;
-    text-decoration: none !important;
-    padding: 8px 12px;
-    border-radius: 18px;
-}
-
-.site-nav a:hover,
-.site-nav a:focus,
-.site-nav a:active {
-    background: #f6d77a;
-    color: #a87912 !important;
-    text-decoration: none !important;
-}
-
-
-/* =====================================
-   HEADER
-   ===================================== */
-
-header {
-    margin: 0 !important;
-    padding: 20px 10px;
-    text-align: center;
-}
-
-
-/* =====================================
-   BUTTONS
-   ===================================== */
 
 button {
-    background: #f6d77a;
-    color: #8b6240;
-    border: none;
-    padding: 12px 30px;
-    margin: 8px;
-    border-radius: 25px;
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  border: 2px solid var(--wood);
+  border-radius: 24px;
+  padding: 11px 24px;
+  margin: 5px;
+  background: var(--pale-yellow);
+  color: var(--brown);
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(139, 98, 64, 0.15);
 }
 
-button:hover {
-    transform: scale(1.05);
-    background: #f2cd5c;
+button:hover,
+button:focus-visible {
+  background: #f2cd5c;
 }
 
-
-/* =====================================
-   RECIPE / ORDER
-   ===================================== */
-
-#recipe,
-#todaysRecipe,
-#recipeName {
-    color: #8b6240;
-    font-size: 24px;
+button:focus-visible {
+  outline: 3px solid var(--caramel);
+  outline-offset: 3px;
 }
 
+/* FULL-SCREEN STOREFRONT */
 
-/* =====================================
-   DRAWING AREA
-   ===================================== */
-
-canvas {
-    background: white;
-    border: 8px solid #d6a56d;
-    border-radius: 20px;
-    margin-top: 20px;
+#app,
+#game,
+#homeScreen {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
 }
-
-
-/* =====================================
-   TOOLBAR
-   ===================================== */
-
-.toolbar {
-    background: #ffeec7;
-    width: 300px;
-    margin: 20px auto;
-    padding: 15px;
-    border-radius: 20px;
-}
-
-
-/* =====================================
-   MESSAGES
-   ===================================== */
-
-#message {
-    color: #8b6240;
-}
-
-#message h2,
-#message h3,
-#message strong,
-#message b {
-    font-family: "Cedarville Cursive", cursive !important;
-    color: #8b6240;
-}
-
-
-/* =====================================
-   SEO INTRO
-   ===================================== */
-
-.seo-intro {
-    text-align: center;
-    padding: 25px;
-    color: #8b6240;
-}
-
-
-/* =====================================
-   BOTTOM BANNER
-   ===================================== */
-
-.seo-footer {
-    text-align: center;
-    padding: 25px;
-    background: #ffeec7 !important;
-    color: #8b6240;
-    font-family: Arial, sans-serif;
-    margin-top: 30px;
-}
-
-.seo-footer a,
-.seo-footer a:visited {
-    color: #c49a24 !important;
-    text-decoration: none !important;
-}
-
-.seo-footer a:hover,
-.seo-footer a:focus {
-    color: #a87912 !important;
-    text-decoration: underline !important;
-}
-
-/* =====================================
-   MATCH TOP OF ALL PAGES
-   ===================================== */
-
-html,
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.site-nav {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-/* =====================================
-   STOREFRONT HOME SCREEN
-   ===================================== */
 
 .storefront-container {
-    position: relative;
-    width: min(100%, 900px);
-    margin: 0 auto;
-    text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--cream);
 }
 
 #storefrontImage {
-    display: block;
-    width: 100%;
-    height: auto;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  object-position: center;
 }
 
-/* Transparent clickable area over the door.
-   We may need to adjust these values to match your drawing. */
+/* CLICKABLE DOOR */
+
 .door-hotspot {
-    position: absolute;
-    left: 40%;
-    top: 45%;
-    width: 20%;
-    height: 35%;
-    padding: 0;
-    margin: 0;
-    background: transparent !important;
-    border: 2px solid transparent;
-    box-shadow: none;
-    border-radius: 8px;
+  position: absolute;
+  left: 24.2%;
+  top: 49.5%;
+  width: 13.2%;
+  height: 28.5%;
+  margin: 0;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: none;
+  z-index: 2;
 }
 
 .door-hotspot:hover,
 .door-hotspot:focus-visible {
-    background: rgba(255, 238, 199, 0.2) !important;
-    border-color: #a06f45;
-    transform: none;
+  background: rgba(255, 244, 220, 0.16);
+  border-color: rgba(160, 111, 69, 0.8);
+  outline-offset: -3px;
 }
+
+/* PLAY AND SHELF MENU */
 
 .door-menu {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 12px;
+  position: absolute;
+  z-index: 3;
+  left: 22%;
+  top: 79%;
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: var(--cream);
+  border: 2px solid var(--wood);
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(80, 50, 25, 0.18);
 }
 
-.door-menu[hidden],
-#communityShelf[hidden] {
-    display: none !important;
-}
+/* COMMUNITY SHELF */
 
 #communityShelf {
-    padding: 20px;
-    text-align: center;
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  overflow-y: auto;
+  padding: 24px 14px 40px;
+  text-align: center;
+  background: var(--cream);
 }
 
-#shelfDrawings > div {
-    margin: 20px auto;
-    padding: 15px;
-    max-width: 340px;
-    background: #ffeec7;
-    border-radius: 18px;
+#communityShelf h2 {
+  font-size: 34px;
 }
 
-#shelfDrawings img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 10px auto;
+#shelfDrawings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
+  justify-content: center;
+  gap: 18px;
+  margin: 20px auto;
+}
+
+.shelf-card {
+  padding: 14px;
+  background: #ffeec7;
+  border: 2px solid #efcf97;
+  border-radius: 18px;
+  overflow-wrap: anywhere;
+}
+
+.shelf-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: white;
+}
+
+/* DRAWING GAME */
+
+.game-screen {
+  min-height: 100vh;
+  padding: 16px 12px 35px;
+  text-align: center;
+  background: var(--cream);
+}
+
+.game-header {
+  padding: 4px 8px 12px;
+}
+
+.game-header h1 {
+  font-size: clamp(36px, 7vw, 60px);
+  margin: 4px 0;
+}
+
+#pablo {
+  width: 100px;
+  max-height: 110px;
+  object-fit: contain;
+}
+
+.game-screen h2 {
+  margin: 8px 0;
+}
+
+#recipe {
+  font-size: 23px;
+  margin: 8px 0 20px;
+}
+
+.game-screen label {
+  display: inline-block;
+  margin: 4px;
+}
+
+.game-screen input[type="text"] {
+  width: min(300px, 90vw);
+  padding: 10px 12px;
+  border: 2px solid #e5c18c;
+  border-radius: 12px;
+  background: white;
+  color: var(--brown);
+  font-size: 16px;
+}
+
+.toolbar {
+  width: min(340px, 94vw);
+  margin: 18px auto;
+  padding: 14px;
+  border-radius: 18px;
+  background: #ffeec7;
+}
+
+#canvas {
+  display: block;
+  width: min(600px, 94vw);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 12px auto;
+  border: 6px solid var(--wood);
+  border-radius: 16px;
+  background: white;
+  touch-action: none;
+}
+
+#message {
+  max-width: 600px;
+  margin: 18px auto;
+  line-height: 1.5;
+}
+
+#message h2 {
+  font-size: 32px;
+}
+
+.tool-buttons {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.status-note {
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .door-menu {
+    left: 16%;
+    top: 78%;
+  }
+
+  .door-menu button {
+    padding: 10px 17px;
+    font-size: 16px;
+  }
+
+  .door-hotspot {
+    left: 24%;
+    top: 49.5%;
+    width: 14%;
+    height: 29%;
+  }
 }
