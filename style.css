@@ -1,15 +1,3 @@
-/* PABLO'S PATISSERIE */
-
-:root {
-  --cream: #fff4dc;
-  --awning-cream: #fff0ce;
-  --pale-yellow: #f6d77a;
-  --caramel: #a06f45;
-  --brown: #8b6240;
-  --pink: #f7b18e;
-  --floor-green: #b5ff65;
-  --wood: #d6a56d;
-}
 
 * {
   box-sizing: border-box;
@@ -19,9 +7,10 @@ html,
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
   min-height: 100%;
-  background: var(--cream);
-  color: var(--brown);
+  background: #fff4dc;
+  color: #8b6240;
   font-family: Arial, sans-serif;
 }
 
@@ -39,38 +28,28 @@ h3,
 strong,
 b {
   font-family: "Cedarville Cursive", cursive;
-  color: var(--caramel);
+  color: #a06f45;
 }
 
 button {
-  border: 2px solid var(--wood);
-  border-radius: 24px;
-  padding: 11px 24px;
+  padding: 12px 24px;
   margin: 5px;
-  background: var(--pale-yellow);
-  color: var(--brown);
+  border: 2px solid #d6a56d;
+  border-radius: 24px;
+  background: #f6d77a;
+  color: #8b6240;
   font-size: 17px;
   cursor: pointer;
-  box-shadow: 0 3px 0 rgba(139, 98, 64, 0.15);
 }
 
-button:hover,
-button:focus-visible {
+button:hover {
   background: #f2cd5c;
 }
 
-button:focus-visible {
-  outline: 3px solid var(--caramel);
-  outline-offset: 3px;
-}
-
-/* FULL-SCREEN STOREFRONT */
+/* Full-screen bakery */
 
 #app,
-#game,
 #homeScreen {
-  margin: 0;
-  padding: 0;
   width: 100%;
   min-height: 100vh;
 }
@@ -81,73 +60,77 @@ button:focus-visible {
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background: var(--cream);
+  background: #fff4dc;
 }
 
 #storefrontImage {
   position: absolute;
-  display: block;
+  inset: 0;
   width: 100%;
   height: 100%;
-  inset: 0;
   object-fit: contain;
-  object-position: center;
+  object-position: center center;
+  display: block;
 }
 
-/* CLICKABLE DOOR */
+/*
+  Door click area.
+  Adjust these percentages if they don't line up
+  with the door on your screen.
+*/
 
-.door-hotspot {
+#doorButton {
   position: absolute;
-  left: 24.2%;
-  top: 49.5%;
-  width: 13.2%;
-  height: 28.5%;
+  left: 24.5%;
+  top: 55%;
+  width: 12.5%;
+  height: 24%;
   margin: 0;
   padding: 0;
   border: 2px solid transparent;
-  border-radius: 5px;
+  border-radius: 3px;
   background: transparent;
   box-shadow: none;
-  z-index: 2;
+  z-index: 5;
 }
 
-.door-hotspot:hover,
-.door-hotspot:focus-visible {
-  background: rgba(255, 244, 220, 0.16);
-  border-color: rgba(160, 111, 69, 0.8);
-  outline-offset: -3px;
+#doorButton:hover,
+#doorButton:focus-visible {
+  border-color: #a06f45;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* PLAY AND SHELF MENU */
+/* Door menu */
 
-.door-menu {
+#doorMenu {
   position: absolute;
-  z-index: 3;
-  left: 22%;
-  top: 79%;
+  left: 20%;
+  top: 80%;
+  z-index: 6;
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
   padding: 10px;
-  background: var(--cream);
-  border: 2px solid var(--wood);
+  border: 2px solid #d6a56d;
   border-radius: 18px;
-  box-shadow: 0 4px 12px rgba(80, 50, 25, 0.18);
+  background: #fff4dc;
 }
 
-/* COMMUNITY SHELF */
+#doorMenu[hidden] {
+  display: none !important;
+}
+
+/* Community Shelf */
 
 #communityShelf {
   position: fixed;
-  z-index: 10;
   inset: 0;
+  z-index: 20;
   overflow-y: auto;
-  padding: 24px 14px 40px;
+  padding: 20px;
   text-align: center;
-  background: var(--cream);
-}
-
-#communityShelf h2 {
-  font-size: 34px;
+  background: #fff4dc;
 }
 
 #shelfDrawings {
@@ -160,9 +143,9 @@ button:focus-visible {
 
 .shelf-card {
   padding: 14px;
-  background: #ffeec7;
   border: 2px solid #efcf97;
   border-radius: 18px;
+  background: #ffeec7;
   overflow-wrap: anywhere;
 }
 
@@ -174,37 +157,28 @@ button:focus-visible {
   background: white;
 }
 
-/* DRAWING GAME */
+/* Drawing game */
 
 .game-screen {
   min-height: 100vh;
   padding: 16px 12px 35px;
   text-align: center;
-  background: var(--cream);
+  background: #fff4dc;
 }
 
-.game-header {
-  padding: 4px 8px 12px;
+.game-screen header {
+  padding: 8px;
 }
 
-.game-header h1 {
+.game-screen h1 {
+  margin: 8px 0;
   font-size: clamp(36px, 7vw, 60px);
-  margin: 4px 0;
 }
 
 #pablo {
   width: 100px;
   max-height: 110px;
   object-fit: contain;
-}
-
-.game-screen h2 {
-  margin: 8px 0;
-}
-
-#recipe {
-  font-size: 23px;
-  margin: 8px 0 20px;
 }
 
 .game-screen label {
@@ -218,7 +192,7 @@ button:focus-visible {
   border: 2px solid #e5c18c;
   border-radius: 12px;
   background: white;
-  color: var(--brown);
+  color: #8b6240;
   font-size: 16px;
 }
 
@@ -236,10 +210,15 @@ button:focus-visible {
   height: auto;
   aspect-ratio: 1;
   margin: 12px auto;
-  border: 6px solid var(--wood);
+  border: 6px solid #d6a56d;
   border-radius: 16px;
   background: white;
   touch-action: none;
+}
+
+.tool-buttons {
+  max-width: 650px;
+  margin: 0 auto;
 }
 
 #message {
@@ -252,30 +231,16 @@ button:focus-visible {
   font-size: 32px;
 }
 
-.tool-buttons {
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-.status-note {
-  font-size: 14px;
-}
-
 @media (max-width: 600px) {
-  .door-menu {
-    left: 16%;
-    top: 78%;
+  #doorMenu {
+    left: 18%;
+    top: 80%;
   }
 
-  .door-menu button {
-    padding: 10px 17px;
-    font-size: 16px;
-  }
-
-  .door-hotspot {
+  #doorButton {
     left: 24%;
-    top: 49.5%;
+    top: 55%;
     width: 14%;
-    height: 29%;
+    height: 24%;
   }
 }
