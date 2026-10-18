@@ -239,52 +239,37 @@ button:hover {
 
 </header>
 
+
 <main id="game">
-
     <section id="homeScreen">
+        <div class="storefront-container">
+            <img
+                src="storefront.png"
+                alt="Pablo's Patisserie storefront"
+                id="storefrontImage"
+            >
 
-        <div class="woodSign">
+            <!-- Click this area to open the bakery menu -->
+            <button
+                id="doorButton"
+                class="door-hotspot"
+                aria-label="Open the bakery door"
+            ></button>
 
-            <h2>Today's Bake</h2>
-
-            <p id="recipeName">
-                Loading...
-            </p>
-
+            <div id="doorMenu" class="door-menu" hidden>
+                <button id="playButton">Play</button>
+                <button id="shelfButton">Shelf</button>
+            </div>
         </div>
 
-        <button id="playButton">
-            Play
-        </button>
-
-        <button
-            id="shelfButton"
-            onclick="document.getElementById('communityShelf').style.display='block'; loadCommunityShelf()"
-        >
-            Community Shelf
-        </button>
-
-        <section
-            id="communityShelf"
-            style="display: none;"
-        >
-
+        <section id="communityShelf" hidden>
             <h2>Community Shelf</h2>
-
             <div id="shelfDrawings"></div>
-
-            <button
-                id="closeShelf"
-                onclick="document.getElementById('communityShelf').style.display='none'"
-            >
-                Back
-            </button>
-
+            <button id="closeShelf">Back</button>
         </section>
-
     </section>
-
 </main>
+
 
 <section
     class="seo-intro"
