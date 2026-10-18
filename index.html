@@ -1,55 +1,46 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pablo's Patisserie – Baking Game</title>
-
-  <meta name="description" content="Draw today's bake, complete orders and share your creations on the Community Shelf.">
+  <meta name="description" content="Draw today's bake at Pablo's Patisserie and share your creations on the Community Shelf.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div id="app">
-    <main id="game">
-      <section id="homeScreen" aria-label="Pablo's Patisserie home">
-        <div class="storefront-container">
-          <img
-            src="storefront.png"
-            id="storefrontImage"
-            alt="Pablo's Patisserie storefront"
-          >
+  <main id="app">
+    <section id="homeScreen" aria-label="Pablo's Patisserie">
+      <div class="storefront-container">
+        <img
+          src="storefront.png"
+          id="storefrontImage"
+          alt="Pablo's Patisserie storefront"
+        >
 
-          <button
-            id="doorButton"
-            class="door-hotspot"
-            aria-label="Open the bakery door"
-          ></button>
+        <button id="doorButton" aria-label="Open the bakery door"></button>
 
-          <div id="doorMenu" class="door-menu" hidden>
-            <button id="playButton">Play</button>
-            <button id="shelfButton">Shelf</button>
-          </div>
+        <div id="doorMenu" hidden>
+          <button id="playButton">Play</button>
+          <button id="shelfButton">Shelf</button>
         </div>
+      </div>
+    </section>
 
-        <section id="communityShelf" hidden>
-          <h2>Community Shelf</h2>
-          <div id="shelfDrawings"></div>
-          <button id="closeShelf">Back to the bakery</button>
-        </section>
-      </section>
-    </main>
-  </div>
+    <section id="communityShelf" hidden>
+      <h2>Community Shelf</h2>
+      <div id="shelfDrawings"></div>
+      <button id="closeShelf">Back to the bakery</button>
+    </section>
+  </main>
 
-  <!-- Load the libraries before script.js -->
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script src="script.js"></script>
 </body>
 </html>
